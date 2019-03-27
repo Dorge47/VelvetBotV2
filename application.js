@@ -1,4 +1,4 @@
-var token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws'
+var token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws';
 
 // function getMessages() {
 //     var url = 'https://api.telegram.org/bot' + token + '/getUpdates'
@@ -29,7 +29,7 @@ function getMessages() {
 function clearMessage(updateId) {
     var message = {
         offset: updateId + 1,
-    }
+    };
     var request = sendRequest("getUpdates", message, function() {
          console.log(request.responseText);
     });
@@ -51,8 +51,30 @@ function sendMessage(id, msg) {
     var message = {
         chat_id: id,
         text: msg,
-    }
+    };
     var request = sendRequest("sendMessage", message, function() {
+        console.log(request.responseText);
+    });
+}
+
+function sendReply(id, msg, replyId) {
+    var message = {
+        chat_id: id,
+        text: msg,
+        reply_to_message_id: replyId,
+    };
+    var request = sendRequest("sendMessage", message, function() {
+        console.log(request.responseText);
+    });
+}
+
+function forwardMessage(id, fromId, msgId) {
+    var message = {
+        chat_id: id,
+        from_chat_id: msg,
+        message_id: msgId,
+    };
+    var request = sendRequest("forwardMessage", message, function() {
         console.log(request.responseText);
     });
 }
@@ -62,37 +84,70 @@ function sendMessage(id, msg) {
 //sendMessage(440753792, "Hello world");
 
 function sendResponses() {//don't add the bot to groups or she'll respond to every message
+    var identifiers = [
+        'penny',
+        'pb',
+        'pennybot',
+        'penny bot',
+        '@P3nny_v2_bot'
+    ]
     for (i = 0; i < messageArray.length; i++) {
-        if (messageArray[i].message.text.toLowerCase().includes('pb, test')) {
-            sendMessage(messageArray[i].message.from.id,'I\'m working!');
+        var forPenny = false;
+        for (a = 0; a < identifiers.length; a++) {
+            if (messageArray[i].message.text.toLowerCase().includes(identifiers[a])) {
+                forPenny = true;
+                break;
+            }
+        }
+        if (!forPenny) {
             clearMessage(messageArray[i].update_id);
+            continue;
+        }
+        if (messageArray[i].message.text.toLowerCase().includes('test')) {
+            sendReply(messageArray[i].message.from.id,'I\'m working!',messageArray[i].message.message_id);
+            clearMessage(messageArray[i].update_id);
+        }
+        // else if (messageArray[i].message.text.toLowerCase().includes('suggestion')) {
+        //     forwardMessage(-1001276603177,messageArray[i].message.chat.id,messageArray[i].message.message_id)
+        //
+        // }
+        else if (messageArray[i].message.text.toLowerCase().includes('spaniel broad tricycle') || messageArray[i].message.text.toLowerCase().includes('spaniel, broad, tricycle')) {
+            if (messageArray[i].message.from.id == 440753792) {
+                sendMessage(messageArray[i].message.from.id,'!snoitatulaS');
+                clearMessage(messageArray[i].update_id);
+                stopResponding();
+                break;
+            }
+            else {
+                sendReply(messageArray[i].message.from.id,'That\'s not for you!',messageArray[i].message.message_id);
+                clearMessage(messageArray[i].update_id);
+            }
         }
         else if (false) {
             //add additional responses here and change condition
         }
         else {
-            sendMessage(messageArray[i].message.from.id,'I\'m sorry, I didn\'t understand that!');
-            clearMessage(messageArray[i]);
+            sendReply(messageArray[i].message.from.id,'I\'m sorry, I didn\'t understand that!',messageArray[i].message.message_id);
+            clearMessage(messageArray[i].update_id);
         }
     }
 }
 
 function doStuff() {
-    getMessages()
+    getMessages();
     setTimeout(function() {
-        messageArray = messages.result
-        sendResponses()
+        messageArray = messages.result;
+        sendResponses();
     },1000)
 }
 
 function startResponding() {
-    interVar = setInterval(doStuff,2000)
+    interVar = setInterval(doStuff,2000);
 }
 
 function stopResponding() {
-    clearInterval(interVar)
+    clearInterval(interVar);
 }
 
-/*function respondToMessages() {
-    for (i = 0; i < messages.length; i++)
-}*/
+//Dorge47: 440753792
+//NateDogg1232: 298857178
