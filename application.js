@@ -83,7 +83,7 @@ function forwardMessage(id, fromId, msgId) {
 //getMessages();
 //sendMessage(440753792, "Hello world");
 
-function sendResponses() {//don't add the bot to groups or she'll respond to every message
+function sendResponses() {
     var identifiers = [
         'penny',
         'pb',
@@ -104,7 +104,7 @@ function sendResponses() {//don't add the bot to groups or she'll respond to eve
             continue;
         }
         if (messageArray[i].message.text.toLowerCase().includes('test')) {
-            sendReply(messageArray[i].message.from.id,'I\'m working!',messageArray[i].message.message_id);
+            sendReply(messageArray[i].message.chat.id,'I\'m working!',messageArray[i].message.message_id);
             clearMessage(messageArray[i].update_id);
         }
         // else if (messageArray[i].message.text.toLowerCase().includes('suggestion')) {
@@ -113,13 +113,13 @@ function sendResponses() {//don't add the bot to groups or she'll respond to eve
         // }
         else if (messageArray[i].message.text.toLowerCase().includes('spaniel broad tricycle') || messageArray[i].message.text.toLowerCase().includes('spaniel, broad, tricycle')) {
             if (messageArray[i].message.from.id == 440753792) {
-                sendMessage(messageArray[i].message.from.id,'!snoitatulaS');
+                sendMessage(messageArray[i].message.chat.id,'!snoitatulaS');
                 clearMessage(messageArray[i].update_id);
                 stopResponding();
                 break;
             }
             else {
-                sendReply(messageArray[i].message.from.id,'That\'s not for you!',messageArray[i].message.message_id);
+                sendReply(messageArray[i].message.chat.id,'That\'s not for you!',messageArray[i].message.message_id);
                 clearMessage(messageArray[i].update_id);
             }
         }
@@ -127,7 +127,7 @@ function sendResponses() {//don't add the bot to groups or she'll respond to eve
             //add additional responses here and change condition
         }
         else {
-            sendReply(messageArray[i].message.from.id,'I\'m sorry, I didn\'t understand that!',messageArray[i].message.message_id);
+            sendReply(messageArray[i].message.chat.id,'I\'m sorry, I didn\'t understand that!',messageArray[i].message.message_id);
             clearMessage(messageArray[i].update_id);
         }
     }
