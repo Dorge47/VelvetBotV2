@@ -21,17 +21,30 @@ var token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws'
 // }
 
 function getMessages() {
-    var url = 'https://api.telegram.org/bot' + token + '/getUpdates'
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.onload = function() {
+    var request = sendRequest("getUpdates", null, function() {
         messages = JSON.parse(request.responseText);
-    }
-    request.send();
+    });
 }
 
-function clearPendingMessages() {
+function clearMessage(updateId) {
+    var message = {
+        offset: updateId + 1,
+    }
+    var request = sendRequest("getUpdates", message, function() {
+         console.log(request.responseText);
+    });
+}
 
+function sendRequest(func, data, callback) {
+	var url = 'https://api.telegram.org/bot' + token + "/" + func;
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onload = callback;
+    console.log(data);
+    console.log(JSON.stringify(data));
+    request.send(JSON.stringify(data));
+    return request;
 }
 
 function sendMessage(id, msg) {
@@ -39,21 +52,46 @@ function sendMessage(id, msg) {
         chat_id: id,
         text: msg,
     }
-    var url = 'https://api.telegram.org/bot' + token + '/sendMessage'
-    var request = new XMLHttpRequest();
-    request.open("POST", url);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.onload = function() {
+    var request = sendRequest("sendMessage", message, function() {
         console.log(request.responseText);
-    }
-    console.log(message);
-    console.log(JSON.stringify(message));
-    request.send(JSON.stringify(message));
+    });
 }
 
 //getMessages() //run immediately to avoid running into problems with undefined messages
-getMessagesv2();
+getMessages();
 sendMessage(440753792, "Hello world");
+
+function sendResponses() {//don't add the bot to groups or she'll respond to every message
+    for (i = 0; i < messageArray.length; i++) {
+        if (messageArray[i].message.text.toLowerCase().includes('pb, test')) {
+            sendMessage(messageArray[i].message.from.id,'I\'m working!');
+            clearMessage(messageArray[i]);
+        }
+        else if (false) {
+            //add additional responses here and change condition
+        }
+        else {
+            sendMessage(messageArray[i].message.from.id,'I\'m sorry, I didn\'t understand that!');
+            clearMessage(messageArray[i]);
+        }
+    }
+}
+
+function doStuff() {
+    getMessages()
+    setTimeout(function() {
+        messageArray = messages.result
+        sendResponses()
+    },1000)
+}
+
+function startResponding() {
+    interVar = setInterval(doStuff,2000)
+}
+
+function stopResponding() {
+    clearInterval(interVar)
+}
 
 /*function respondToMessages() {
     for (i = 0; i < messages.length; i++)
