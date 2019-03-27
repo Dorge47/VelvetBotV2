@@ -58,14 +58,14 @@ function sendMessage(id, msg) {
 }
 
 //getMessages() //run immediately to avoid running into problems with undefined messages
-getMessages();
-sendMessage(440753792, "Hello world");
+//getMessages();
+//sendMessage(440753792, "Hello world");
 
 function sendResponses() {//don't add the bot to groups or she'll respond to every message
     for (i = 0; i < messageArray.length; i++) {
         if (messageArray[i].message.text.toLowerCase().includes('pb, test')) {
             sendMessage(messageArray[i].message.from.id,'I\'m working!');
-            clearMessage(messageArray[i]);
+            clearMessage(messageArray[i].update_id);
         }
         else if (false) {
             //add additional responses here and change condition
