@@ -182,8 +182,9 @@ function forPenny(msg) {
 }
 
 function checkHelp(msg) {
-    var command = parseCommand(msg.message.text);
-    if (doesMatchCommand(command, "help")) {
+    //var command = parseCommand(msg.message.text);
+    //if (doesMatchCommand(command, "help")) {
+	if (msg.message.text.toLowerCase().includes('help')) {
         sendReply(msg.message.chat.id,
 `List of supported commands:
 help
@@ -200,8 +201,9 @@ Will correct misspellings of Pyrrha`, msg.message.message_id);
 }
 
 function test(msg) {
-    var command = parseCommand(msg.message.text);
-    if (doesMatchCommand(command, "test")) {
+    //var command = parseCommand(msg.message.text);
+    //if (doesMatchCommand(command, "test")) {
+	if (msg.message.text.toLowerCase().includes('test')) {
         sendReply(msg.message.chat.id, "I'm working!", msg.message.message_id);
         clearMessage(msg.update_id);
         return true;
@@ -219,8 +221,9 @@ function isWeissFlat(msg) {
 }
 
 function suggestion(msg) {
-    var command = parseCommand(msg.message.text);
-    if (doesMatchCommand(command, "suggestion")) {
+    //var command = parseCommand(msg.message.text);
+    //if (doesMatchCommand(command, "suggestion")) {
+	if (msg.message.text.toLowerCase().includes('suggestion')) {
         forwardMessage(PBTESTINGGROUP, msg.message.chat.id, msg.message.message_id);
         sendReply(msg.message.chat.id, "Your suggestion was sent to the developers.", msg.message.message_id);
         clearMessage(msg.update_id);
@@ -235,8 +238,9 @@ function sendRandomPhotoFromArray(msg, photoArray) {
 }
 
 function neoPhoto(msg) {
-    var command = parseCommand(msg.message.text);
-    if (doesMatchCommand(command, "neo")) {
+    //var command = parseCommand(msg.message.text);
+    //if (doesMatchCommand(command, "neo")) {
+	if (msg.message.text.toLowerCase().includes('neo')) {
         sendRandomPhotoFromArray(msg, neoIds);
         return true;
     }
@@ -244,8 +248,9 @@ function neoPhoto(msg) {
 }
 
 function emeraldPhoto(msg) {
-    var command = parseCommand(msg.message.text);
-    if (doesMatchCommand(command, "emerald")) {
+    //var command = parseCommand(msg.message.text);
+    //if (doesMatchCommand(command, "emerald")) {
+	if (msg.message.text.toLowerCase().includes('emerald')) {
         sendRandomPhotoFromArray(msg, emeraldIds);
         return true;
     }
@@ -276,7 +281,7 @@ function parseCommand(msg_text) {
     var commands = msg_text.trim().split(/\s+/).filter(Boolean);
     //Remove whatever identifier called to pennybot
     for (let i = 0; i < identifiers.length; i++) {
-        commands = commands.filter(argument => argument !== identifiers[i]);
+        commands = commands.filter(argument => argument.toLowerCase() !== identifiers[i].toLowerCase());
     }
     return commands;
 }
