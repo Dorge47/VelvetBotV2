@@ -109,6 +109,7 @@ function sendResponses() {
     //Check through all the unchecked messages we have
     for (let i = 0; i < messageArray.length; i++) {
         //In case of join or leave messages for groups or whatever
+        var messageProcessed = false
         if (typeof messageArray[i].message.text == "undefined") {
             messageArray[i].message.text = "";
         }
@@ -127,35 +128,37 @@ function sendResponses() {
         }
 
         if (test(messageArray[i])) {
-            continue;
+            messageProcessed = true;
         }
 
         if (isWeissFlat(messageArray[i])) {
-            continue;
+            messageProcessed = true;
         }
 
         if (checkHelp(messageArray[i])) {
-            continue;
+            messageProcessed = true;
         }
 
         if (suggestion(messageArray[i])){
-            continue;
+            messageProcessed = true;
         }
 
         if (neoPhoto(messageArray[i])) {
-            continue;
+            messageProcessed = true;
         }
 
         if (emeraldPhoto(messageArray[i])) {
-            continue;
+            messageProcessed = true;
         }
 
         if (shutdown(messageArray[i])){
             continue;
         }
 
-        sendReply(messageArray[i].message.chat.id,"I'm sorry, I didn't understand that!",messageArray[i].message.message_id);
-        clearMessage(messageArray[i].update_id);
+        if (!messageProcessed) {
+            sendReply(messageArray[i].message.chat.id,"I'm sorry, I didn't understand that!",messageArray[i].message.message_id);
+            clearMessage(messageArray[i].update_id);
+        }
     }
 }
 
@@ -175,7 +178,9 @@ function misspellings(msg) {
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
         if (msg.message.text.toLowerCase().includes(identifiers[i])) {
-            return true;
+            if (msg.message.text.toLowerCase().indexOf(identifiers[i]) == 0) {
+                return true;
+            }
         }
     }
     return false;
