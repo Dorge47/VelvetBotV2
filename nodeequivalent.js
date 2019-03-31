@@ -227,6 +227,10 @@ function sendResponses() {
             messageProcessed = true;
         }
 
+        if (heresy(messageArray[i])) {
+            messageProcessed = true;
+        }
+
         if (shutdown(messageArray[i])){
             continue;
         }
