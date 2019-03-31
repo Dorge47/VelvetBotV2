@@ -349,7 +349,7 @@ function heresy(msg) {
 }
 
 function lewd(msg) {
-    if (msg.message.text.toLowerCase.includes('lewd')) {
+    if (msg.message.text.toLowerCase().includes('lewd')) {
         sendRandomPhotoWithCaption(msg, lewdIds);
         return true;
     }
