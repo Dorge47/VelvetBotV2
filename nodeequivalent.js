@@ -48,19 +48,19 @@ var emeraldIds = ['AgADAQADE6gxGwuVqUR_nOGMgODyS2psDDAABCBJj5xc_4YT4AoEAAEC', 'A
 
 
 var lewdIds = [
-    lewd1: {
+    lewd1= {
         id: 'AgADAQAD6qcxG7pfmUT1L7gYQEBX4uwXFDAABBWvuReLVBCXWXQBAAEC',
         caption: "Stop. That is lewd!"
     },
-    lewd2: {
+    lewd2= {
         id: 'AgADAQAD7acxG7pfmURxYJ_HSvj7xYj_CjAABLwoemCQirdos_oCAAEC',
         caption: "Stop it, that's LEWD!"
     }
-    lewd3: {
+    lewd3= {
         id: 'AgADAQADQ6gxG0kMmURBN3l1LKxDGWfrCjAABEU7tKFDcn8TCuoCAAEC',
         caption: "This! Is! Filth!"
     }
-    lewd4: {
+    lewd4= {
         id: 'AgADAQADDqgxGzxMmERMf9RiM1Mx9lEXFDAABBpmsfkv_-zpJHABAAEC',
         caption: "Biip! Buup!"
     }
