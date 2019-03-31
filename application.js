@@ -166,7 +166,6 @@ function misspellings(msg) {
     for (let i = 0; i < pyrrha.length; i++) {
         if (msg.message.text.toLowerCase().includes(pyrrha[i])) {
             sendReply(msg.message.chat.id,`${pyrrha[i][0].toUpperCase() + pyrrha[i].slice(1)}? Do you mean Pyrrha?`,msg.message.message_id);//Sends 'P' + the string from pyrrha minus the first letter
-            clearMessage(msg.update_id);
         }
     }
 }
