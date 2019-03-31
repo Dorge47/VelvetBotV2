@@ -316,7 +316,7 @@ function sendRandomPhotoFromArray(msg, photoArray) {
 }
 
 function sendRandomPhotoWithCaption(msg, captionArray) {
-    var randPhoto = Math.floor((Math.random() * captionArray.length))];
+    var randPhoto = Math.floor((Math.random() * captionArray.length));
     sendCaptionedPhoto(msg.message.chat.id, captionArray[randPhoto].id, msg.message.message_id, captionArray[randPhoto].caption)
 }
 
