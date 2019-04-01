@@ -129,6 +129,7 @@ function forwardMessage(id, fromId, msgId) {
     });
 }
 
+//Sends a photo with id (fileId) to (id) as a reply to (replyId)
 function sendPhoto(id, fileId, replyId) {
     var message = {
         chat_id: id,
@@ -140,6 +141,7 @@ function sendPhoto(id, fileId, replyId) {
     });
 }
 
+//Sends a photo with id (fileId) to (id) as a reply to (replyId) with caption (captionText)
 function sendCaptionedPhoto(id, fileId, replyId, captionText) {
     var message = {
         chat_id: id,
@@ -152,6 +154,7 @@ function sendCaptionedPhoto(id, fileId, replyId, captionText) {
     });
 }
 
+//Sends (text) linked to (link) to (id) as a reply to (replyId) with previews shown or disabled according to (disableShowPreview)
 function sendLink(id, text, link, replyId, disableShowPreview) {
     var message = {
         chat_id: id,
@@ -165,6 +168,7 @@ function sendLink(id, text, link, replyId, disableShowPreview) {
     });
 }
 
+//Sends animation with id (fileId) to (id) as a reply to (replyId) with caption (captionText)
 function sendAnimation(id, fileId, replyId, captionText) {
     var message = {
         chat_id: id,
@@ -184,12 +188,6 @@ function sendResponses() {
     for (let i = 0; i < messageArray.length; i++) {
         //In case of join or leave messages for groups or whatever
         var messageProcessed = false
-        if (typeof messageArray[i].message.text == "undefined") {
-            messageArray[i].message.text = "";
-        }
-        if (messageArray[i].message.text.trim() == "") {
-            continue;
-        }
 
         //Check for various misspellings of Pyrrha
         misspellings(messageArray[i])
@@ -235,11 +233,17 @@ function sendResponses() {
             messageProcessed = true;
         }
 
+        //BQADAQADXgADSQyhRJLAb7gV87EpAg
+
         if (protec(messageArray[i])) {
             messageProcessed = true;
         }
 
         if (doNothingToCook(messageArray[i])) {
+            messageProcessed = true;
+        }
+
+        if (nutsAndDolts(messageArray[i])) {
             messageProcessed = true;
         }
 
@@ -256,6 +260,9 @@ function sendResponses() {
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
+    if (!msg.message.hasOwnProperty('text')) {
+        return
+    }
     var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya"]
     for (let i = 0; i < pyrrha.length; i++) {
         if (msg.message.text.toLowerCase().includes(pyrrha[i])) {
@@ -266,10 +273,10 @@ function misspellings(msg) {
 
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
-        if (typeof msg.message.text == 'undefined') {
+        if (!msg.message.hasOwnProperty('text')) {
             return false;
         }
-        if (msg.message.text.toLowerCase().includes(identifiers[i])) {
+        else if (msg.message.text.toLowerCase().includes(identifiers[i])) {
             if (msg.message.text.toLowerCase().indexOf(identifiers[i]) == 0) {
                 return true;
             }
@@ -404,6 +411,15 @@ function lewd(msg) {
 function doNothingToCook(msg) {
     if (msg.message.text.toLowerCase().includes('do nothing to cook') || msg.message.text.toLowerCase().includes('do nothing to the cook')) {
         sendPhoto(msg.message.chat.id, 'AgADAQADJ6gxG9-wwURbYA8yWu8pHYXqCjAABL40_i1Z9R67efICAAEC', msg.message.message_id);
+        clearMessage(msg.update_id);
+        return true;
+    }
+    return false;
+}
+
+function nutsAndDolts(msg) {
+    if (msg.message.text.toLowerCase().includes('nuts and dolts') || msg.message.text.toLowerCase().includes('nuts & dolts')) {
+        sendCaptionedPhoto(msg.message.chat.id, 'AgADAQADAqgxG0kMoUTZsEdEe4jScjgDCzAABAmoyO5mPjerx_wCAAEC', msg.message.message_id, 'Kiss!');
         clearMessage(msg.update_id);
         return true;
     }
