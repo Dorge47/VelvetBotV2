@@ -181,6 +181,18 @@ function sendAnimation(id, fileId, replyId, captionText) {
     });
 }
 
+function sendContact(id, phoneNumber, firstName, replyId) {
+    var message = {
+        chat_id: id,
+        phone_number: phoneNumber,
+        first_name: firstName,
+        reply_to_message_id: replyId,
+    };
+    var request = sendRequest("sendContact", message, function(text) {
+        console.log(text);
+    });
+}
+
 // Handle sending responses
 function sendResponses() {
 
