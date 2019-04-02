@@ -76,7 +76,8 @@ var identifiers = [
 
 var messages = [];
 
-function getMessages() {// Populates the messages array with any new messages. Does not clear them.
+// Populates the messages array with any new messages. Does not clear them.
+function getMessages() {
     sendRequest("getUpdates", null, function(text) {
         messages = JSON.parse(text);
         ///FOR TESTING TAKE THIS OUT
@@ -181,6 +182,7 @@ function sendAnimation(id, fileId, replyId, captionText) {
     });
 }
 
+//Sends contact with (phoneNumber) and (firstName) to (id) as a reply to (replyId)
 function sendContact(id, phoneNumber, firstName, replyId) {
     var message = {
         chat_id: id,
@@ -429,6 +431,7 @@ function doNothingToCook(msg) {
     return false;
 }
 
+//Sends nuts and dolts fanart
 function nutsAndDolts(msg) {
     if (msg.message.text.toLowerCase().includes('nuts and dolts') || msg.message.text.toLowerCase().includes('nuts & dolts')) {
         sendCaptionedPhoto(msg.message.chat.id, 'AgADAQADAqgxG0kMoUTZsEdEe4jScjgDCzAABAmoyO5mPjerx_wCAAEC', msg.message.message_id, 'Kiss!');
@@ -438,6 +441,7 @@ function nutsAndDolts(msg) {
     return false;
 }
 
+//Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
 function shutdown(msg) {
     var message_text = msg.message.text.toLowerCase();
     if (message_text.includes("spaniel broad tricycle") || message_text.includes("spaniel, broad, tricycle")) {
@@ -493,7 +497,16 @@ function doStuff() {
 
 function startResponding() {
     sendMessage(PBTESTINGGROUP,'PennyBotV2 is ON')
-    interVar = setInterval(doStuff,3500);
+    getMessages()
+    setTimeout(function() {
+        if (!messages.result.length) {
+            console.log('Messages already present. Please clear messages and try again.')//The bot glitches out if there are too many messages already present when it starts up
+            sendMessage(PBTESTINGGROUP,'PennyBotV2 is OFF')
+        }
+        else {
+            interVar = setInterval(doStuff,3500)
+        }
+    }, 1000)
 }
 
 function stopResponding() {
@@ -502,7 +515,3 @@ function stopResponding() {
 }
 
 startResponding()
-// https.createServer(function (req, res) {
-//     res.writeHead(200, {'Content-Type': 'text/html'});
-//     res.end('Hello World!');
-// }).listen(8080);
