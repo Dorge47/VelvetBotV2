@@ -201,8 +201,11 @@ function sendResponses() {
 
     //Check through all the unchecked messages we have
     for (let i = 0; i < messageArray.length; i++) {
-        //In case of join or leave messages for groups or whatever
         var messageProcessed = false
+        if (messageArray[i].hasOwnProperty('channel_post')) { //ignore channel posts
+            clearMessage(messageArray[i].update_id);
+            continue;
+        }
 
         //Check for various misspellings of Pyrrha
         misspellings(messageArray[i])
