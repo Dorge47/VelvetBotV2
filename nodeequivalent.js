@@ -500,7 +500,7 @@ function startResponding() {
     sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is ON')
     getMessages()
     setTimeout(function() {
-        if (!messages.result.length) {
+        if (messages.result.length) {
             console.log('Messages already present. Please clear messages and try again.')//The bot glitches out if there are too many messages already present when it starts up
             sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is OFF')
         }
