@@ -2,6 +2,7 @@ const token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws';
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
+const PBTESTINGCHANNEL = -1001397346553;
 
 // function sendRequest(func, data, callback) {
 //     var request = require('request');
@@ -347,7 +348,7 @@ function suggestion(msg) {
     //var command = parseCommand(msg.message.text);
     //if (doesMatchCommand(command, "suggestion")) {
 	if (msg.message.text.toLowerCase().includes('suggestion')) {
-        forwardMessage(PBTESTINGGROUP, msg.message.chat.id, msg.message.message_id);
+        forwardMessage(PBTESTINGCHANNEL, msg.message.chat.id, msg.message.message_id);
         sendReply(msg.message.chat.id, "Your suggestion was sent to the developers.", msg.message.message_id);
         clearMessage(msg.update_id);
         return true;
@@ -496,12 +497,12 @@ function doStuff() {
 }
 
 function startResponding() {
-    sendMessage(PBTESTINGGROUP,'PennyBotV2 is ON')
+    sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is ON')
     getMessages()
     setTimeout(function() {
         if (!messages.result.length) {
             console.log('Messages already present. Please clear messages and try again.')//The bot glitches out if there are too many messages already present when it starts up
-            sendMessage(PBTESTINGGROUP,'PennyBotV2 is OFF')
+            sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is OFF')
         }
         else {
             interVar = setInterval(doStuff,3500)
@@ -511,7 +512,7 @@ function startResponding() {
 
 function stopResponding() {
     clearInterval(interVar);
-    sendMessage(PBTESTINGGROUP,'PennyBotV2 is OFF')
+    sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is OFF')
 }
 
 startResponding()

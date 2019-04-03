@@ -44,6 +44,15 @@ function sendRequest(func, data, callback) {
     return request;
 }
 
+function getAllMessages() {
+    var message = {
+        allowed_updates: ["message", "channel_post"]
+    }
+    var request = sendRequest("getUpdates", message, function() {
+        messages = JSON.parse(request.responseText);
+    });
+}
+
 //Sends a message to the given chat id.
 function sendMessage(id, msg) {
     var message = {
