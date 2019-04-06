@@ -518,4 +518,18 @@ function stopResponding() {
     sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is OFF')
 }
 
+var https = require('https');
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/chain.pem')
+};
+
+https.createServer(options, function (req, res) {
+  res.writeHead(200);
+  res.end("hello world\n");
+}).listen(443);
+
 startResponding()
