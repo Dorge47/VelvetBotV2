@@ -306,7 +306,7 @@ function forPenny(msg) {
 function checkHelp(msg) {
     //var command = parseCommand(msg.message.text);
     //if (doesMatchCommand(command, "help")) {
-	if (msg.message.text.toLowerCase().includes('help')) {
+    if (msg.message.text.toLowerCase().includes('help')) {
         sendReply(msg.message.chat.id,
 `List of supported commands:
 help
