@@ -522,14 +522,60 @@ var https = require('https');
 var fs = require('fs');
 
 var options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/cert.pem'),
-  ca: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/chain.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/cert.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/velvetbotv2.ddns.net/chain.pem')
 };
 
-https.createServer(options, function (req, res) {
-  res.writeHead(200);
-  res.end("hello world\n");
-}).listen(443);
+function testFunction(data) {
+    console.log(data);
+}
 
-startResponding()
+var urlParser = require('url');
+
+function serverResponse(req, res) {
+    let url = urlParser.parse(req.url);
+    if (url.pathname == "/" + token) {
+        var data = "";
+        req.on('data', function(chunk) {
+            console.log("Got chunk with data " + chunk);
+            data += chunk;
+            console.log("Data is currently " + data);
+        });
+        req.on('end', function() {
+            data = JSON.parse(data);
+            testFunction(data);
+            res.writeHead(200);
+            res.end(data + "\n");
+        });
+    } else {
+        res.writeHead(403);
+        res.end("Get out");
+    }
+}
+
+https.createServer(options, serverResponse).listen(443);
+
+function setWebhook() {
+    var options = {
+        hostname: 'api.telegram.org',
+        path: '/bot' + token + '/' + func,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    }
+    var https = require('https');
+    var req = https.request(options, (resp) => {
+        let data = '';
+        resp.on('data', (chunk) => data += chunk);
+        resp.on('end', () => {
+            //Call the callback with the data
+            callback(data);
+        });
+    }).on('error', (err) => {
+        console.log("Error sending request: " + err.message);
+    });
+    req.write(JSON.stringify(data));
+    req.end();
+}
