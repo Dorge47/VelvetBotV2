@@ -91,7 +91,7 @@ function forwardMessage(id, fromId, msgId) {
 function sendPhoto(id, fileId, replyId) {
     var message = {
         chat_id: id,
-        photo: fileId,
+        photo: fileId.trim(),
         reply_to_message_id: replyId,
     };
     var request = sendRequest("sendPhoto", message, function(text) {
@@ -103,7 +103,7 @@ function sendPhoto(id, fileId, replyId) {
 function sendCaptionedPhoto(id, fileId, replyId, captionText) {
     var message = {
         chat_id: id,
-        photo: fileId,
+        photo: fileId.trim(),
         reply_to_message_id: replyId,
         caption: captionText,
     };
@@ -130,7 +130,7 @@ function sendLink(id, text, link, replyId, disableShowPreview) {
 function sendAnimation(id, fileId, replyId, captionText) {
     var message = {
         chat_id: id,
-        animation: fileId,
+        animation: fileId.trim(),
         reply_to_message_id: replyId,
         caption: captionText,
     };
@@ -296,7 +296,6 @@ function processCommand(command, message) {
             }
             //Send the photo
             var randomPhotoId = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
-            console.log(randomPhotoId);
             sendPhoto(message.message.chat.id, randomPhotoId, message.message.message_id);
             break;
         //Random photo from list with caption
@@ -304,10 +303,12 @@ function processCommand(command, message) {
             //Check to see if we already have that file cached
             if (typeof fileCache[command.command_data] == "undefined") {
                 //We don't so we load it into the cache
-                parseCpationedPhotoList(command.command_data);
+                parseCaptionedPhotoList(command.command_data);
             }
             var randomArrayElement = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
             //Send the photo
+            console.log(randomArrayElement.fileId + ", " + randomArrayElement.fileId.length)
+            console.log(randomArrayElement.caption + ", " + randomArrayElement.caption.length)
             sendCaptionedPhoto(message.message.chat.id,
                 randomArrayElement.fileId, message.message.message_id,
                 randomArrayElement.caption);
@@ -335,6 +336,7 @@ function processCommand(command, message) {
         //---
         //Help
         case 256:
+            console.log('message received')
             doHelp(message);
             break;
         case 257:
@@ -358,9 +360,11 @@ function doHelp(message) {
     for (let i = 0; i<commands.length; i++) {
         for (let j = 0; j<commands[i].command_names.length; j++) {
             messageText += commands[i].command_names[j];
-            messageText += ": " + commands[i].command_description + "\n";
+            messageText += ": " + commands[i].command_description + "\n\n";
         }
     }
+    console.log(messageText)
+    sendReply(message.message.chat.id, messageText, message.message.message_id);
 }
 
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
@@ -395,9 +399,10 @@ function parseCaptionedPhotoList(fileName) {
     //Put that into the array
     //Profit
     let file = fs.readFileSync(fileName);
+    file += "";
     let ids = file.split('\n');
     for (let i = 0; i < ids.length; i++) {
-        ids[i].split('|');
+        ids[i] = ids[i].split('|');
         var photo = {
             fileId: ids[i][0],
             caption: ids[i][1],
