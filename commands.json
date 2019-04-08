@@ -43,7 +43,7 @@
 }, {
     "command_type": 3,
     "command_names": [
-        "dishwasher art"
+        "dishwasher art",
         "dishwasher1910 art"
     ],
     "command_data": "dishwasherIds.txt",

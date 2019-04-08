@@ -141,9 +141,6 @@ function sendAnimation(id, fileId, replyId, captionText) {
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
-    if (!msg.message.hasOwnProperty('text')) {
-        return
-    }
     var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya"]
     for (let i = 0; i < pyrrha.length; i++) {
         if (msg.message.text.toLowerCase().includes(pyrrha[i])) {
@@ -154,10 +151,7 @@ function misspellings(msg) {
 
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
-        if (!msg.message.hasOwnProperty('text')) {
-            return false;
-        }
-        else if (msg.message.text.toLowerCase().includes(identifiers[i])) {
+        if (msg.message.text.toLowerCase().includes(identifiers[i])) {
             if (msg.message.text.toLowerCase().indexOf(identifiers[i]) == 0) {
                 return true;
             }
@@ -194,13 +188,12 @@ function serverResponse(req, res) {
     if (url.pathname == "/" + token) {
         var data = "";
         req.on('data', function(chunk) {
-            console.log("Got chunk with data " + chunk);
             data += chunk;
-            console.log("Data is currently " + data);
         });
         req.on('end', function() {
             data = JSON.parse(data);
-            sendResponses(data);
+            console.log(data);
+            processReply(data);
             res.writeHead(200);
             res.end(data + "\n");
         });
@@ -258,13 +251,10 @@ function Command() {
     this.command_description = "Tests pennybot";
 }
 
-//Array containing all of our commands.
-var commands = JSON.parse(fs.readFileSync('commands.json'));
-
-//Get all the photo file IDs for all the commands we need
-var fileCache = {};
-
 function processReply(message) {
+    if (!message.message.hasOwnProperty('text')) {
+        return;
+    }
     //Check for various misspellings of Pyrrha
     misspellings(message)
     //Make sure the message was actually for PennyBot
@@ -274,15 +264,15 @@ function processReply(message) {
 
     //Check to see if any of the messages match a command
     for (let i = 0; i < commands.length; i++) {
-        for (let j = 0; j < commands.command_names.length; j++) {
-            if (message.message.text.toLowerCase().contains(commands[i].command_names[j])) {
-                processCommand(commands[i]);
+        for (let j = 0; j < commands[i].command_names.length; j++) {
+            if (message.message.text.toLowerCase().includes(commands[i].command_names[j])) {
+                processCommand(commands[i], message);
             }
         }
     }
 }
 
-function processCommand(command) {
+function processCommand(command, message) {
     switch (command.command_type) {
         //Simple message
         case 0:
@@ -305,9 +295,9 @@ function processCommand(command) {
                 parseSimplePhotoList(command.command_data);
             }
             //Send the photo
-            sendPhoto(message.message.chat.id,
-                fileCache[command.command_data][Math.floor((Math.random() * fileCache[command.command_data].length)],
-                message.message.message_id);
+            var randomPhotoId = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
+            console.log(randomPhotoId);
+            sendPhoto(message.message.chat.id, randomPhotoId, message.message.message_id);
             break;
         //Random photo from list with caption
         case 4:
@@ -316,7 +306,7 @@ function processCommand(command) {
                 //We don't so we load it into the cache
                 parseCpationedPhotoList(command.command_data);
             }
-            var randomArrayElement = fileCache[command.command_data][Math.floor((Math.random() * fileCache[command.command_data].length)];
+            var randomArrayElement = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
             //Send the photo
             sendCaptionedPhoto(message.message.chat.id,
                 randomArrayElement.fileId, message.message.message_id,
@@ -392,9 +382,9 @@ function parseSimplePhotoList(fileName) {
     //Split by new line
     //Put that into the array
     //Profit
-
     let file = fs.readFileSync(fileName);
-    let ids = fs.split('\n');
+    file += "";
+    let ids = file.split('\n');
     fileCache[fileName] = ids;
 }
 function parseCaptionedPhotoList(fileName) {
@@ -405,7 +395,7 @@ function parseCaptionedPhotoList(fileName) {
     //Put that into the array
     //Profit
     let file = fs.readFileSync(fileName);
-    let ids = fs.split('\n');
+    let ids = file.split('\n');
     for (let i = 0; i < ids.length; i++) {
         ids[i].split('|');
         var photo = {
@@ -417,7 +407,11 @@ function parseCaptionedPhotoList(fileName) {
     fileCache[fileName] = ids;
 }
 
+//Array containing all of our commands.
+var commands = JSON.parse(fs.readFileSync('commands.json'));
 
+//Get all the photo file IDs for all the commands we need
+var fileCache = {};
 
 server = https.createServer(options, serverResponse).listen(443);
 sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
