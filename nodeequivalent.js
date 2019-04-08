@@ -1,8 +1,12 @@
 const token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws';
+const botUrl = "velvetbotv2.ddns.net"
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
+
+//Will hold our server so we can close it.
+var server = null;
 
 // function sendRequest(func, data, callback) {
 //     var request = require('request');
@@ -86,15 +90,17 @@ function getMessages() {
     });
 }
 
-// Clears messages from the updateId passed back
-function clearMessage(updateId) {
-    var message = {
-        offset: updateId + 1,
-    };
-    sendRequest("getUpdates", message, function(text) {
-         console.log(text);
-    });
-}
+function clearMessage(updateID) {}
+
+// // Clears messages from the updateId passed back
+// function clearMessage(updateId) {
+//     var message = {
+//         offset: updateId + 1,
+//     };
+//     sendRequest("getUpdates", message, function(text) {
+//          console.log(text);
+//     });
+// }
 
 //Sends a message to the given chat id.
 function sendMessage(id, msg) {
@@ -196,83 +202,157 @@ function sendContact(id, phoneNumber, firstName, replyId) {
     });
 }
 
+// // Handle sending responses
+// function sendResponses() {
+//
+//     //Check through all the unchecked messages we have
+//     for (let i = 0; i < messageArray.length; i++) {
+//         var messageProcessed = false
+//         if (messageArray[i].hasOwnProperty('channel_post')) { //ignore channel posts
+//             clearMessage(messageArray[i].update_id);
+//             continue;
+//         }
+//
+//         //Check for various misspellings of Pyrrha
+//         misspellings(messageArray[i])
+//
+//         if (!forPenny(messageArray[i])) {
+//             clearMessage(messageArray[i].update_id);
+//             continue;
+//         }
+//
+//         if (test(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (isWeissFlat(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (checkHelp(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (suggestion(messageArray[i])){
+//             messageProcessed = true;
+//         }
+//
+//         if (neoPhoto(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (lewd(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (emeraldPhoto(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (dishwasherPhoto(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (heresy(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         //BQADAQADXgADSQyhRJLAb7gV87EpAg
+//
+//         if (protec(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (doNothingToCook(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (nutsAndDolts(messageArray[i])) {
+//             messageProcessed = true;
+//         }
+//
+//         if (shutdown(messageArray[i])){
+//             continue;
+//         }
+//
+//         if (!messageProcessed) {
+//             sendReply(messageArray[i].message.chat.id,"I'm sorry, I didn't understand that!",messageArray[i].message.message_id);
+//             clearMessage(messageArray[i].update_id);
+//         }
+//     }
+// }
+
 // Handle sending responses
-function sendResponses() {
+function sendResponses(messageReceived) {
+    var messageProcessed = false
+    if (messageReceived.hasOwnProperty('channel_post')) { //ignore channel posts
+        return;
+    }
 
-    //Check through all the unchecked messages we have
-    for (let i = 0; i < messageArray.length; i++) {
-        var messageProcessed = false
-        if (messageArray[i].hasOwnProperty('channel_post')) { //ignore channel posts
-            clearMessage(messageArray[i].update_id);
-            continue;
-        }
+    //Check for various misspellings of Pyrrha
+    misspellings(messageReceived)
 
-        //Check for various misspellings of Pyrrha
-        misspellings(messageArray[i])
+    if (!forPenny(messageReceived)) {
+        return;
+    }
 
-        if (!forPenny(messageArray[i])) {
-            clearMessage(messageArray[i].update_id);
-            continue;
-        }
+    if (test(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (test(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (isWeissFlat(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (isWeissFlat(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (checkHelp(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (checkHelp(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (suggestion(messageReceived)){
+        messageProcessed = true;
+    }
 
-        if (suggestion(messageArray[i])){
-            messageProcessed = true;
-        }
+    if (neoPhoto(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (neoPhoto(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (lewd(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (lewd(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (emeraldPhoto(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (emeraldPhoto(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (dishwasherPhoto(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (dishwasherPhoto(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (heresy(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (heresy(messageArray[i])) {
-            messageProcessed = true;
-        }
+    //BQADAQADXgADSQyhRJLAb7gV87EpAg
 
-        //BQADAQADXgADSQyhRJLAb7gV87EpAg
+    if (protec(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (protec(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (doNothingToCook(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (doNothingToCook(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (nutsAndDolts(messageReceived)) {
+        messageProcessed = true;
+    }
 
-        if (nutsAndDolts(messageArray[i])) {
-            messageProcessed = true;
-        }
+    if (shutdown(messageReceived)){
+        return;
+    }
 
-        if (shutdown(messageArray[i])){
-            continue;
-        }
-
-        if (!messageProcessed) {
-            sendReply(messageArray[i].message.chat.id,"I'm sorry, I didn't understand that!",messageArray[i].message.message_id);
-            clearMessage(messageArray[i].update_id);
-        }
+    if (!messageProcessed) {
+        sendReply(messageReceived.message.chat.id,"I'm sorry, I didn't understand that!",messageReceived.message.message_id);
+        return;
     }
 }
 
@@ -450,7 +530,9 @@ function shutdown(msg) {
     var message_text = msg.message.text.toLowerCase();
     if (message_text.includes("spaniel broad tricycle") || message_text.includes("spaniel, broad, tricycle")) {
         if (msg.message.from.id == DORGE47) {
-            sendMessage(msg.message.chat.id, "!snoitatulaS");
+            //sendMessage(msg.message.chat.id, "!snoitatulaS");
+            shutdownChatId = msg.message.chat.id
+            shutdownReplyId = msg.message.message_id
             clearMessage(msg.update_id);
             stopResponding();
             return true;
@@ -513,9 +595,17 @@ function startResponding() {
     }, 1000)
 }
 
+// function stopResponding() {
+//     clearInterval(interVar);
+//     sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is OFF')
+// }
+
 function stopResponding() {
-    clearInterval(interVar);
-    sendMessage(PBTESTINGCHANNEL,'PennyBotV2 is OFF')
+    server.close(function() {
+        sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
+        sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
+        console.log("Server has shut down");
+    });
 }
 
 var https = require('https');
@@ -544,38 +634,39 @@ function serverResponse(req, res) {
         });
         req.on('end', function() {
             data = JSON.parse(data);
-            testFunction(data);
+            sendResponses(data);
             res.writeHead(200);
             res.end(data + "\n");
         });
     } else {
         res.writeHead(403);
-        res.end("Get out");
+        res.end(
+`
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Get out plz</title>
+    </head>
+    <body>
+        <h1>This isn't for you!</h1>
+        <p>Why are you here? Get out.</p>
+    </body>
+</html>
+`);
     }
 }
 
-https.createServer(options, serverResponse).listen(443);
+server = https.createServer(options, serverResponse).listen(443);
+sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
 
 function setWebhook() {
-    var options = {
-        hostname: 'api.telegram.org',
-        path: '/bot' + token + '/' + func,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
+    var message = {
+        url: botUrl + "/" + token,
     }
-    var https = require('https');
-    var req = https.request(options, (resp) => {
-        let data = '';
-        resp.on('data', (chunk) => data += chunk);
-        resp.on('end', () => {
-            //Call the callback with the data
-            callback(data);
-        });
-    }).on('error', (err) => {
-        console.log("Error sending request: " + err.message);
+    sendRequest("setWebhook", message, function(data) {
+        console.log("Set webhook which responded with " + data);
     });
-    req.write(JSON.stringify(data));
-    req.end();
 }
