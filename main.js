@@ -21,7 +21,7 @@ const identifiers = [
 
 var bot = require('./botapi.js');
 //Set the botApi's token
-setToken(token);
+bot.setToken(token);
 //Get the server as a module
 var server = require('./server.js');
 server.startServer(processReply, token, botUrl);
