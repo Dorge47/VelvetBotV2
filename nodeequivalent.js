@@ -4,6 +4,7 @@ const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
+admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP]
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -219,6 +220,8 @@ function serverResponse(req, res) {
 }
 
 function Command() {
+    //Will require that an admin send this command
+    this.requires_admin = false;
     // All messages will reply
     //0 = message
     //1 = photo
@@ -252,6 +255,9 @@ function Command() {
 }
 
 function processReply(message) {
+    if (!message.message.hasOwnProperty('text') && message.message.hasOwnProperty('caption')) {
+        message.message.text = message.message.caption;
+    }
     if (!message.message.hasOwnProperty('text')) {
         return;
     }
@@ -263,16 +269,37 @@ function processReply(message) {
     }
 
     //Check to see if any of the messages match a command
+    let messageProcessed = false
     for (let i = 0; i < commands.length; i++) {
         for (let j = 0; j < commands[i].command_names.length; j++) {
             if (message.message.text.toLowerCase().includes(commands[i].command_names[j])) {
                 processCommand(commands[i], message);
+                messageProcessed = true
             }
         }
     }
+    if (!messageProcessed) {
+        sendReply(message.message.chat.id, "I'm sorry, I didn't understand that!", message.message.message_id);
+    }
+}
+
+function isAdmin(message) {
+    for (let i = 0; i < admins.length; i++) {
+        if (message.message.from.id == admins[i]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function processCommand(command, message) {
+    console.log('command is being processed')
+    if (command.requires_admin) {
+        if (!isAdmin(message)) {
+            sendMonospaceMessage(message.message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message.message_id);
+            sendMessage(PBTESTINGCHANNEL, `User ${message.message.from.username} attempted to access an unauthorized command`)
+        }
+    }
     switch (command.command_type) {
         //Simple message
         case 0:
@@ -326,7 +353,8 @@ function processCommand(command, message) {
             break;
         //Forward
         case 7:
-            forwardMessage(command.command_data.chatId, message.message.chat_id, message.message.message_id);
+            console.log(command.command_data.chatId);
+            forwardMessage(command.command_data.chatId, message.message.chat.id, message.message.message_id);
             sendReply(message.message.chat.id, command.command_data.replyText, message.message.message_id);
             break;
 
@@ -342,10 +370,82 @@ function processCommand(command, message) {
         case 257:
             shutdown(message);
             break;
+        case 258://used to add fileIds to lists of photos
+            console.log('got to switch')
+            addPhotoToSimpleList(message);
+            break;
+        case 259://Adds a photo to a captioned photo list
+            addPhotoToCaptionedList(message);
         default:
             console.error("Somehow there's a command of unknown type");
             break;
     }
+}
+
+function addPhotoToSimpleList(message) {
+    console.log('command received')
+    let parsedMessage = message.message.text.split("\n");
+    console.log(parsedMessage);
+    if (typeof parsedMessage[1] == "undefined") {
+        sendReply(message.message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
+
+pb, add photo
+filename.txt`,message.message.message_id);
+        return;
+    }
+    //Parse the photo into the file's format
+    let fileId = message.message.photo[message.message.photo.length - 1].file_id;
+    //Add it into the file
+    let fileName = parsedMessage[1];
+    if (!fs.existsSync(fileName)) {
+        console.log('file DNE')
+        sendReply(message.message.chat.id, "The file " + fileName + " does not exist!",message.message.message_id);
+        return;
+    }
+    try {
+        console.log('trying to append')
+        fs.appendFileSync(fileName, "\n" + fileId);
+    } catch (e) {
+        sendReply(message.message.chat.id, "Could not add file. Error sent to developers");
+        sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
+        return;
+    }
+    //Reload the cache
+    console.log('doing cache stuff')
+    parseSimplePhotoList(fileName);
+    sendReply(message.message.chat.id, "Successfully added the image to " + fileName);
+    console.log("it won't get to this point")
+}
+
+function addPhotoToCaptionedList(message) {
+    let parsedMessage = message.text.split("\n");
+    if (typeof parsedMessage[1] == "undefined" || typeof parsedMessage[2] == "undefined") {
+        sendReply(message.message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
+
+pb, add captioned photo
+filename.txt
+caption`, message.message.message_id);
+        return;
+    }
+    //Parse the photo into the file's format
+    let fileId = message.message.photo[message.message.photo.length - 1].file_id;
+    let caption = parsedMessage[2];
+    //Add it into the file
+    let fileName = parsedMessage[1];
+    if (!fs.existsSync(fileName)) {
+        sendReply(message.message.chat.id, "The file " + fileName + " does not exist!",message.message.message_id);
+        return;
+    }
+    try {
+        fs.appendFileSync(fileName, "\n" + fileId + "|" + caption);
+    } catch (e) {
+        sendReply(message.message.chat.id, "Could not add file. Error sent to developers");
+        sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
+        return;
+    }
+    //Reload the cache
+    parseCaptionedPhotoList(fileName);
+    sendReply(message.message.chat.id, "Successfully added the image to " + fileName);
 }
 
 function doHelp(message) {
@@ -369,15 +469,9 @@ function doHelp(message) {
 
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
 function shutdown(msg) {
-    if (msg.message.from.id == DORGE47) {
-        //sendMessage(msg.message.chat.id, "!snoitatulaS");
-        shutdownChatId = msg.message.chat.id
-        shutdownReplyId = msg.message.message_id
-        stopResponding();
-    }
-    else {
-        sendMonospaceMessage(msg.message.chat.id, "Username is not in the sudoers file. This incident will be reported", msg.message.message_id);
-    }
+    shutdownChatId = msg.message.chat.id
+    shutdownReplyId = msg.message.message_id
+    stopResponding();
 }
 
 function parseSimplePhotoList(fileName) {

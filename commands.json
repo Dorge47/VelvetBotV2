@@ -1,4 +1,5 @@
 [{
+    "requires_admin": false,
     "command_type": 0,
     "command_names": [
         "test"
@@ -6,6 +7,7 @@
     "command_data": "I'm working!",
     "command_description": "Ensures that I'm combat ready"
 }, {
+    "requires_admin": false,
     "command_type": 6,
     "command_names": [
         "weiss isn't flat"
@@ -17,6 +19,7 @@
     },
     "command_description": "Proves you wrong"
 }, {
+    "requires_admin": false,
     "command_type": 7,
     "command_names": [
         "suggestion"
@@ -27,6 +30,7 @@
     },
     "command_description": "Sends a suggestion to the developers"
 }, {
+    "requires_admin": false,
     "command_type": 3,
     "command_names": [
         "neo"
@@ -34,6 +38,7 @@
     "command_data": "neoIds.txt",
     "command_description": "Sends a random photo of Neo"
 }, {
+    "requires_admin": false,
     "command_type": 3,
     "command_names": [
         "emerald"
@@ -41,6 +46,7 @@
     "command_data": "emeraldIds.txt",
     "command_description": "Sends a random photo of Emerald"
 }, {
+    "requires_admin": false,
     "command_type": 3,
     "command_names": [
         "dishwasher art",
@@ -49,6 +55,7 @@
     "command_data": "dishwasherIds.txt",
     "command_description": "Sends a random piece of art from u/dishwasher1910"
 }, {
+    "requires_admin": false,
     "command_type": 5,
     "command_names": [
         "heresy"
@@ -59,6 +66,7 @@
     },
     "command_description": "Fires the heresy cannon"
 }, {
+    "requires_admin": false,
     "command_type": 5,
     "command_names": [
         "protec"
@@ -69,6 +77,7 @@
     },
     "command_description": "Protects the Rubes"
 }, {
+    "requires_admin": false,
     "command_type": 4,
     "command_names": [
         "lewd"
@@ -76,6 +85,7 @@
     "command_data": "lewdIds.txt",
     "command_description": "Responds to lewdness"
 }, {
+    "requires_admin": false,
     "command_type": 1,
     "command_names": [
         "do nothing to cook",
@@ -84,6 +94,7 @@
     "command_data": "AgADAQADJ6gxG9-wwURbYA8yWu8pHYXqCjAABL40_i1Z9R67efICAAEC",
     "command_description": "Does nothing to the cook"
 }, {
+    "requires_admin": false,
     "command_type": 1,
     "command_names": [
         "nuts and dolts"
@@ -91,6 +102,7 @@
     "command_data": "AgADAQADAqgxG0kMoUTZsEdEe4jScjgDCzAABAmoyO5mPjerx_wCAAEC",
     "command_description": "Shows some fanart of nuts and dolts"
 }, {
+    "requires_admin": false,
     "command_type": 256,
     "command_names": [
         "help"
@@ -98,6 +110,7 @@
     "command_data": "",
     "command_description": "Shows this page"
 }, {
+    "requires_admin": true,
     "command_type": 257,
     "command_names": [
         "spaniel broad tricycle",
@@ -105,4 +118,20 @@
     ],
     "command_data": "",
     "command_description": "Shuts down the bot"
+}, {
+    "requires_admin": true,
+    "command_type": 258,
+    "command_names": [
+        "add photo"
+    ],
+    "command_data": "",
+    "command_description": "Adds a photo to the given photo list"
+}, {
+    "requires_admin": true,
+    "command_type": 259,
+    "command_names": [
+        "add captioned photo"
+    ],
+    "command_data": "",
+    "command_description": "Adds a captioned photo to the given photo & caption list"
 }]
