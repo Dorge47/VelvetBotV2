@@ -77,7 +77,7 @@ function processReply(message) {
         }
     }
     if (!messageProcessed) {
-        sendReply(message.chat.id, "I'm sorry, I didn't understand that!", message_id);
+        sendReply(message.chat.id, "I'm sorry, I didn't understand that!", message.message_id);
     }
 }
 
@@ -94,23 +94,23 @@ function processCommand(command, message) {
     console.log('command is being processed')
     if (command.requires_admin) {
         if (!isAdmin(message)) {
-            sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message_id);
+            sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
             sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`)
         }
     }
     switch (command.command_type) {
         //Simple message
         case 0:
-            sendReply(message.chat.id, command.command_data, message_id);
+            sendReply(message.chat.id, command.command_data, message.message_id);
             break;
         //Photo
         case 1:
-            sendPhoto(message.chat.id, command.command_data, message_id);
+            sendPhoto(message.chat.id, command.command_data, message.message_id);
             break;
         //Captioned photo
         case 2:
             sendCaptionedPhoto(message.chat.id, command.command_data.fileId,
-                message_id, command.command_data.caption);
+                message.message_id, command.command_data.caption);
             break;
         //Random photo from list
         case 3:
@@ -121,7 +121,7 @@ function processCommand(command, message) {
             }
             //Send the photo
             var randomPhotoId = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
-            sendPhoto(message.chat.id, randomPhotoId, message_id);
+            sendPhoto(message.chat.id, randomPhotoId, message.message_id);
             break;
         //Random photo from list with caption
         case 4:
@@ -135,25 +135,25 @@ function processCommand(command, message) {
             console.log(randomArrayElement.fileId + ", " + randomArrayElement.fileId.length)
             console.log(randomArrayElement.caption + ", " + randomArrayElement.caption.length)
             sendCaptionedPhoto(message.chat.id,
-                randomArrayElement.fileId, message_id,
+                randomArrayElement.fileId, message.message_id,
                 randomArrayElement.caption);
             break;
         //Animation
         case 5:
             sendAnimation(message.chat.id, command.command_data.fileId,
-                message_id, command.command_data.caption);
+                message.message_id, command.command_data.caption);
             break;
         //Link
         case 6:
             sendLink(message.chat.id, command.command_data.text,
-                command.command_data.link, message_id,
+                command.command_data.link, message.message_id,
                 command.command_data.disablePreview);
             break;
         //Forward
         case 7:
             console.log(command.command_data.chatId);
-            forwardMessage(command.command_data.chatId, message.chat.id, message_id);
-            sendReply(message.chat.id, command.command_data.replyText, message_id);
+            forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
+            sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
 
 
@@ -191,7 +191,7 @@ function addPhotoToSimpleList(message) {
         sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
 
 pb, add photo
-filename.txt`,message_id);
+filename.txt`,message.message_id);
         return;
     }
     //Parse the photo into the file's format
@@ -199,7 +199,7 @@ filename.txt`,message_id);
     //Add it into the file
     let fileName = parsedMessage[1];
     if (!fs.existsSync(fileName)) {
-        sendReply(message.chat.id, "The file " + fileName + " does not exist!",message_id);
+        sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
@@ -226,7 +226,7 @@ function addPhotoToCaptionedList(message) {
 
 pb, add captioned photo
 filename.txt
-caption`, message_id);
+caption`, message.message_id);
         return;
     }
     //Parse the photo into the file's format
@@ -235,7 +235,7 @@ caption`, message_id);
     //Add it into the file
     let fileName = parsedMessage[1];
     if (!fs.existsSync(fileName)) {
-        sendReply(message.chat.id, "The file " + fileName + " does not exist!",message_id);
+        sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
@@ -266,7 +266,7 @@ function doHelp(message) {
         }
     }
     console.log(messageText)
-    sendReply(message.chat.id, messageText, message_id);
+    sendReply(message.chat.id, messageText, message.message_id);
 }
 
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
