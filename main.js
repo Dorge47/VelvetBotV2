@@ -18,9 +18,8 @@ const identifiers = [
 // ----
 // Initialization of all modules
 // ----
-//Pull all the bot API stuff into this namespace so we don't
-//have to prefix all the calls to that API with bot.whatever()
-require('./botapi.js')();
+
+var bot = require('./botapi.js');
 //Set the botApi's token
 setToken(token);
 //Get the server as a module
@@ -29,15 +28,21 @@ server.startServer(processReply, token, botUrl);
 //Get our flesystem module
 var fs = require('fs');
 
+//Array containing all of our commands.
+var commands = JSON.parse(fs.readFileSync('commands.json'));
+
+//A cache which will hold any files that we may use
+var fileCache = {};
+
 //At this point the bot is all nice and started up.
-sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
+bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
     var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya"]
     for (let i = 0; i < pyrrha.length; i++) {
         if (msg.text.toLowerCase().includes(pyrrha[i])) {
-            sendReply(msg.chat.id,`${pyrrha[i][0].toUpperCase() + pyrrha[i].slice(1)}? Do you mean Pyrrha?`,msg_id);//Sends 'P' + the string from pyrrha minus the first letter
+            bot.sendReply(msg.chat.id,`${pyrrha[i][0].toUpperCase() + pyrrha[i].slice(1)}? Do you mean Pyrrha?`,msg_id);//Sends 'P' + the string from pyrrha minus the first letter
         }
     }
 }
@@ -78,7 +83,7 @@ function processReply(message) {
         }
     }
     if (!messageProcessed) {
-        sendReply(message.chat.id, "I'm sorry, I didn't understand that!", message.message_id);
+        bot.sendReply(message.chat.id, "I'm sorry, I didn't understand that!", message.message_id);
     }
 }
 
@@ -92,25 +97,24 @@ function isAdmin(message) {
 }
 
 function processCommand(command, message) {
-    console.log('command is being processed')
     if (command.requires_admin) {
         if (!isAdmin(message)) {
-            sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
-            sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`)
+            bot.sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
+            bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`)
         }
     }
     switch (command.command_type) {
         //Simple message
         case 0:
-            sendReply(message.chat.id, command.command_data, message.message_id);
+            bot.sendReply(message.chat.id, command.command_data, message.message_id);
             break;
         //Photo
         case 1:
-            sendPhoto(message.chat.id, command.command_data, message.message_id);
+            bot.sendPhoto(message.chat.id, command.command_data, message.message_id);
             break;
         //Captioned photo
         case 2:
-            sendCaptionedPhoto(message.chat.id, command.command_data.fileId,
+            bot.sendCaptionedPhoto(message.chat.id, command.command_data.fileId,
                 message.message_id, command.command_data.caption);
             break;
         //Random photo from list
@@ -122,7 +126,7 @@ function processCommand(command, message) {
             }
             //Send the photo
             var randomPhotoId = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
-            sendPhoto(message.chat.id, randomPhotoId, message.message_id);
+            bot.sendPhoto(message.chat.id, randomPhotoId, message.message_id);
             break;
         //Random photo from list with caption
         case 4:
@@ -133,28 +137,25 @@ function processCommand(command, message) {
             }
             var randomArrayElement = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
             //Send the photo
-            console.log(randomArrayElement.fileId + ", " + randomArrayElement.fileId.length)
-            console.log(randomArrayElement.caption + ", " + randomArrayElement.caption.length)
-            sendCaptionedPhoto(message.chat.id,
+            bot.sendCaptionedPhoto(message.chat.id,
                 randomArrayElement.fileId, message.message_id,
                 randomArrayElement.caption);
             break;
         //Animation
         case 5:
-            sendAnimation(message.chat.id, command.command_data.fileId,
+            bot.sendAnimation(message.chat.id, command.command_data.fileId,
                 message.message_id, command.command_data.caption);
             break;
         //Link
         case 6:
-            sendLink(message.chat.id, command.command_data.text,
+            bot.sendLink(message.chat.id, command.command_data.text,
                 command.command_data.link, message.message_id,
                 command.command_data.disablePreview);
             break;
         //Forward
         case 7:
-            console.log(command.command_data.chatId);
-            forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
-            sendReply(message.chat.id, command.command_data.replyText, message.message_id);
+            bot.forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
+            bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
 
 
@@ -163,14 +164,12 @@ function processCommand(command, message) {
         //---
         //Help
         case 256:
-            console.log('message received')
             doHelp(message);
             break;
         case 257:
             shutdown(message);
             break;
         case 258://used to add fileIds to lists of photos
-            console.log('got to switch')
             addPhotoToSimpleList(message);
             break;
         case 259://Adds a photo to a captioned photo list
@@ -189,7 +188,7 @@ function addPhotoToSimpleList(message) {
     //caption
     let parsedMessage = message.text.split("\n");
     if (typeof parsedMessage[1] == "undefined") {
-        sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
+        bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
 
 pb, add photo
 filename.txt`,message.message_id);
@@ -200,19 +199,19 @@ filename.txt`,message.message_id);
     //Add it into the file
     let fileName = parsedMessage[1];
     if (!fs.existsSync(fileName)) {
-        sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
+        bot.sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
         fs.appendFileSync(fileName, "\n" + fileId);
     } catch (e) {
-        sendReply(message.chat.id, "Could not add file. Error sent to developers");
-        sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
+        bot.sendReply(message.chat.id, "Could not add file. Error sent to developers");
+        bot.sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
         return;
     }
     //Reload the cache
     parseSimplePhotoList(fileName);
-    sendReply(message.chat.id, "Successfully added the image to " + fileName);
+    bot.sendReply(message.chat.id, "Successfully added the image to " + fileName);
 }
 
 function addPhotoToCaptionedList(message) {
@@ -223,7 +222,7 @@ function addPhotoToCaptionedList(message) {
     let parsedMessage = message.text.split("\n");
     //Check to make sure it actually has both lines of text
     if (typeof parsedMessage[1] == "undefined" || typeof parsedMessage[2] == "undefined") {
-        sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
+        bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
 
 pb, add captioned photo
 filename.txt
@@ -236,19 +235,19 @@ caption`, message.message_id);
     //Add it into the file
     let fileName = parsedMessage[1];
     if (!fs.existsSync(fileName)) {
-        sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
+        bot.sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
         fs.appendFileSync(fileName, "\n" + fileId + "|" + caption);
     } catch (e) {
-        sendReply(message.chat.id, "Could not add file. Error sent to developers");
-        sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
+        bot.sendReply(message.chat.id, "Could not add file. Error sent to developers");
+        bot.sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
         return;
     }
     //Reload the cache
     parseCaptionedPhotoList(fileName);
-    sendReply(message.chat.id, "Successfully added the image to " + fileName);
+    bot.sendReply(message.chat.id, "Successfully added the image to " + fileName);
 }
 
 function doHelp(message) {
@@ -267,7 +266,7 @@ function doHelp(message) {
         }
     }
     console.log(messageText)
-    sendReply(message.chat.id, messageText, message.message_id);
+    bot.sendReply(message.chat.id, messageText, message.message_id);
 }
 
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
@@ -275,8 +274,8 @@ function shutdown(msg) {
     shutdownChatId = msg.chat.id
     shutdownReplyId = msg_id
     server.killServer(function() {
-        sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
-        sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
+        bot.sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
+        bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
         console.log("Server has shut down");
     });
 }
@@ -312,12 +311,6 @@ function parseCaptionedPhotoList(fileName) {
     }
     fileCache[fileName] = ids;
 }
-
-//Array containing all of our commands.
-var commands = JSON.parse(fs.readFileSync('commands.json'));
-
-//Get all the photo file IDs for all the commands we need
-var fileCache = {};
 
 
 
