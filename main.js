@@ -272,7 +272,7 @@ function doHelp(message) {
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
 function shutdown(msg) {
     shutdownChatId = msg.chat.id
-    shutdownReplyId = msg_id
+    shutdownReplyId = msg.msg_id
     server.killServer(function() {
         bot.sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
         bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
