@@ -86,7 +86,7 @@ exports.sendPhoto = function(id, fileId, replyId) {
 }
 
 //Sends a photo with id (fileId) to (id) as a reply to (replyId) with caption (captionText)
-exports.sendCaptionedPhoto function(id, fileId, replyId, captionText) {
+exports.sendCaptionedPhoto = function(id, fileId, replyId, captionText) {
     var message = {
         chat_id: id,
         photo: fileId.trim(),
