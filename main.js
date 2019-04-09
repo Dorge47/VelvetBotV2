@@ -4,7 +4,7 @@ const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
-var admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP]
+const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP]
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -19,12 +19,12 @@ const identifiers = [
 // Initialization of all modules
 // ----
 //Get the server as a module
-var server = require('server.js');
+var server = require('./server.js');
 server.startServer(processReply, token, botUrl);
 sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
 //Pull all the bot API stuff into this namespace so we don't
 //have to prefix all the calls to that API with bot.whatever()
-require('botapi.js')();
+require('./botapi.js')();
 //Set the botApi's token
 setToken(token);
 //Get our flesystem module
