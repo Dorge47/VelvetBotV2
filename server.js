@@ -65,12 +65,3 @@ function serverResponse(req, res) {
 `);
     }
 }
-
-function setWebhook() {
-    var message = {
-        url: botUrl + "/" + token,
-    }
-    sendRequest("setWebhook", message, function(data) {
-        console.log("Set webhook which responded with " + data);
-    });
-}

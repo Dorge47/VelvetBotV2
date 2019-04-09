@@ -4,7 +4,7 @@ exports.setToken = function(botToken) {
     token = botToken;
 };
 
-exports.sendRequest = function(func, data, callback) {
+function sendRequest(func, data, callback) {
     var options = {
         hostname: 'api.telegram.org',
         path: '/bot' + token + '/' + func,
@@ -122,5 +122,16 @@ exports.sendAnimation = function(id, fileId, replyId, captionText) {
     };
     var request = sendRequest("sendAnimation", message, function(text) {
         console.log(text);
+    });
+}
+
+//Sets the webhook to a certain URL.
+//Will automatically append the token to the path
+exports.setWebhook = function(url) {
+    var message = {
+        url: botUrl + "/" + token,
+    }
+    sendRequest("setWebhook", message, function(data) {
+        console.log("Set webhook which responded with " + data);
     });
 }
