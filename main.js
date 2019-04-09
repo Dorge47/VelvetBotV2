@@ -18,18 +18,19 @@ const identifiers = [
 // ----
 // Initialization of all modules
 // ----
-//Get the server as a module
-var server = require('./server.js');
-server.startServer(processReply, token, botUrl);
-sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
 //Pull all the bot API stuff into this namespace so we don't
 //have to prefix all the calls to that API with bot.whatever()
 require('./botapi.js')();
 //Set the botApi's token
 setToken(token);
+//Get the server as a module
+var server = require('./server.js');
+server.startServer(processReply, token, botUrl);
 //Get our flesystem module
 var fs = require('fs');
 
+//At this point the bot is all nice and started up.
+sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
