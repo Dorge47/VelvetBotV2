@@ -189,6 +189,7 @@ function processCommand(command, message) {
 }
 
 function echoFileId(message) {
+    let fileId = ''
     let parsedMessage = message.text.split("\n");
     if (typeof parsedMessage[1] == "undefined") {
         bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
@@ -198,7 +199,7 @@ fileType`,message.message_id);
         return;
     }
     if (parsedMessage[1] == 'photo' | parsedMessage[1] == 'picture') {
-        let fileId = message.photo[message.photo.length - 1].file_id;
+        fileId = message.photo[message.photo.length - 1].file_id;
     }
     bot.sendReply(message.chat.id, fileId,message.message_id);
 }
