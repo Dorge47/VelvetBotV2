@@ -177,6 +177,8 @@ function processCommand(command, message) {
             break;
         case 260://Refreshes the command list so we don't have to restart the bot
             commands = JSON.parse(fs.readFileSync('commands.json'));
+            bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
+            break;
         default:
             console.error("Somehow there's a command of unknown type");
             break;

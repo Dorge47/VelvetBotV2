@@ -151,6 +151,8 @@
     "command_names": [
         "refresh commands"
     ],
-    "command_data": "",
+    "command_data": {
+        "replyText": "The command array has been refreshed"
+    },
     "command_description": "Refreshes the command list"
 }]
