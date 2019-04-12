@@ -155,4 +155,12 @@
         "replyText": "The command array has been refreshed"
     },
     "command_description": "Refreshes the command list"
+}, {
+    "requires_admin": true,
+    "command_type": 261,
+    "command_names": [
+        "echo file id"
+    ],
+    "command_data": "",
+    "command_description": "Echoes the file id from a sent file"
 }]

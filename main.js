@@ -179,10 +179,28 @@ function processCommand(command, message) {
             commands = JSON.parse(fs.readFileSync('commands.json'));
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
+        case 261://echoes a file id from a file type specified by the second line of the message
+            echoFileId(message);
+            break;
         default:
             console.error("Somehow there's a command of unknown type");
             break;
     }
+}
+
+function echoFileId(message) {
+    let parsedMessage = message.text.split("\n");
+    if (typeof parsedMessage[1] == "undefined") {
+        bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
+
+pb, echo file id
+fileType`,message.message_id);
+        return;
+    }
+    if (parsedMessage[1] == 'photo' | parsedMessage[1] == 'picture') {
+        let fileId = message.photo[message.photo.length - 1].file_id;
+    }
+    bot.sendReply(message.chat.id, fileId,message.message_id);
 }
 
 function addPhotoToSimpleList(message) {
