@@ -175,6 +175,8 @@ function processCommand(command, message) {
         case 259://Adds a photo to a captioned photo list
             addPhotoToCaptionedList(message);
             break;
+        case 260://Refreshes the command list so we don't have to restart the bot
+            commands = JSON.parse(fs.readFileSync('commands.json'));
         default:
             console.error("Somehow there's a command of unknown type");
             break;

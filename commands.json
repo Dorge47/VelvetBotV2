@@ -145,4 +145,12 @@
     ],
     "command_data": "",
     "command_description": "Adds a captioned photo to the given photo & caption list"
+}, {
+    "requires_admin": true,
+    "command_type": 260,
+    "command_names": [
+        "refresh commands"
+    ],
+    "command_data": "",
+    "command_description": "Refreshes the command list"
 }]
