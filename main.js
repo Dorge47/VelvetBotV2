@@ -146,7 +146,7 @@ function processCommand(command, message) {
             bot.sendAnimation(message.chat.id, command.command_data.fileId,
                 message.message_id, command.command_data.caption);
             break;
-        //Link
+        //Zelda
         case 6:
             bot.sendLink(message.chat.id, command.command_data.text,
                 command.command_data.link, message.message_id,

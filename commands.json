@@ -103,6 +103,17 @@
     "command_description": "Shows some fanart of nuts and dolts"
 }, {
     "requires_admin": false,
+    "command_type": 2,
+    "command_names": [
+        "enraged and offended"
+    ],
+    "command_data": {
+        "fileId": "AgADAQADEKgxGzxMmER8YRLg1IBBQa9sDDAABJ43usNLL5UrzwIEAAEC",
+        "caption": "⋋_⋌"
+    },
+    "command_description": "Sends an enraged and offended picture"
+}, {
+    "requires_admin": false,
     "command_type": 256,
     "command_names": [
         "help"
