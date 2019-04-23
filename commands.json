@@ -163,4 +163,16 @@
     ],
     "command_data": "",
     "command_description": "Echoes the file id from a sent file"
+}, {
+   "requires_admin": false,
+   "command_type": 6,
+   "command_names": [
+       "doriyah"
+   ],
+   "command_data": {
+       "text": "DORIYAH",
+       "link": "https://youtu.be/JREIIClBQNM",
+       "disablePreview": true
+   },
+   "command_description": "Shows your DORIYAH pride"
 }]
