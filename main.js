@@ -161,7 +161,7 @@ function processCommand(command, message) {
         case 8:
             if (typeof fileCache[command.command_data.localFileId] == "undefined") {
                 //We don't so we load it into the cache
-                parseCaptionedIdList(command.command_data.localFileId);
+                parseComplexList(command.command_data.localFileId);
             }
             //Send the photo
             var randomAnimElement = fileCache[command.command_data.localFileId][Math.floor(Math.random() * fileCache[command.command_data.localFileId].length)];
@@ -351,20 +351,12 @@ function parseCaptionedIdList(fileName) {
 
 function parseComplexList(fileName) {
     let file = JSON.parse(fs.readFileSync(fileName));
-    
-    /*
-    file += "";
-    let ids = file.split('\n');
-    for (let i = 0; i < ids.length; i++) {
-        ids[i] = ids[i].split('|');
-        var photo = {
-            fileId: ids[i][0],
-            caption: ids[i][1],
-        };
-        ids[i] = photo;
+    for (i = 0; i < file.length; i++) {
+        if (file[i].fileType == 'photo') {
+
+        }
     }
-    fileCache[fileName] = ids;
-    */
+    fileCache[fileName] = complexList;
 }
 
 
