@@ -175,4 +175,14 @@
        "disablePreview": true
    },
    "command_description": "Shows your DORIYAH pride"
+}, {
+   "requires_admin": false,
+   "command_type": 8,
+   "command_names": [
+       "hype"
+   ],
+   "command_data": {
+       "localFileId": "hype.txt"
+   },
+   "command_description": "Sends some hype"
 }]

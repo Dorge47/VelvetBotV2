@@ -122,7 +122,7 @@ function processCommand(command, message) {
             //Check to see if we already have that file cached
             if (typeof fileCache[command.command_data] == "undefined") {
                 //We don't so we load it into the cache
-                parseSimplePhotoList(command.command_data);
+                parseSimpleIdList(command.command_data);
             }
             //Send the photo
             var randomPhotoId = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
@@ -133,7 +133,7 @@ function processCommand(command, message) {
             //Check to see if we already have that file cached
             if (typeof fileCache[command.command_data] == "undefined") {
                 //We don't so we load it into the cache
-                parseCaptionedPhotoList(command.command_data);
+                parseCaptionedIdList(command.command_data);
             }
             var randomArrayElement = fileCache[command.command_data][Math.floor(Math.random() * fileCache[command.command_data].length)];
             //Send the photo
@@ -156,6 +156,16 @@ function processCommand(command, message) {
         case 7:
             bot.forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
+            break;
+        //Random Animation
+        case 8:
+            if (typeof fileCache[command.command_data.localFileId] == "undefined") {
+                //We don't so we load it into the cache
+                parseCaptionedIdList(command.command_data.localFileId);
+            }
+            //Send the photo
+            var randomAnimElement = fileCache[command.command_data.localFileId][Math.floor(Math.random() * fileCache[command.command_data.localFileId].length)];
+            bot.sendAnimation(message.chat.id, randomAnimElement.fileId, message.message_id, randomAnimElement.caption);
             break;
 
 
@@ -190,7 +200,7 @@ function processCommand(command, message) {
 
 function echoFileId(message) {
     let fileId = ''
-    let parsedMessage = message.text.split("\n");
+    let parsedMessage = message.text.toLowerCase().split("\n");
     if (typeof parsedMessage[1] == "undefined") {
         bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
 
@@ -201,7 +211,10 @@ fileType`,message.message_id);
     if (parsedMessage[1] == 'photo' | parsedMessage[1] == 'picture') {
         fileId = message.photo[message.photo.length - 1].file_id;
     }
-    bot.sendReply(message.chat.id, fileId,message.message_id);
+    else if (parsedMessage[1] == 'animation' | parsedMessage[1] == 'gif') {
+        fileId = message.animation.fileId;
+    }
+    bot.sendReply(message.chat.id, fileId, message.message_id);
 }
 
 function addPhotoToSimpleList(message) {
@@ -233,7 +246,7 @@ filename.txt`,message.message_id);
         return;
     }
     //Reload the cache
-    parseSimplePhotoList(fileName);
+    parseSimpleIdList(fileName);
     bot.sendReply(message.chat.id, "Successfully added the image to " + fileName);
 }
 
@@ -269,7 +282,7 @@ caption`, message.message_id);
         return;
     }
     //Reload the cache
-    parseCaptionedPhotoList(fileName);
+    parseCaptionedIdList(fileName);
     bot.sendReply(message.chat.id, "Successfully added the image to " + fileName);
 }
 
@@ -303,7 +316,7 @@ function shutdown(msg) {
     });
 }
 
-function parseSimplePhotoList(fileName) {
+function parseSimpleIdList(fileName) {
     //Steps:
     //Load the file
     //Split by new line
@@ -314,7 +327,8 @@ function parseSimplePhotoList(fileName) {
     let ids = file.split('\n');
     fileCache[fileName] = ids;
 }
-function parseCaptionedPhotoList(fileName) {
+
+function parseCaptionedIdList(fileName) {
     //Steps:
     //Load the file
     //Split by new line
@@ -333,6 +347,24 @@ function parseCaptionedPhotoList(fileName) {
         ids[i] = photo;
     }
     fileCache[fileName] = ids;
+}
+
+function parseComplexList(fileName) {
+    let file = JSON.parse(fs.readFileSync(fileName));
+    
+    /*
+    file += "";
+    let ids = file.split('\n');
+    for (let i = 0; i < ids.length; i++) {
+        ids[i] = ids[i].split('|');
+        var photo = {
+            fileId: ids[i][0],
+            caption: ids[i][1],
+        };
+        ids[i] = photo;
+    }
+    fileCache[fileName] = ids;
+    */
 }
 
 
