@@ -182,7 +182,7 @@
        "hype"
    ],
    "command_data": {
-       "localFileId": "hype.txt"
+       "localFileId": "hype.json"
    },
    "command_description": "Sends some hype"
 }]

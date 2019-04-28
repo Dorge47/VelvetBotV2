@@ -59,6 +59,13 @@ function forPenny(msg) {
 }
 
 function processReply(message) {
+    //Un-comment to have the bot echo file IDs to the console. Useful when webhooks are enabled and we can't get IDs from a browser
+    if (message.hasOwnProperty('photo')) {
+        console.log(message.photo[message.photo.length-1].file_id);
+    }
+    else if (message.hasOwnProperty('animation')) {
+        console.log(message.animation.file_id);
+    }
     if (!message.hasOwnProperty('text') && message.hasOwnProperty('caption')) {
         message.text = message.caption;
     }
@@ -66,11 +73,12 @@ function processReply(message) {
         return;
     }
     //Check for various misspellings of Pyrrha
-    misspellings(message)
+    misspellings(message);
     //Make sure the message was actually for PennyBot
     if (!forPenny(message)) {
         return;
     }
+
 
     //Check to see if any of the messages match a command
     let messageProcessed = false;
@@ -157,15 +165,33 @@ function processCommand(command, message) {
             bot.forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
-        //Random Animation
+        //Random element from complex list
         case 8:
             if (typeof fileCache[command.command_data.localFileId] == "undefined") {
                 //We don't so we load it into the cache
                 parseComplexList(command.command_data.localFileId);
             }
             //Send the photo
-            var randomAnimElement = fileCache[command.command_data.localFileId][Math.floor(Math.random() * fileCache[command.command_data.localFileId].length)];
-            bot.sendAnimation(message.chat.id, randomAnimElement.fileId, message.message_id, randomAnimElement.caption);
+            var randomComplexElement = fileCache[command.command_data.localFileId][Math.floor(Math.random() * fileCache[command.command_data.localFileId].length)];
+            if (randomComplexElement.fileType == 'photo') {
+                if (randomComplexElement.caption == null) {
+                    bot.sendPhoto(message.chat.id, randomComplexElement.fileId, message.message_id);
+                }
+                else {
+                    bot.sendCaptionedPhoto(message.chat.id,
+                        randomComplexElement.fileId, message.message_id,
+                        randomComplexElement.caption);
+                }
+            }
+            else if (randomComplexElement.fileType == 'GIF') {
+                if (randomComplexElement.caption == null) {
+                    console.log(randomComplexElement);
+                    bot.sendAnimation(message.chat.id, randomComplexElement.animation, message.message_id);
+                }
+                else {
+                    bot.sendCaptionedAnimation(message.chat.id, randomComplexElement.animation, message.message_id, randomComplexElement.caption);
+                }
+            }
             break;
 
 
@@ -350,10 +376,40 @@ function parseCaptionedIdList(fileName) {
 }
 
 function parseComplexList(fileName) {
+    let complexList = [];
     let file = JSON.parse(fs.readFileSync(fileName));
     for (i = 0; i < file.length; i++) {
         if (file[i].fileType == 'photo') {
-
+            if (file[i].caption == null) {
+                var photoToPush = {
+                    fileType: 'photo',
+                    fileId: file[i].fileId
+                };
+            }
+            else {
+                var photoToPush = {
+                    fileType: 'photo',
+                    fileId: file[i].fileId,
+                    caption: file[i].caption
+                };
+            }
+            complexList[i] = photoToPush;
+        }
+        else if (file[i].fileType == 'GIF') {
+            if (file[i].caption == null) {
+                var gifToPush = {
+                    fileType: 'GIF',
+                    animation: file[i].fileId
+                };
+            }
+            else {
+                var gifToPush = {
+                    fileType: 'GIF',
+                    animation: file[i].fileId,
+                    caption: file[i].caption
+                };
+            }
+            complexList[i] = gifToPush;
         }
     }
     fileCache[fileName] = complexList;
