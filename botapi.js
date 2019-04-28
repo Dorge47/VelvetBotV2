@@ -139,7 +139,7 @@ exports.sendCaptionedAnimation = function(id, fileId, replyId, captionText) {
 
 //Sets the webhook to a certain URL.
 //Will automatically append the token to the path
-exports.setWebhook = function(url) {
+exports.setWebhook = function(botUrl) {
     var message = {
         url: botUrl + "/" + token,
     }

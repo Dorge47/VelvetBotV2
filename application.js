@@ -1,4 +1,4 @@
-var token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws';
+var token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws';//No longer valid due to public repository. Actual token is on /etc/token.txt
 
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;

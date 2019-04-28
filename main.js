@@ -1,4 +1,7 @@
-const token = '625045601:AAF4Kr-a7yJRGVUU9ssi0MI79NZDeN-RUws';
+//Get our flesystem module
+var fs = require('fs');
+//Failsafes upon failsafes so we don't misread the token
+const token = (fs.readFileSync('/etc/token.txt') + '').trim();
 const botUrl = "velvetbotv2.ddns.net"
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
@@ -25,8 +28,6 @@ bot.setToken(token);
 //Get the server as a module
 var server = require('./server.js');
 server.startServer(processReply, token, botUrl);
-//Get our flesystem module
-var fs = require('fs');
 
 //Array containing all of our commands.
 var commands = JSON.parse(fs.readFileSync('commands.json'));
