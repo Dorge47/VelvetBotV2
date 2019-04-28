@@ -141,9 +141,9 @@ function processCommand(command, message) {
                 randomArrayElement.fileId, message.message_id,
                 randomArrayElement.caption);
             break;
-        //Animation
+        //Captioned animation
         case 5:
-            bot.sendAnimation(message.chat.id, command.command_data.fileId,
+            bot.sendCaptionedAnimation(message.chat.id, command.command_data.fileId,
                 message.message_id, command.command_data.caption);
             break;
         //Zelda

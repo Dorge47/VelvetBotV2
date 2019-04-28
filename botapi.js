@@ -112,8 +112,20 @@ exports.sendLink = function(id, text, link, replyId, disableShowPreview) {
     });
 }
 
+//Sends animation with id (fileId) to (id) as a reply to (replyId)
+exports.sendAnimation = function(id, fileId, replyId) {
+    var message = {
+        chat_id: id,
+        animation: fileId.trim(),
+        reply_to_message_id: replyId,
+    };
+    var request = sendRequest("sendAnimation", message, function(text) {
+        console.log(text);
+    });
+}
+
 //Sends animation with id (fileId) to (id) as a reply to (replyId) with caption (captionText)
-exports.sendAnimation = function(id, fileId, replyId, captionText) {
+exports.sendCaptionedAnimation = function(id, fileId, replyId, captionText) {
     var message = {
         chat_id: id,
         animation: fileId.trim(),
