@@ -2,12 +2,12 @@
 var fs = require('fs');
 //Failsafes upon failsafes so we don't misread the token
 const token = (fs.readFileSync('/etc/token.txt') + '').trim();
-const botUrl = "velvetbotv2.ddns.net"
+const botUrl = "velvetbotv2.ddns.net";
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
-const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP]
+const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
 
 // The various strings pennybot can respond to.
 const identifiers = [
