@@ -185,4 +185,29 @@
        "localFileId": "hype.json"
    },
    "command_description": "Sends some hype"
+}, {
+    "requires_admin": false,
+    "command_type": 6,
+    "command_names": [
+        "selfie"
+    ],
+    "command_data": {
+        "text": "Don't look, I'm naked!",
+        "link": "https://imgur.com/a/57JEvLZ",
+        "disablePreview": true
+    },
+    "command_description": "Sends selfies of the bot"
+}, {
+    "requires_admin": false,
+    "command_type": 6,
+    "command_names": [
+        "shipsheet",
+        "spreadsheet"
+    ],
+    "command_data": {
+        "text": "It is glorious.",
+        "link": "https://docs.google.com/spreadsheets/d/1_bnr68pepImz1RDq7uJiQraVnDjU2D0vqmrSE85sF_U/edit?usp=sharing",
+        "disablePreview": true
+    },
+    "command_description": "Sends the spreadsheet™"
 }]

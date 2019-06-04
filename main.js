@@ -2,12 +2,12 @@
 var fs = require('fs');
 //Failsafes upon failsafes so we don't misread the token
 const token = (fs.readFileSync('/etc/token.txt') + '').trim();
-const botUrl = "velvetbotv2.ddns.net"
+const botUrl = "velvetbotv2.ddns.net";
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
-const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP]
+const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -43,7 +43,7 @@ function misspellings(msg) {
     var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya"]
     for (let i = 0; i < pyrrha.length; i++) {
         if (msg.text.toLowerCase().includes(pyrrha[i])) {
-            bot.sendReply(msg.chat.id,`${pyrrha[i][0].toUpperCase() + pyrrha[i].slice(1)}? Do you mean Pyrrha?`,msg_id);//Sends 'P' + the string from pyrrha minus the first letter
+            bot.sendReply(msg.chat.id,`${pyrrha[i][0].toUpperCase() + pyrrha[i].slice(1)}? Do you mean Pyrrha?`,msg.message_id);//Sends 'P' + the string from pyrrha minus the first letter
         }
     }
 }
@@ -61,12 +61,12 @@ function forPenny(msg) {
 
 function processReply(message) {
     //Un-comment to have the bot echo file IDs to the console. Useful when webhooks are enabled and we can't get IDs from a browser
-    if (message.hasOwnProperty('photo')) {
-        console.log(message.photo[message.photo.length-1].file_id);
-    }
-    else if (message.hasOwnProperty('animation')) {
-        console.log(message.animation.file_id);
-    }
+    // if (message.hasOwnProperty('photo')) {
+    //     console.log(message.photo[message.photo.length-1].file_id);
+    // }
+    // else if (message.hasOwnProperty('animation')) {
+    //     console.log(message.animation.file_id);
+    // }
     if (!message.hasOwnProperty('text') && message.hasOwnProperty('caption')) {
         message.text = message.caption;
     }
@@ -169,10 +169,8 @@ function processCommand(command, message) {
         //Random element from complex list
         case 8:
             if (typeof fileCache[command.command_data.localFileId] == "undefined") {
-                //We don't so we load it into the cache
                 parseComplexList(command.command_data.localFileId);
             }
-            //Send the photo
             var randomComplexElement = fileCache[command.command_data.localFileId][Math.floor(Math.random() * fileCache[command.command_data.localFileId].length)];
             if (randomComplexElement.fileType == 'photo') {
                 if (randomComplexElement.caption == null) {

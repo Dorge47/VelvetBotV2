@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.darkblue {
+    background-color: #1d262e;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+#leftbar {
+    border-right: 1px solid black;
+    flex-shrink: 0;
+    height: 100%;
+    padding-left: 15px;
+    padding-top: 20px;
+    width: 260px;
+}
+
+#menuicon {
+    color: #6b7781;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#menuicon:hover {
+    color: #dbdbdb;
+}
+
+#sidebarcontainers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#topbar {
+    border-bottom: 1px solid black;
+    height: 55px;
+    width: 100%;
+}
