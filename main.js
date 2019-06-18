@@ -1,8 +1,5 @@
 //Get our flesystem module
 var fs = require('fs');
-//Failsafes upon failsafes so we don't misread the token
-const token = (fs.readFileSync('/etc/token.txt') + '').trim();
-const botUrl = "velvetbotv2.ddns.net";
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
 const PBTESTINGGROUP = -1001276603177;
@@ -23,20 +20,27 @@ const identifiers = [
 // ----
 
 var bot = require('./botapi.js');
-//Set the botApi's token
-bot.setToken(token);
-//Get the server as a module
-var server = require('./server.js');
-server.startServer(processReply, token, botUrl);
 
 //Array containing all of our commands.
 var commands = JSON.parse(fs.readFileSync('commands.json'));
 
 //A cache which will hold any files that we may use
 var fileCache = {};
+var bootloaderData;
+
+exports.token = null;
+exports.name = "PennyBotV2";
+exports.directory = "";
 
 //At this point the bot is all nice and started up.
-bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
+//bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
+
+//Initalize the bot
+exports.init = function(initData) {
+    bootloaderData = initData;
+    bootloaderData.initBotFunc(exports.directory);
+    bot.setToken(exports.token);
+}
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
@@ -59,7 +63,7 @@ function forPenny(msg) {
     return false;
 }
 
-function processReply(message) {
+exports.callback = function(message) {
     //Un-comment to have the bot echo file IDs to the console. Useful when webhooks are enabled and we can't get IDs from a browser
     // if (message.hasOwnProperty('photo')) {
     //     console.log(message.photo[message.photo.length-1].file_id);
@@ -334,11 +338,12 @@ function doHelp(message) {
 function shutdown(msg) {
     shutdownChatId = msg.chat.id
     shutdownReplyId = msg.msg_id
-    server.killServer(function() {
-        bot.sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
-        bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
-        console.log("Server has shut down");
-    });
+    bootloaderData.killFunc(exports.token);
+}
+
+exports.onKill = function() {
+    bot.sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
+    bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
 }
 
 function parseSimpleIdList(fileName) {

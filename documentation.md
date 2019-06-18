@@ -3,13 +3,11 @@
 The project is getting big enough that we should add this.
 
 ## File list and description
-- `server.js`
-    - Holds the main server logic like setting up the webhook and managing the requests
 - `botapi.js`
     - Holds all the helper functions such as `sendPhoto()`
 - `main.js`
     - Holds the main logic of the program
-    - This is what you run
+    - Is ran by the bootloader
 
 
 ## Command structure:
