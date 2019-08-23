@@ -2,6 +2,7 @@
 var fs = require('fs');
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
+const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
@@ -22,7 +23,7 @@ const identifiers = [
 var bot = require('./botapi.js');
 
 //Array containing all of our commands.
-var commands = JSON.parse(fs.readFileSync('commands.json'));
+var commands;
 
 //A cache which will hold any files that we may use
 var fileCache = {};
@@ -32,14 +33,14 @@ exports.token = null;
 exports.name = "PennyBotV2";
 exports.directory = "";
 
-//At this point the bot is all nice and started up.
-//bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
 
 //Initalize the bot
 exports.init = function(initData) {
     bootloaderData = initData;
     bootloaderData.initBotFunc(exports.directory);
     bot.setToken(exports.token);
+    bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
+    loadCommands();
 }
 
 function misspellings(msg) {
@@ -167,6 +168,10 @@ function processCommand(command, message) {
             break;
         //Forward
         case 7:
+            if (message.from.id == FUJI) {
+                bot.sendReply(message.chat.id, "No", message.message_id);
+                break;
+            }
             bot.forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
@@ -215,7 +220,7 @@ function processCommand(command, message) {
             addPhotoToCaptionedList(message);
             break;
         case 260://Refreshes the command list so we don't have to restart the bot
-            commands = JSON.parse(fs.readFileSync('commands.json'));
+            loadCommands();
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
         case 261://echoes a file id from a file type specified by the second line of the message
@@ -225,6 +230,11 @@ function processCommand(command, message) {
             console.error("Somehow there's a command of unknown type");
             break;
     }
+}
+
+
+function loadCommands() {
+    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/commands.json'));
 }
 
 function echoFileId(message) {
@@ -263,12 +273,12 @@ filename.txt`,message.message_id);
     let fileId = message.photo[message.photo.length - 1].file_id;
     //Add it into the file
     let fileName = parsedMessage[1];
-    if (!fs.existsSync(fileName)) {
+    if (!fs.existsSync("./" + exports.directory + "/" + fileName)) {
         bot.sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
-        fs.appendFileSync(fileName, "\n" + fileId);
+        fs.appendFileSync("./" + exports.directory + "/" + fileName, "\n" + fileId);
     } catch (e) {
         bot.sendReply(message.chat.id, "Could not add file. Error sent to developers");
         bot.sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
@@ -299,12 +309,12 @@ caption`, message.message_id);
     let caption = parsedMessage[2];
     //Add it into the file
     let fileName = parsedMessage[1];
-    if (!fs.existsSync(fileName)) {
+    if (!fs.existsSync("./" + exports.directory + "/" + fileName)) {
         bot.sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
-        fs.appendFileSync(fileName, "\n" + fileId + "|" + caption);
+        fs.appendFileSync("./" + exports.directory + "/" + fileName, "\n" + fileId + "|" + caption);
     } catch (e) {
         bot.sendReply(message.chat.id, "Could not add file. Error sent to developers");
         bot.sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
@@ -352,7 +362,7 @@ function parseSimpleIdList(fileName) {
     //Split by new line
     //Put that into the array
     //Profit
-    let file = fs.readFileSync(fileName);
+    let file = fs.readFileSync("./" + exports.directory + "/" + fileName);
     file += "";
     let ids = file.split('\n');
     fileCache[fileName] = ids;
@@ -365,7 +375,7 @@ function parseCaptionedIdList(fileName) {
     //Split each line into an ID and caption (using |)
     //Put that into the array
     //Profit
-    let file = fs.readFileSync(fileName);
+    let file = fs.readFileSync("./" + exports.directory + "/" + fileName);
     file += "";
     let ids = file.split('\n');
     for (let i = 0; i < ids.length; i++) {
@@ -381,7 +391,7 @@ function parseCaptionedIdList(fileName) {
 
 function parseComplexList(fileName) {
     let complexList = [];
-    let file = JSON.parse(fs.readFileSync(fileName));
+    let file = JSON.parse(fs.readFileSync("./" + exports.directory + "/" + fileName));
     for (i = 0; i < file.length; i++) {
         if (file[i].fileType == 'photo') {
             if (file[i].caption == null) {
