@@ -90,7 +90,7 @@ exports.callback = function(message) {
     let messageProcessed = false;
     for (let i = 0; i < commands.length; i++) {
         for (let j = 0; j < commands[i].command_names.length; j++) {
-            if (message.text.toLowerCase().includes(commands[i].command_names[j])) {
+            if (message.text.toLowerCase().includes(commands[i].command_names[j]) && message.text.toLowerCase().indexOf(commands[i].command_names[j]) != 0) {
                 processCommand(commands[i], message);
                 messageProcessed = true;
             }
