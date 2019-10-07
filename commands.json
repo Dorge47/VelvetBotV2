@@ -177,6 +177,18 @@
    "command_description": "Shows your DORIYAH pride"
 }, {
    "requires_admin": false,
+   "command_type": 6,
+   "command_names": [
+       "pb"
+   ],
+   "command_data": {
+       "text": "pb",
+       "link": "https://youtu.be/s8MDNFaGfT4",
+       "disablePreview": true
+   },
+   "command_description": "pb"
+}, {
+   "requires_admin": false,
    "command_type": 8,
    "command_names": [
        "hype"
