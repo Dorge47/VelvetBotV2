@@ -29,6 +29,8 @@ var commands;
 var fileCache = {};
 var bootloaderData;
 
+
+
 exports.token = null;
 exports.name = "PennyBotV2";
 exports.directory = "";
@@ -41,6 +43,7 @@ exports.init = function(initData) {
     bot.setToken(exports.token);
     bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
     loadCommands();
+	startTime = time.now();
 }
 
 function misspellings(msg) {
@@ -225,6 +228,9 @@ function processCommand(command, message) {
             break;
         case 261://echoes a file id from a file type specified by the second line of the message
             echoFileId(message);
+            break;
+		case 262://Uptime
+            doUptime(message);
             break;
         default:
             console.error("Somehow there's a command of unknown type");
@@ -428,6 +434,20 @@ function parseComplexList(fileName) {
     }
     fileCache[fileName] = complexList;
 }
+
+
+function doUptime(msg) {
+    var uptime = Math.floor(process.uptime());
+    var hours   = Math.floor(uptime / 3600);
+    var minutes = Math.floor((uptime - (hours * 3600)) / 60);
+    var seconds = uptime - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    bot.sendReply(msg.chat.id, "I've been working for "+hours+':'+minutes+':'+seconds, msg.msg_id);
+}
+
 
 
 

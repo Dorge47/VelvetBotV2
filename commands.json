@@ -222,4 +222,11 @@
         "disablePreview": true
     },
     "command_description": "Sends the spreadsheet™"
+}, {
+    "requires_admin": false,
+    "command_type": 262,
+    "command_names": [
+        "uptime"
+	],
+    "command_description": "Gets my uptime in HH:MM:SS"
 }]
