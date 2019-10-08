@@ -43,7 +43,6 @@ exports.init = function(initData) {
     bot.setToken(exports.token);
     bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
     loadCommands();
-	startTime = time.now();
 }
 
 function misspellings(msg) {
