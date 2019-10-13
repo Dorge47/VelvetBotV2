@@ -209,21 +209,16 @@ function processCommand(command, message) {
         case 9:
             var deltaDays = 0;
             var delta = hiatusEnd - startTime;
-            console.log(1);
             if (delta <= 0) {
                 bot.sendReply(message.chat.id, "THE HIATUS IS OVER!", message.message_id);
-                console.log(2);
             }
             else {
-                console.log(3);
                 deltaDays = Math.ceil(delta / 86400000);
                 delta %= 86400000;
                 if (deltaDays <= 1) {
-                    console.log(4);
                     bot.sendReply(message.chat.id, 'RWBY returns tomorrow. Pb hype! Oh wait...', message.message_id);
                 }
                 else if (deltaDays > 1) {
-                    console.log(5);
                     bot.sendReply(message.chat.id, 'There are currently ' + deltaDays + ' days until RWBY returns.', message.message_id);
                 }
             }
