@@ -118,7 +118,7 @@ function processCommand(command, message) {
     if (command.requires_admin) {
         if (!isAdmin(message)) {
             bot.sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
-            bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`)
+            bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`);
         }
     }
     switch (command.command_type) {
@@ -263,7 +263,7 @@ function loadCommands() {
 }
 
 function echoFileId(message) {
-    let fileId = ''
+    let fileId = '';
     let parsedMessage = message.text.toLowerCase().split("\n");
     if (typeof parsedMessage[1] == "undefined") {
         bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
@@ -365,14 +365,14 @@ function doHelp(message) {
             messageText += ": " + commands[i].command_description + "\n\n";
         }
     }
-    console.log(messageText)
+    console.log(messageText);
     bot.sendReply(message.chat.id, messageText, message.message_id);
 }
 
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
 function shutdown(msg) {
-    shutdownChatId = msg.chat.id
-    shutdownReplyId = msg.msg_id
+    shutdownChatId = msg.chat.id;
+    shutdownReplyId = msg.msg_id;
     bootloaderData.killFunc(exports.token);
 }
 
@@ -460,7 +460,6 @@ function doUptime(msg) {
     var hours   = Math.floor(uptime / 3600);
     var minutes = Math.floor((uptime - (hours * 3600)) / 60);
     var seconds = uptime - (hours * 3600) - (minutes * 60);
-
     if (hours   < 10) {hours   = "0"+hours;}
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
