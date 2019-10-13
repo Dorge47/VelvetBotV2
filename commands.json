@@ -236,4 +236,12 @@
         "hiatus"
 	],
     "command_description": "Displays remaining hiatus"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "scripture"
+    ],
+    "command_data": "\"Verily I say unto thee, lay thine eyes upon the field in which my fucks are grown, and behold that it is barren.\" -Mood 24:7",
+    "command_description": "Sends a passage from the book of meme"
 }]
