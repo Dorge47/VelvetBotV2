@@ -272,10 +272,10 @@ pb, echo file id
 fileType`,message.message_id);
         return;
     }
-    if (parsedMessage[1] == 'photo' | parsedMessage[1] == 'picture') {
+    if (parsedMessage[1] == 'photo' || parsedMessage[1] == 'picture') {
         fileId = message.photo[message.photo.length - 1].file_id;
     }
-    else if (parsedMessage[1] == 'animation' | parsedMessage[1] == 'gif') {
+    else if (parsedMessage[1] == 'animation' || parsedMessage[1] == 'gif') {
         fileId = message.animation.fileId;
     }
     bot.sendReply(message.chat.id, fileId, message.message_id);
