@@ -217,10 +217,10 @@ function processCommand(command, message) {
                 delta %= 86400000;
                 var hiatusResponse = '';
                 if (deltaDays <= 1) {
-                    hiatusResponse += 'RWBY returns tomorrow. Pb hype! Oh wait...';
+                    bot.sendReply(message.chat.id, 'RWBY returns tomorrow. Pb hype! Oh wait...', message.message_id);
                 }
                 else if (deltaDays > 1) {
-                    hiatusResponse += 'There are currently ' + deltaDays + ' days until RWBY returns.';
+                    bot.sendReply(message.chat.id, 'There are currently ' + deltaDays + ' days until RWBY returns.', message.message_id);
                 }
             }
             break;
