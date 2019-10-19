@@ -6,7 +6,6 @@ const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
-var startTime = new Date();
 var hiatusEnd = new Date(2019,10,2);
 
 // The various strings pennybot can respond to.
@@ -208,7 +207,7 @@ function processCommand(command, message) {
         //Hiatus
         case 9:
             var deltaDays = 0;
-            var delta = hiatusEnd - startTime;
+            var delta = hiatusEnd - new Date();
             if (delta <= 0) {
                 bot.sendReply(message.chat.id, "THE HIATUS IS OVER!", message.message_id);
             }
