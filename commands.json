@@ -244,4 +244,25 @@
     ],
     "command_data": "\"Verily I say unto thee, lay thine eyes upon the field in which my fucks are grown, and behold that it is barren.\" -Mood 24:7",
     "command_description": "Sends a passage from the book of meme"
+}, {
+    "requires_admin": false,
+    "command_type": 10,
+    "command_names": [
+        "flip a coin"
+    ],
+    "command_data": {
+        "type": 0
+    },
+    "command_description": "Flips a coin"
+}, {
+    "requires_admin": false,
+    "command_type": 10,
+    "command_names": [
+        "roll a die",
+        "roll a dice"
+    ],
+    "command_data": {
+        "type": 1
+    },
+    "command_description": "Rolls a die"
 }]

@@ -222,6 +222,22 @@ function processCommand(command, message) {
                 }
             }
             break;
+        case 10:
+            if (command.command_data.type == 0) { //coin flip
+                if (Math.floor(Math.random()*2) == 0) {
+                    bot.sendReply(message.chat.id, "It's heads.", message.message_id);
+                    break;
+                }
+                else {
+                    bot.sendReply(message.chat.id, "It's tails.", message.message_id);
+                    break;
+                }
+            }
+            else if (command.command_data.type == 1) { //die roll
+                bot.sendReply(message.chat.id, "You rolled a " + Math.ceil(Math.random()*6) + ".", message.message_id);
+                break;
+            }
+            break; //added for consistency, the program should never reach this point
 
 
         //---
