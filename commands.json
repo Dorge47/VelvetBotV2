@@ -265,4 +265,50 @@
         "type": 1
     },
     "command_description": "Rolls a die"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "tyrian"
+    ],
+    "command_data": "He's insane!",
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "yang"
+    ],
+    "command_data": "I think she has a crush on Blake...",
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 2,
+    "command_names": [
+        "sage"
+    ],
+    "command_data": {
+        "fileId": "AgADAQAD6qgxG_uG0UXe8xz_hGwFnVUdFDAABAEAAwIAA3gAA6COBAABFgQ",
+        "caption": "He has a big sword!"
+    },
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 2,
+    "command_names": [
+        "angry"
+    ],
+    "command_data": {
+        "fileId": "AgADAQAD66gxG_uG0UXCD1gL5rbClar2awYABAEAAwIAA3kAA541AQABFgQ",
+        "caption": "WHAT DID YOU JUST SAY?"
+    },
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "oobleck"
+    ],
+    "command_data": "What would happen if we gave Ruby his coffee? Or Nora for that matter?",
+    "command_description": "template"
 }]
