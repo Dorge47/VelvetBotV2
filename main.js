@@ -239,7 +239,7 @@ function processCommand(command, message) {
             }
             break; //added for consistency, the program should never reach this point
         case 11:
-            bot.sendMarkdown(message.chat.id, command.command_data.text, message.message_id, command.command_data.disablePreview);
+            bot.sendMarkdown(message.chat.id, command.command_data.text, command.command_data.mode, message.message_id, command.command_data.disablePreview);
             break;
 
 
