@@ -1,13 +1,12 @@
 //Get our flesystem module
 var fs = require('fs');
-//Failsafes upon failsafes so we don't misread the token
-const token = (fs.readFileSync('/etc/token.txt') + '').trim();
-const botUrl = "velvetbotv2.ddns.net";
 const DORGE47 = 440753792;
 const NATEDOGG1232 = 298857178;
+const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
+var hiatusEnd = new Date(2019,10,2);
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -23,20 +22,29 @@ const identifiers = [
 // ----
 
 var bot = require('./botapi.js');
-//Set the botApi's token
-bot.setToken(token);
-//Get the server as a module
-var server = require('./server.js');
-server.startServer(processReply, token, botUrl);
 
 //Array containing all of our commands.
-var commands = JSON.parse(fs.readFileSync('commands.json'));
+var commands;
 
 //A cache which will hold any files that we may use
 var fileCache = {};
+var bootloaderData;
 
-//At this point the bot is all nice and started up.
-bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
+
+
+exports.token = null;
+exports.name = "PennyBotV2";
+exports.directory = "";
+
+
+//Initalize the bot
+exports.init = function(initData) {
+    bootloaderData = initData;
+    bootloaderData.initBotFunc(exports.directory);
+    bot.setToken(exports.token);
+    bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
+    loadCommands();
+}
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
@@ -59,7 +67,7 @@ function forPenny(msg) {
     return false;
 }
 
-function processReply(message) {
+exports.callback = function(message) {
     //Un-comment to have the bot echo file IDs to the console. Useful when webhooks are enabled and we can't get IDs from a browser
     // if (message.hasOwnProperty('photo')) {
     //     console.log(message.photo[message.photo.length-1].file_id);
@@ -85,7 +93,7 @@ function processReply(message) {
     let messageProcessed = false;
     for (let i = 0; i < commands.length; i++) {
         for (let j = 0; j < commands[i].command_names.length; j++) {
-            if (message.text.toLowerCase().includes(commands[i].command_names[j])) {
+            if (message.text.toLowerCase().substring(2).includes(commands[i].command_names[j])) {
                 processCommand(commands[i], message);
                 messageProcessed = true;
             }
@@ -109,7 +117,7 @@ function processCommand(command, message) {
     if (command.requires_admin) {
         if (!isAdmin(message)) {
             bot.sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
-            bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`)
+            bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`);
         }
     }
     switch (command.command_type) {
@@ -163,6 +171,10 @@ function processCommand(command, message) {
             break;
         //Forward
         case 7:
+            if (message.from.id == FUJI) {
+                bot.sendReply(message.chat.id, "No", message.message_id);
+                break;
+            }
             bot.forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
@@ -192,6 +204,43 @@ function processCommand(command, message) {
                 }
             }
             break;
+        //Hiatus
+        case 9:
+            var deltaDays = 0;
+            var delta = hiatusEnd - new Date();
+            if (delta <= 0) {
+                bot.sendReply(message.chat.id, "THE HIATUS IS OVER!", message.message_id);
+            }
+            else {
+                deltaDays = Math.ceil(delta / 86400000);
+                delta %= 86400000;
+                if (deltaDays <= 1) {
+                    bot.sendReply(message.chat.id, 'RWBY returns tomorrow. Pb hype! Oh wait...', message.message_id);
+                }
+                else if (deltaDays > 1) {
+                    bot.sendReply(message.chat.id, 'There are currently ' + deltaDays + ' days until RWBY returns.', message.message_id);
+                }
+            }
+            break;
+        case 10:
+            if (command.command_data.type == 0) { //coin flip
+                if (Math.floor(Math.random()*2) == 0) {
+                    bot.sendReply(message.chat.id, "It's heads.", message.message_id);
+                    break;
+                }
+                else {
+                    bot.sendReply(message.chat.id, "It's tails.", message.message_id);
+                    break;
+                }
+            }
+            else if (command.command_data.type == 1) { //die roll
+                bot.sendReply(message.chat.id, "You rolled a " + Math.ceil(Math.random()*6) + ".", message.message_id);
+                break;
+            }
+            break; //added for consistency, the program should never reach this point
+        case 11:
+            bot.sendMarkdown(message.chat.id, command.command_data.text, command.command_data.mode, message.message_id, command.command_data.disablePreview);
+            break;
 
 
         //---
@@ -211,11 +260,14 @@ function processCommand(command, message) {
             addPhotoToCaptionedList(message);
             break;
         case 260://Refreshes the command list so we don't have to restart the bot
-            commands = JSON.parse(fs.readFileSync('commands.json'));
+            loadCommands();
             bot.sendReply(message.chat.id, command.command_data.replyText, message.message_id);
             break;
         case 261://echoes a file id from a file type specified by the second line of the message
             echoFileId(message);
+            break;
+		case 262://Uptime
+            doUptime(message);
             break;
         default:
             console.error("Somehow there's a command of unknown type");
@@ -223,8 +275,13 @@ function processCommand(command, message) {
     }
 }
 
+
+function loadCommands() {
+    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/commands.json'));
+}
+
 function echoFileId(message) {
-    let fileId = ''
+    let fileId = '';
     let parsedMessage = message.text.toLowerCase().split("\n");
     if (typeof parsedMessage[1] == "undefined") {
         bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
@@ -233,10 +290,10 @@ pb, echo file id
 fileType`,message.message_id);
         return;
     }
-    if (parsedMessage[1] == 'photo' | parsedMessage[1] == 'picture') {
+    if (parsedMessage[1] == 'photo' || parsedMessage[1] == 'picture') {
         fileId = message.photo[message.photo.length - 1].file_id;
     }
-    else if (parsedMessage[1] == 'animation' | parsedMessage[1] == 'gif') {
+    else if (parsedMessage[1] == 'animation' || parsedMessage[1] == 'gif') {
         fileId = message.animation.fileId;
     }
     bot.sendReply(message.chat.id, fileId, message.message_id);
@@ -259,12 +316,12 @@ filename.txt`,message.message_id);
     let fileId = message.photo[message.photo.length - 1].file_id;
     //Add it into the file
     let fileName = parsedMessage[1];
-    if (!fs.existsSync(fileName)) {
+    if (!fs.existsSync("./" + exports.directory + "/" + fileName)) {
         bot.sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
-        fs.appendFileSync(fileName, "\n" + fileId);
+        fs.appendFileSync("./" + exports.directory + "/" + fileName, "\n" + fileId);
     } catch (e) {
         bot.sendReply(message.chat.id, "Could not add file. Error sent to developers");
         bot.sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
@@ -295,12 +352,12 @@ caption`, message.message_id);
     let caption = parsedMessage[2];
     //Add it into the file
     let fileName = parsedMessage[1];
-    if (!fs.existsSync(fileName)) {
+    if (!fs.existsSync("./" + exports.directory + "/" + fileName)) {
         bot.sendReply(message.chat.id, "The file " + fileName + " does not exist!",message.message_id);
         return;
     }
     try {
-        fs.appendFileSync(fileName, "\n" + fileId + "|" + caption);
+        fs.appendFileSync("./" + exports.directory + "/" + fileName, "\n" + fileId + "|" + caption);
     } catch (e) {
         bot.sendReply(message.chat.id, "Could not add file. Error sent to developers");
         bot.sendMessage(PBTESTINGCHANNEL, "Could not add file: " + e);
@@ -326,19 +383,20 @@ function doHelp(message) {
             messageText += ": " + commands[i].command_description + "\n\n";
         }
     }
-    console.log(messageText)
+    console.log(messageText);
     bot.sendReply(message.chat.id, messageText, message.message_id);
 }
 
 //Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
 function shutdown(msg) {
-    shutdownChatId = msg.chat.id
-    shutdownReplyId = msg.msg_id
-    server.killServer(function() {
-        bot.sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
-        bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
-        console.log("Server has shut down");
-    });
+    shutdownChatId = msg.chat.id;
+    shutdownReplyId = msg.msg_id;
+    bootloaderData.killFunc(exports.token);
+}
+
+exports.onKill = function() {
+    bot.sendMessage(shutdownChatId, "!snoitatulaS", shutdownReplyId);
+    bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is OFF");
 }
 
 function parseSimpleIdList(fileName) {
@@ -347,7 +405,7 @@ function parseSimpleIdList(fileName) {
     //Split by new line
     //Put that into the array
     //Profit
-    let file = fs.readFileSync(fileName);
+    let file = fs.readFileSync("./" + exports.directory + "/" + fileName);
     file += "";
     let ids = file.split('\n');
     fileCache[fileName] = ids;
@@ -360,7 +418,7 @@ function parseCaptionedIdList(fileName) {
     //Split each line into an ID and caption (using |)
     //Put that into the array
     //Profit
-    let file = fs.readFileSync(fileName);
+    let file = fs.readFileSync("./" + exports.directory + "/" + fileName);
     file += "";
     let ids = file.split('\n');
     for (let i = 0; i < ids.length; i++) {
@@ -376,7 +434,7 @@ function parseCaptionedIdList(fileName) {
 
 function parseComplexList(fileName) {
     let complexList = [];
-    let file = JSON.parse(fs.readFileSync(fileName));
+    let file = JSON.parse(fs.readFileSync("./" + exports.directory + "/" + fileName));
     for (i = 0; i < file.length; i++) {
         if (file[i].fileType == 'photo') {
             if (file[i].caption == null) {
@@ -413,6 +471,19 @@ function parseComplexList(fileName) {
     }
     fileCache[fileName] = complexList;
 }
+
+
+function doUptime(msg) {
+    var uptime = Math.floor(process.uptime());
+    var hours   = Math.floor(uptime / 3600);
+    var minutes = Math.floor((uptime - (hours * 3600)) / 60);
+    var seconds = uptime - (hours * 3600) - (minutes * 60);
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    bot.sendReply(msg.chat.id, "I've been working for "+hours+':'+minutes+':'+seconds, msg.msg_id);
+}
+
 
 
 

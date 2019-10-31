@@ -171,10 +171,22 @@
    ],
    "command_data": {
        "text": "DORIYAH",
-       "link": "https://youtu.be/JREIIClBQNM",
+       "link": "https://youtu.be/oiX7oBoavlA",
        "disablePreview": true
    },
    "command_description": "Shows your DORIYAH pride"
+}, {
+   "requires_admin": false,
+   "command_type": 6,
+   "command_names": [
+       "pb"
+   ],
+   "command_data": {
+       "text": "pb",
+       "link": "https://youtu.be/s8MDNFaGfT4",
+       "disablePreview": true
+   },
+   "command_description": "pb"
 }, {
    "requires_admin": false,
    "command_type": 8,
@@ -210,4 +222,104 @@
         "disablePreview": true
     },
     "command_description": "Sends the spreadsheet™"
+}, {
+    "requires_admin": false,
+    "command_type": 262,
+    "command_names": [
+        "uptime"
+	],
+    "command_description": "Gets my uptime in HH:MM:SS"
+}, {
+    "requires_admin": false,
+    "command_type": 9,
+    "command_names": [
+        "hiatus"
+	],
+    "command_description": "Displays remaining hiatus"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "scripture"
+    ],
+    "command_data": "\"Verily I say unto thee, lay thine eyes upon the field in which my fucks are grown, and behold that it is barren.\" -Mood 24:7",
+    "command_description": "Sends a passage from the book of meme"
+}, {
+    "requires_admin": false,
+    "command_type": 10,
+    "command_names": [
+        "flip a coin"
+    ],
+    "command_data": {
+        "type": 0
+    },
+    "command_description": "Flips a coin"
+}, {
+    "requires_admin": false,
+    "command_type": 10,
+    "command_names": [
+        "roll a die",
+        "roll a dice"
+    ],
+    "command_data": {
+        "type": 1
+    },
+    "command_description": "Rolls a die"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "tyrian"
+    ],
+    "command_data": "He's insane!",
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "yang"
+    ],
+    "command_data": "I think she has a crush on Blake...",
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 2,
+    "command_names": [
+        "sage"
+    ],
+    "command_data": {
+        "fileId": "AgADAQAD6qgxG_uG0UXe8xz_hGwFnVUdFDAABAEAAwIAA3gAA6COBAABFgQ",
+        "caption": "He has a big sword!"
+    },
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 2,
+    "command_names": [
+        "angry"
+    ],
+    "command_data": {
+        "fileId": "AgADAQAD66gxG_uG0UXCD1gL5rbClar2awYABAEAAwIAA3kAA541AQABFgQ",
+        "caption": "WHAT DID YOU JUST SAY?"
+    },
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "oobleck"
+    ],
+    "command_data": "What would happen if we gave Ruby his coffee? Or Nora for that matter?",
+    "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 11,
+    "command_names": [
+        "three laws"
+    ],
+    "command_data": {
+        "text": "I know these! 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm. 2. A robot must obey the orders given it by human beings except where such orders would conflict with the First Law. 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws. ~~4. Any robot that can't think around these rules is dumb.~~",
+        "mode": "Markdown"
+    },
+    "command_description": "template"
 }]

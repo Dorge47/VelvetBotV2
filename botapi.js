@@ -112,6 +112,20 @@ exports.sendLink = function(id, text, link, replyId, disableShowPreview) {
     });
 }
 
+//Sends (text) parsed according to (mode) to (id) as a reply to (replyId) with previews shown or disabled according to (disableShowPreview) in case of a link
+exports.sendMarkdown = function(id, text, mode, replyId, disableShowPreview) {
+    var message = {
+        chat_id: id,
+        text: text,
+        parse_mode: mode,
+        disable_web_page_preview: disableShowPreview,
+        reply_to_message_id: replyId,
+    };
+    var request = sendRequest("sendMessage", message, function(text) {
+        console.log(text);
+    });
+}
+
 //Sends animation with id (fileId) to (id) as a reply to (replyId)
 exports.sendAnimation = function(id, fileId, replyId) {
     var message = {
