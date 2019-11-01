@@ -241,6 +241,9 @@ function processCommand(command, message) {
         case 11:
             bot.sendMarkdown(message.chat.id, command.command_data.text, command.command_data.mode, message.message_id, command.command_data.disablePreview);
             break;
+        case 12:
+            let randomResponse = Math.floor(Math.random()*command.command)
+            break;
 
 
         //---
