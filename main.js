@@ -92,8 +92,8 @@ exports.callback = function(message) {
     //Check to see if any of the messages match a command
     let messageProcessed = false;
     console.log(message.text.toLowerCase().substring(2));
+    console.log(JSON.stringify(commands));
     for (let i = 0; i < Object.keys(commands).length; i++) {
-    	console.log(Object.keys(commands)[i]);
         if (message.text.toLowerCase().substring(2).includes(Object.keys(commands)[i])) {
             processCommand(commands[Object.keys(commands)[i]], message);
             messageProcessed = true;
