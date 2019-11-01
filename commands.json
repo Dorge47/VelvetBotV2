@@ -1,25 +1,5 @@
 [{
     "requires_admin": false,
-    "command_type": 0,
-    "command_names": [
-        "test"
-    ],
-    "command_data": "I'm working!",
-    "command_description": "Ensures that I'm combat ready"
-}, {
-    "requires_admin": false,
-    "command_type": 6,
-    "command_names": [
-        "weiss isn't flat"
-    ],
-    "command_data": {
-        "text": "She's not?",
-        "link": "https://imgur.com/a/zxDbY",
-        "disablePreview": true
-    },
-    "command_description": "Proves you wrong"
-}, {
-    "requires_admin": false,
     "command_type": 7,
     "command_names": [
         "suggestion"
@@ -29,97 +9,6 @@
         "replyText": "Your suggestion has been sent to the developers"
     },
     "command_description": "Sends a suggestion to the developers"
-}, {
-    "requires_admin": false,
-    "command_type": 3,
-    "command_names": [
-        "neo"
-    ],
-    "command_data": "neoIds.txt",
-    "command_description": "Sends a random photo of Neo"
-}, {
-    "requires_admin": false,
-    "command_type": 3,
-    "command_names": [
-        "emerald"
-    ],
-    "command_data": "emeraldIds.txt",
-    "command_description": "Sends a random photo of Emerald"
-}, {
-    "requires_admin": false,
-    "command_type": 3,
-    "command_names": [
-        "dishwasher art",
-        "dishwasher1910 art"
-    ],
-    "command_data": "dishwasherIds.txt",
-    "command_description": "Sends a random piece of art from u/dishwasher1910"
-}, {
-    "requires_admin": false,
-    "command_type": 5,
-    "command_names": [
-        "heresy"
-    ],
-    "command_data": {
-        "fileId": "BQADAQADQQADSQyZROKE-HVS2UiSAg",
-        "caption": "Warning! Heresy detected! Pennybot reporting Combat Ready! Firing main cannon!"
-    },
-    "command_description": "Fires the heresy cannon"
-}, {
-    "requires_admin": false,
-    "command_type": 5,
-    "command_names": [
-        "protec"
-    ],
-    "command_data": {
-        "fileId": "CgADAQADbQAD28IQRTfjbnU1vQKEAg",
-        "caption": "Protec the smile."
-    },
-    "command_description": "Protects the Rubes"
-}, {
-    "requires_admin": false,
-    "command_type": 4,
-    "command_names": [
-        "lewd"
-    ],
-    "command_data": "lewdIds.txt",
-    "command_description": "Responds to lewdness"
-}, {
-    "requires_admin": false,
-    "command_type": 1,
-    "command_names": [
-        "do nothing to cook",
-        "do nothing to the cook"
-    ],
-    "command_data": "AgADAQADJ6gxG9-wwURbYA8yWu8pHYXqCjAABL40_i1Z9R67efICAAEC",
-    "command_description": "Does nothing to the cook"
-}, {
-    "requires_admin": false,
-    "command_type": 1,
-    "command_names": [
-        "nuts and dolts"
-    ],
-    "command_data": "AgADAQADAqgxG0kMoUTZsEdEe4jScjgDCzAABAmoyO5mPjerx_wCAAEC",
-    "command_description": "Shows some fanart of nuts and dolts"
-}, {
-    "requires_admin": false,
-    "command_type": 2,
-    "command_names": [
-        "enraged and offended"
-    ],
-    "command_data": {
-        "fileId": "AgADAQADPagxG5o6iEXZ9XPn98TSAsxwDDAABMbShZZbYWuTcFMEAAEC",
-        "caption": "⋋_⋌"
-    },
-    "command_description": "Sends an enraged and offended picture"
-}, {
-    "requires_admin": false,
-    "command_type": 256,
-    "command_names": [
-        "help"
-    ],
-    "command_data": "",
-    "command_description": "Shows this page"
 }, {
     "requires_admin": true,
     "command_type": 257,
@@ -164,65 +53,6 @@
     "command_data": "",
     "command_description": "Echoes the file id from a sent file"
 }, {
-   "requires_admin": false,
-   "command_type": 6,
-   "command_names": [
-       "doriyah"
-   ],
-   "command_data": {
-       "text": "DORIYAH",
-       "link": "https://youtu.be/oiX7oBoavlA",
-       "disablePreview": true
-   },
-   "command_description": "Shows your DORIYAH pride"
-}, {
-   "requires_admin": false,
-   "command_type": 6,
-   "command_names": [
-       "pb"
-   ],
-   "command_data": {
-       "text": "pb",
-       "link": "https://youtu.be/s8MDNFaGfT4",
-       "disablePreview": true
-   },
-   "command_description": "pb"
-}, {
-   "requires_admin": false,
-   "command_type": 8,
-   "command_names": [
-       "hype"
-   ],
-   "command_data": {
-       "localFileId": "hype.json"
-   },
-   "command_description": "Sends some hype"
-}, {
-    "requires_admin": false,
-    "command_type": 6,
-    "command_names": [
-        "selfie"
-    ],
-    "command_data": {
-        "text": "Don't look, I'm naked!",
-        "link": "https://imgur.com/a/57JEvLZ",
-        "disablePreview": true
-    },
-    "command_description": "Sends selfies of the bot"
-}, {
-    "requires_admin": false,
-    "command_type": 6,
-    "command_names": [
-        "shipsheet",
-        "spreadsheet"
-    ],
-    "command_data": {
-        "text": "It is glorious.",
-        "link": "https://docs.google.com/spreadsheets/d/1_bnr68pepImz1RDq7uJiQraVnDjU2D0vqmrSE85sF_U/edit?usp=sharing",
-        "disablePreview": true
-    },
-    "command_description": "Sends the spreadsheet™"
-}, {
     "requires_admin": false,
     "command_type": 262,
     "command_names": [
@@ -236,14 +66,6 @@
         "hiatus"
 	],
     "command_description": "Displays remaining hiatus"
-}, {
-    "requires_admin": false,
-    "command_type": 0,
-    "command_names": [
-        "scripture"
-    ],
-    "command_data": "\"Verily I say unto thee, lay thine eyes upon the field in which my fucks are grown, and behold that it is barren.\" -Mood 24:7",
-    "command_description": "Sends a passage from the book of meme"
 }, {
     "requires_admin": false,
     "command_type": 10,
@@ -265,58 +87,4 @@
         "type": 1
     },
     "command_description": "Rolls a die"
-}, {
-    "requires_admin": false,
-    "command_type": 0,
-    "command_names": [
-        "tyrian"
-    ],
-    "command_data": "He's insane!",
-    "command_description": "template"
-}, {
-    "requires_admin": false,
-    "command_type": 0,
-    "command_names": [
-        "yang"
-    ],
-    "command_data": "I think she has a crush on Blake...",
-    "command_description": "template"
-}, {
-    "requires_admin": false,
-    "command_type": 2,
-    "command_names": [
-        "sage"
-    ],
-    "command_data": {
-        "fileId": "AgADAQAD6qgxG_uG0UXe8xz_hGwFnVUdFDAABAEAAwIAA3gAA6COBAABFgQ",
-        "caption": "He has a big sword!"
-    },
-    "command_description": "template"
-}, {
-    "requires_admin": false,
-    "command_type": 2,
-    "command_names": [
-        "angry"
-    ],
-    "command_data": {
-        "fileId": "AgADAQAD66gxG_uG0UXCD1gL5rbClar2awYABAEAAwIAA3kAA541AQABFgQ",
-        "caption": "WHAT DID YOU JUST SAY?"
-    },
-    "command_description": "template"
-}, {
-    "requires_admin": false,
-    "command_type": 0,
-    "command_names": [
-        "oobleck"
-    ],
-    "command_data": "What would happen if we gave Ruby his coffee? Or Nora for that matter?",
-    "command_description": "template"
-}, {
-    "requires_admin": false,
-    "command_type": 0,
-    "command_names": [
-        "three laws"
-    ],
-    "command_data": "I know these! 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm. 2. A robot must obey the orders given it by human beings except where such orders would conflict with the First Law. 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws. ~~4. Any robot that can't think around these rules is dumb.~~",
-    "command_description": "template"
 }]

@@ -48,7 +48,7 @@ exports.init = function(initData) {
 
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
-    var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya"]
+    var pyrrha = ["phyrra","pyrah","phyrrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","pierah","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","pyrhha","pyhraa","pyyrah","phyyra","pryyha","pyyrha","phyra","prryha","pyraah","pearhat","pyyrahe","purra","prhhya","pyrrahe"]
     for (let i = 0; i < pyrrha.length; i++) {
         if (msg.text.toLowerCase().includes(pyrrha[i])) {
             bot.sendReply(msg.chat.id,`${pyrrha[i][0].toUpperCase() + pyrrha[i].slice(1)}? Do you mean Pyrrha?`,msg.message_id);//Sends 'P' + the string from pyrrha minus the first letter
@@ -91,12 +91,10 @@ exports.callback = function(message) {
 
     //Check to see if any of the messages match a command
     let messageProcessed = false;
-    for (let i = 0; i < commands.length; i++) {
-        for (let j = 0; j < commands[i].command_names.length; j++) {
-            if (message.text.toLowerCase().substring(2).includes(commands[i].command_names[j])) {
-                processCommand(commands[i], message);
-                messageProcessed = true;
-            }
+    for (let i = 0; i < Object.keys(commands).length; i++) {
+        if (message.text.toLowerCase().substring(2).includes(Object.keys(commands)[i])) {
+            processCommand(commands[Object.keys(commands)[i]], message);
+            messageProcessed = true;
         }
     }
     if (!messageProcessed) {
@@ -118,6 +116,7 @@ function processCommand(command, message) {
         if (!isAdmin(message)) {
             bot.sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
             bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`);
+            return;
         }
     }
     switch (command.command_type) {
@@ -273,14 +272,15 @@ function processCommand(command, message) {
             doUptime(message);
             break;
         default:
-            console.error("Somehow there's a command of unknown type");
+            let randomResponse = Math.floor(Math.random()*Object.keys(command).length)
+            bot.sendMarkdown(message.chat.id, command[randomResponse], "Markdown", message.message_id, true);
             break;
     }
 }
 
 
 function loadCommands() {
-    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/commands.json'));
+    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/redditcommands.json'));
 }
 
 function echoFileId(message) {
