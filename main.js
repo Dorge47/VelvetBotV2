@@ -280,7 +280,7 @@ function processCommand(command, message) {
 
 
 function loadCommands() {
-    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/redditcommands.json'));
+    commands = JSON.parse(JSON.stringify(fs.readFileSync("./" + exports.directory + '/redditcommands.json')));
 }
 
 function echoFileId(message) {
@@ -437,7 +437,7 @@ function parseCaptionedIdList(fileName) {
 
 function parseComplexList(fileName) {
     let complexList = [];
-    let file = JSON.parse(JSON.stringify(fs.readFileSync("./" + exports.directory + "/" + fileName)));
+    let file = JSON.parse(fs.readFileSync("./" + exports.directory + "/" + fileName));
     for (i = 0; i < file.length; i++) {
         if (file[i].fileType == 'photo') {
             if (file[i].caption == null) {
