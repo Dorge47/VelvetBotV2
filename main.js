@@ -7,6 +7,7 @@ const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
 var hiatusEnd = new Date(2019,10,2);
+var randomResponse = 1;
 
 // The various strings pennybot can respond to.
 const identifiers = [
