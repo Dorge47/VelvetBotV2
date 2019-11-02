@@ -94,7 +94,6 @@ exports.callback = function(message) {
     //Check to see if any of the messages match a command
     let messageProcessed = false;
     console.log(message.text.toLowerCase().substring(identifierLength));
-    console.log(fs.readFileSync("./" + exports.directory + '/redditcommands.json').toString());
     for (let i = 0; i < commands.length; i++) {
         if (message.text.toLowerCase().substring(identifierLength).includes(commands[i][0])) {
             processCommand(commands[i], message);
