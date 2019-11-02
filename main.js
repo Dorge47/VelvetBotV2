@@ -275,7 +275,7 @@ function processCommand(command, message) {
             doUptime(message);
             break;
         default:
-            var randomResponse = Math.floor(Math.random()*(command.length-1)+1)
+            randomResponse = Math.floor(Math.random()*(command.length-1)+1)
             bot.sendMarkdown(message.chat.id, command[randomResponse], "Markdown", message.message_id, true);
             break;
     }
