@@ -60,6 +60,7 @@ function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
         if (msg.text.toLowerCase().includes(identifiers[i])) {
             if (msg.text.toLowerCase().indexOf(identifiers[i]) == 0) {
+                identifierLength = identifiers[i].length;
                 return true;
             }
         }
@@ -91,11 +92,11 @@ exports.callback = function(message) {
 
     //Check to see if any of the messages match a command
     let messageProcessed = false;
-    console.log(message.text.toLowerCase().substring(2));
+    console.log(message.text.toLowerCase().substring(identifierLength));
     console.log(fs.readFileSync("./" + exports.directory + '/redditcommands.json').toString());
-    for (let i = 0; i < Object.keys(commands).length; i++) {
-        if (message.text.toLowerCase().substring(2).includes(Object.keys(commands)[i])) {
-            processCommand(commands[Object.keys(commands)[i]], message);
+    for (let i = 0; i < commands.length; i++) {
+        if (message.text.toLowerCase().substring(identifierLength).includes(commands[i][0])) {
+            processCommand(commands[i], message);
             messageProcessed = true;
         }
     }
@@ -114,14 +115,14 @@ function isAdmin(message) {
 }
 
 function processCommand(command, message) {
-    if (command.requires_admin) {
+    if (command[command.length-1] == 42) {
         if (!isAdmin(message)) {
             bot.sendMonospaceMessage(message.chat.id, "Username is not in the sudoers file. This incident will be reported", message.message_id);
             bot.sendMessage(PBTESTINGCHANNEL, `User ${message.from.username} attempted to access an unauthorized command`);
             return;
         }
     }
-    switch (command.command_type) {
+    switch (command[command.length-2]) {
         //Simple message
         case 0:
             bot.sendReply(message.chat.id, command.command_data, message.message_id);
@@ -274,7 +275,7 @@ function processCommand(command, message) {
             doUptime(message);
             break;
         default:
-            let randomResponse = Math.floor(Math.random()*Object.keys(command).length)
+            let randomResponse = Math.floor(Math.random()*(command.length-1)+1)
             bot.sendMarkdown(message.chat.id, command[randomResponse], "Markdown", message.message_id, true);
             break;
     }
@@ -282,7 +283,29 @@ function processCommand(command, message) {
 
 
 function loadCommands() {
-    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/redditcommands.json').toString());
+    commands = [];
+    var commandString = fs.readFileSync("./" + exports.directory + '/redditcommands.json').toString();
+    var splitStr = commandString.split("\n")
+    for (i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].trim();
+    }
+    splitStr.splice(0,2);
+    let newCommand = 0;
+    for (i = 0; i < splitStr.length; i++) {
+        if (splitStr[i][0] == '"') {
+            commands[newCommand] = []
+            commands[newCommand][0] = splitStr[i].split('"')[1];
+            for (j = 1;;j++) {
+                if (!isNaN(parseInt(splitStr[i+j][0]))) {
+                    commands[newCommand][j] = splitStr[i+j].slice(3).split('"')[1];
+                }
+                else {
+                    break;
+                }
+            }
+            newCommand++;
+        }
+    }
 }
 
 function echoFileId(message) {
