@@ -7,7 +7,7 @@ const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
 var hiatusEnd = new Date(2019,10,2);
-var randomResponse = 1;
+randomResponse = 1;
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -243,9 +243,6 @@ function processCommand(command, message) {
             break; //added for consistency, the program should never reach this point
         case 11:
             bot.sendMarkdown(message.chat.id, command.command_data.text, command.command_data.mode, message.message_id, command.command_data.disablePreview);
-            break;
-        case 12:
-            let randomResponse = Math.floor(Math.random()*command.command)
             break;
 
 
