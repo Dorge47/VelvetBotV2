@@ -92,7 +92,7 @@ exports.callback = function(message) {
     //Check to see if any of the messages match a command
     let messageProcessed = false;
     console.log(message.text.toLowerCase().substring(2));
-    console.log(fs.readFileSync("./" + exports.directory + '/redditcommands.json'))
+    console.log(fs.readFileSync("./" + exports.directory + '/redditcommands.json').toString());
     for (let i = 0; i < Object.keys(commands).length; i++) {
         if (message.text.toLowerCase().substring(2).includes(Object.keys(commands)[i])) {
             processCommand(commands[Object.keys(commands)[i]], message);
@@ -282,7 +282,7 @@ function processCommand(command, message) {
 
 
 function loadCommands() {
-    commands = JSON.parse(JSON.stringify(fs.readFileSync("./" + exports.directory + '/redditcommands.json')));
+    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/redditcommands.json').toString());
 }
 
 function echoFileId(message) {
