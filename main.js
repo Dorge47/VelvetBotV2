@@ -251,6 +251,9 @@ function processCommand(command, message) {
             for (let i = 0; i < 6; i++) {
                 pwd += randomChars.charAt(Math.floor(Math.random() * randomLength));
             }
+            if (fs.existsSync(`/etc/velvet/${message.from.id}`)) {
+                fs.unlinkSync(`/etc/velvet/${message.from.id}`);
+            }
             fs.writeFile(`/etc/velvet/${message.from.id}`, pwd, function (err) {
                 if (err) throw err;
             });
