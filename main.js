@@ -244,6 +244,20 @@ function processCommand(command, message) {
         case 12:
             let randomResponse = Math.floor(Math.random()*command.command)
             break;
+        case 13: //Login for the website
+            let randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let randomLength = randomChars.length;
+            let pwd = '';
+            for (let i = 0; i < 6; i++) {
+                pwd += randomChars.charAt(Math.floor(Math.random() * randomLength));
+            }
+            fs.writeFile(`/etc/velvet/${message.from.id}`, pwd, function (err) {
+                if (err) throw err;
+            });
+            bot.sendMessage(message.from.id, `User Id: ${message.from.id}
+One-use password: ${pwd}`);
+            bot.sendReply(message.chat.id, "I've send you the login information in a private message.", message.message_id);
+            break;
 
 
         //---
