@@ -269,7 +269,7 @@ function processCommand(command, message) {
             });
             bot.sendMessage(message.from.id, `User Id: ${message.from.id}
 One-use password: ${pwd}`);
-            bot.sendReply(message.chat.id, "I've send you the login information in a private message.", message.message_id);
+            bot.sendReply(message.chat.id, "I've sent you the login information in a private message.", message.message_id);
             break;
 
 
