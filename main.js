@@ -264,6 +264,9 @@ function processCommand(command, message) {
             fs.writeFile(`/etc/velvet/${message.from.id}`, pwd, function (err) {
                 if (err) throw err;
             });
+            fs.chmodSync(`/etc/velvet/${message.from.id}`, 777, function (err) {
+                if (err) throw err;
+            });
             bot.sendMessage(message.from.id, `User Id: ${message.from.id}
 One-use password: ${pwd}`);
             bot.sendReply(message.chat.id, "I've send you the login information in a private message.", message.message_id);
