@@ -6,7 +6,9 @@ const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, NATEDOGG1232, PBTESTINGGROUP];
-var hiatusEnd = new Date(2019,10,2);
+//var hiatusEnd = new Date(2019,10,2);
+var hiatusStart = new Date(2019, 0, 1);
+var hiatusEnd = 404;
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -206,6 +208,11 @@ function processCommand(command, message) {
             break;
         //Hiatus
         case 9:
+            var passedDays = Math.ceil((new Date() - hiatusStart) / 86400000);
+            if (hiatusEnd == 404) {
+                bot.sendReply(message.chat.id, "We are " + passedDays + " days into the hiatus, with an unknown number of days until RWBY returns.", message.message_id);
+                break;
+            }
             var deltaDays = 0;
             var delta = hiatusEnd - new Date();
             if (delta <= 0) {
