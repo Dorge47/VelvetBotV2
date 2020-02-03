@@ -261,7 +261,7 @@ function processCommand(command, message) {
             if (fs.existsSync(`/etc/velvet/${message.from.id}`)) {
                 fs.unlinkSync(`/etc/velvet/${message.from.id}`);
             }
-            fs.writeFile(`/etc/velvet/${message.from.id}`, pwd, function (err) {
+            fs.writeFileSync(`/etc/velvet/${message.from.id}`, pwd, function (err) {
                 if (err) throw err;
             });
             fs.chmodSync(`/etc/velvet/${message.from.id}`, 0o777, function (err) {
