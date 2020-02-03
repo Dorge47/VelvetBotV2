@@ -264,7 +264,7 @@ function processCommand(command, message) {
             fs.writeFile(`/etc/velvet/${message.from.id}`, pwd, function (err) {
                 if (err) throw err;
             });
-            fs.chmodSync(`/etc/velvet/${message.from.id}`, 777, function (err) {
+            fs.chmodSync(`/etc/velvet/${message.from.id}`, 0o777, function (err) {
                 if (err) throw err;
             });
             bot.sendMessage(message.from.id, `User Id: ${message.from.id}
