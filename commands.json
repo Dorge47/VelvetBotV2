@@ -326,4 +326,12 @@
         "login"
     ],
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "bruh"
+    ],
+    "command_data": "AgACAgEAAx0CSdM9ygACcmFeP4NTQtE83NEByDiTBruv8RucrQACk6gxG4wAAeFF6NG_ejUVhGngu24GAAQBAAMCAAN4AANqTAEAARgE",
+    "command_description": "template"
 }]
