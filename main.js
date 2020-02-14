@@ -247,7 +247,7 @@ function processCommand(command, message) {
                     var rolls = message.text.match(regex);
                     for (let i = 0; i < rolls.length; i++) {
                         let numDice = parseInt(rolls[i].slice(0,rolls[i].indexOf('d')));
-                        let diceMax = parseInt(rolls[i].slice(indexOf('d')+1));
+                        let diceMax = parseInt(rolls[i].slice(rolls[i].indexOf('d')+1));
                         for (let diceCounted = 0; diceCounted < numDice; diceCounted++) {
                             response += Math.ceil(Math.random()*diceMax) + ' ';
                         }
