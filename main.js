@@ -252,7 +252,7 @@ function processCommand(command, message) {
                             response += Math.ceil(Math.random()*diceMax) + ' ';
                         }
                     }
-                    bot.sendReply(message.chat.id, response.slice(0,response.length-1));
+                    bot.sendReply(message.chat.id, response.slice(0,response.length-1), message.message_id);
                 }
                 else if (message.text.toLowerCase().substring(2).includes('roll a die') || message.text.toLowerCase().substring(2).includes('roll a dice')) {
                     bot.sendReply(message.chat.id, "You rolled a " + Math.ceil(Math.random()*6) + ".", message.message_id);
