@@ -241,7 +241,22 @@ function processCommand(command, message) {
                 }
             }
             else if (command.command_data.type == 1) { //die roll
-                bot.sendReply(message.chat.id, "You rolled a " + Math.ceil(Math.random()*6) + ".", message.message_id);
+                var regex = /\d+[d,D]\d+/g;
+                if (message.text.match(regex)) {
+                    let response = "You rolled "
+                    var rolls = message.text.match(regex);
+                    for (let i = 0; i < rolls.length; i++) {
+                        let numDice = parseInt(rolls[i].slice(0,rolls[i].indexOf('d')));
+                        let diceMax = parseInt(rolls[i].slice(indexOf('d')+1));
+                        for (let diceCounted = 0; diceCounted < numDice; diceCounted++) {
+                            response += Math.ceil(Math.random()*diceMax) + ' ';
+                        }
+                    }
+                    bot.sendReply(message.chat.id, response.slice(0,response.length-1));
+                }
+                else if (message.text.toLowerCase().substring(2).includes('roll a die') || message.text.toLowerCase().substring(2).includes('roll a dice')) {
+                    bot.sendReply(message.chat.id, "You rolled a " + Math.ceil(Math.random()*6) + ".", message.message_id);
+                }
                 break;
             }
             break; //added for consistency, the program should never reach this point
@@ -250,26 +265,6 @@ function processCommand(command, message) {
             break;
         case 12:
             let randomResponse = Math.floor(Math.random()*command.command)
-            break;
-        case 13: //Login for the website
-            let randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let randomLength = randomChars.length;
-            let pwd = '';
-            for (let i = 0; i < 6; i++) {
-                pwd += randomChars.charAt(Math.floor(Math.random() * randomLength));
-            }
-            if (fs.existsSync(`/etc/velvet/${message.from.id}`)) {
-                fs.unlinkSync(`/etc/velvet/${message.from.id}`);
-            }
-            fs.writeFileSync(`/etc/velvet/${message.from.id}`, pwd, function (err) {
-                if (err) throw err;
-            });
-            fs.chmodSync(`/etc/velvet/${message.from.id}`, 0o777, function (err) {
-                if (err) throw err;
-            });
-            bot.sendMessage(message.from.id, `User Id: ${message.from.id}
-One-use password: ${pwd}`);
-            bot.sendReply(message.chat.id, "I've sent you the login information in a private message.", message.message_id);
             break;
 
 
@@ -298,6 +293,26 @@ One-use password: ${pwd}`);
             break;
 		case 262://Uptime
             doUptime(message);
+            break;
+        case 263: //Login for the website
+            let randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let randomLength = randomChars.length;
+            let pwd = '';
+            for (let i = 0; i < 6; i++) {
+                pwd += randomChars.charAt(Math.floor(Math.random() * randomLength));
+            }
+            if (fs.existsSync(`/etc/velvet/${message.from.id}`)) {
+                fs.unlinkSync(`/etc/velvet/${message.from.id}`);
+            }
+            fs.writeFileSync(`/etc/velvet/${message.from.id}`, pwd, function (err) {
+                if (err) throw err;
+            });
+            fs.chmodSync(`/etc/velvet/${message.from.id}`, 0o777, function (err) {
+                if (err) throw err;
+            });
+            bot.sendMessage(message.from.id, `User Id: ${message.from.id}
+One-use password: ${pwd}`);
+            bot.sendReply(message.chat.id, "I've sent you the login information in a private message.", message.message_id);
             break;
         default:
             console.error("Somehow there's a command of unknown type");
@@ -465,7 +480,7 @@ function parseCaptionedIdList(fileName) {
 function parseComplexList(fileName) {
     let complexList = [];
     let file = JSON.parse(fs.readFileSync("./" + exports.directory + "/" + fileName));
-    for (i = 0; i < file.length; i++) {
+    for (let i = 0; i < file.length; i++) {
         if (file[i].fileType == 'photo') {
             if (file[i].caption == null) {
                 var photoToPush = {
