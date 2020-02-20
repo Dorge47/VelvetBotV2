@@ -333,4 +333,12 @@
     ],
     "command_data": "AgACAgEAAx0CSdM9ygACcmFeP4NTQtE83NEByDiTBruv8RucrQACk6gxG4wAAeFF6NG_ejUVhGngu24GAAQBAAMCAAN4AANqTAEAARgE",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "banjo"
+    ],
+    "command_data": "AgACAgEAAx0CVCb6lwACAVVeTi0j4VYCjXRoIOa08y4rTwHP-gACgKgxG9-VcUb8dywhHItqOZD4awYABAEAAwIAA3kAA4iCAgABGAQ",
+    "command_description": "template"
 }]
