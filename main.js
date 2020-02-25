@@ -85,7 +85,7 @@ exports.callback = function(message) {
         console.log(1);
         processCustomResponse(message);
     }
-    console.log(message.getOwnPropertyNames());
+    console.log(Object.getOwnPropertyNames(message));
 }
 
 function processMessage(message) {
