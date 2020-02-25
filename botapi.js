@@ -165,7 +165,7 @@ exports.pinMessage = function(id, pinId) {
 //Requests information about chat with id (id)
 exports.getChat = function(id) {
     var data = {
-        chat_id: id;
+        chat_id: id
     };
     var request = sendRequest("getChat", data, function(text) {
         //console.log(text); (Don't log anything since this is literally called every time the bot receives a message and would double the size of our logs)
