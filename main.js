@@ -77,6 +77,10 @@ exports.callback = function(message) {
     // else if (message.hasOwnProperty('animation')) {
     //     console.log(message.animation.file_id);
     // }
+    processMessage(message);
+}
+
+function processMessage(message) {
     if (!message.hasOwnProperty('text') && message.hasOwnProperty('caption')) {
         message.text = message.caption;
     }
@@ -89,6 +93,7 @@ exports.callback = function(message) {
     if (!forPenny(message)) {
         return;
     }
+}
 
 
     //Check to see if any of the messages match a command
