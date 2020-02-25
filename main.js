@@ -84,6 +84,7 @@ exports.callback = function(message) {
     else if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
         console.log(1);
         processCustomResponse(message);
+    }
 }
 
 function processMessage(message) {
@@ -585,7 +586,7 @@ function doUptime(msg) {
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
     bot.sendReply(msg.chat.id, "I've been working for "+hours+':'+minutes+':'+seconds, msg.msg_id);
-}
+}}
 
 
 
