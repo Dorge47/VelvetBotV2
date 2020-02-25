@@ -46,7 +46,7 @@ exports.init = function(initData) {
     bot.setToken(exports.token);
     bot.sendMessage(PBTESTINGCHANNEL, "PennyBotV2 is ON");
     loadCommands();
-
+    fileCache['pin'] = JSON.parse(fs.readFileSync("./" + exports.directory + '/pins.json'));
 }
 
 function misspellings(msg) {
