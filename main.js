@@ -78,15 +78,15 @@ exports.callback = function(message) {
     // else if (message.hasOwnProperty('animation')) {
     //     console.log(message.animation.file_id);
     // }
-    processMessage(message);
+    if (message.hasOwnProperty('message') {
+        processMessage(message.message);
+    }
+    else if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
+        console.log(1);
+        processCustomResponse(message);
 }
 
 function processMessage(message) {
-    if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
-        console.log(1);
-        processCustomResponse(message);
-        return;
-    }
     if (!message.hasOwnProperty('text') && message.hasOwnProperty('caption')) {
         message.text = message.caption;
     }
