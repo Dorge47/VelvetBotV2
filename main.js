@@ -83,6 +83,7 @@ exports.callback = function(message) {
 
 function processMessage(message) {
     if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
+        console.log(1);
         processCustomResponse(message);
         return;
     }
@@ -330,16 +331,25 @@ One-use password: ${pwd}`);
 }
 
 function processCustomResponse(message) {
+    console.log(2);
     if (message.hasOwnProperty('pinned_message')) {
+        console.log(3);
         let failed = true;
         for (let i = 0; i < fileCache['pin'].length; i++) {
+            console.log(4);
             if (fileCache['pin'][i].id == message.chat.id) {
+                console.log(5);
                 if (fileCache['pin'][i].message == message.message_id) {
+                    console.log(6);
                     return;
                 }
+                console.log(7);
                 fileCache['pin'][i].message = message.message_id;
+                console.log(8);
                 failed = false;
+                console.log(9);
                 writePins();
+                console.log(11);
                 break;
             }
         }
@@ -365,6 +375,7 @@ function processCustomResponse(message) {
 }
 
 function writePins() {
+    console.log(10);
     fs.writeFileSync("./" + exports.directory + '/pins.json', JSON.stringify(fileCache['pin']));
 }
 
