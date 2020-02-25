@@ -48,6 +48,8 @@ exports.init = function(initData) {
     loadCommands();
 }
 
+fileCache['pin'] = JSON.parse(fs.readFileSync("./" + exports.directory + '/pins.json'));
+
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
     var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya","ash"]
@@ -81,12 +83,18 @@ exports.callback = function(message) {
 }
 
 function processMessage(message) {
+    if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
+        processCustomResponse(message);
+        return;
+    }
     if (!message.hasOwnProperty('text') && message.hasOwnProperty('caption')) {
         message.text = message.caption;
     }
     if (!message.hasOwnProperty('text')) {
         return;
     }
+    //Get chat information
+    bot.getChat(message.from.id);
     //Check for various misspellings of Pyrrha
     misspellings(message);
     //Make sure the message was actually for PennyBot
@@ -322,6 +330,44 @@ One-use password: ${pwd}`);
     }
 }
 
+function processCustomResponse(message) {
+    if (message.hasOwnProperty('pinned_message')) {
+        let failed = true;
+        for (let i = 0; i < fileCache['pin'].length; i++) {
+            if (fileCache['pin'][i].id == message.chat.id) {
+                if (fileCache['pin'][i].message == message.message_id) {
+                    return;
+                }
+                fileCache['pin'][i].message = message.message_id;
+                failed = false;
+                writePins();
+                break;
+            }
+        }
+        if (failed) {
+            let plusOne = fileCache['pin'].length;
+            fileCache['pin'][plusOne] = {};
+            fileCache['pin'][plusOne].id = message.chat.id;
+            fileCache['pin'][plusOne].message = message.message_id;
+            writePins();
+        }
+    }
+    else if (message.hasOwnProperty('id')) {
+        for (let i = 0; i < fileCache['pin'].length; i++) {
+            if (message.id == fileCache['pin'][i].id) {
+                bot.sendMessage(message.id, "UNPINNED MESSAGE REEEEEEE");
+                if (message.hasOwnProperty('permissions') && message.permissions.can_pin_messages) {
+                    pinMessage(fileCache['pin'][i].message, message.id);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+function writePins() {
+    fs.writeFileSync("./" + exports.directory + '/pins.json', JSON.stringify(fileCache['pin']));
+}
 
 function loadCommands() {
     commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/commands.json'));

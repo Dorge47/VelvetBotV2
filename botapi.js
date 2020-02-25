@@ -151,6 +151,27 @@ exports.sendCaptionedAnimation = function(id, fileId, replyId, captionText) {
     });
 }
 
+//Pins message with id (pinId) to chat with id (id)
+exports.pinMessage = function(id, pinId) {
+    var data = {
+        chat_id: id,
+        message_id: pinId,
+    }
+    var request = sendRequest("pinChatMessage", data, function(text) {
+        console.log(text);
+    });
+}
+
+//Requests information about chat with id (id)
+exports.getChat = function(id) {
+    var data = {
+        chat_id: id;
+    };
+    var request = sendRequest("getChat", data, function(text) {
+        //console.log(text); (Don't log anything since this is literally called every time the bot receives a message and would double the size of our logs)
+    });
+}
+
 //Sets the webhook to a certain URL.
 //Will automatically append the token to the path
 exports.setWebhook = function(botUrl) {
