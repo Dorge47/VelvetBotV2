@@ -48,8 +48,6 @@ exports.init = function(initData) {
     loadCommands();
 }
 
-fileCache['pin'] = JSON.parse(fs.readFileSync("./" + exports.directory + '/pins.json'));
-
 function misspellings(msg) {
     //Various misspellings of Pyrrha.
     var pyrrha = ["phyrra","pyrah","phyrrha","phryrra","pyhrra","pyrrah","phrrya","pyrhha","pirrah","piera","pyra","pyhra","pierra","priah","phyrria","pyrra","pyrhaa","pyyra","pyrrea","pureha","pharah","pharaoh","pyhhra","phyyra","pryyha","pyyrha","phyra","prryha","pearhat","purra","prhhya","ash"]
@@ -579,7 +577,7 @@ function doUptime(msg) {
 
 
 
-
+fileCache['pin'] = JSON.parse(fs.readFileSync("./" + exports.directory + '/pins.json'));
 
 /*, {
     "command_type": ,
