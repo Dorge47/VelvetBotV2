@@ -78,7 +78,7 @@ exports.callback = function(message) {
     // else if (message.hasOwnProperty('animation')) {
     //     console.log(message.animation.file_id);
     // }
-    if (message.hasOwnProperty('message') {
+    if (message.hasOwnProperty('message')) {
         processMessage(message.message);
     }
     else if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
