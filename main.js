@@ -93,7 +93,7 @@ function processMessage(message) {
         return;
     }
     //Get chat information
-    bot.getChat(message.from.id);
+    bot.getChat(message.chat.id);
     //Check for various misspellings of Pyrrha
     misspellings(message);
     //Make sure the message was actually for PennyBot
