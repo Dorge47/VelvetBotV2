@@ -93,9 +93,6 @@ function processMessage(message) {
     if (!forPenny(message)) {
         return;
     }
-}
-
-
     //Check to see if any of the messages match a command
     let messageProcessed = false;
     for (let i = 0; i < commands.length; i++) {
