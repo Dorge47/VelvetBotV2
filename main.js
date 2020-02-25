@@ -81,6 +81,7 @@ exports.callback = function(message) {
     if (message.hasOwnProperty('message')) {
         processMessage(message.message);
     }
+    console.log(message.getOwnPropertyNames());
     else if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
         console.log(1);
         processCustomResponse(message);
