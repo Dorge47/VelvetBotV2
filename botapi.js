@@ -168,8 +168,7 @@ exports.getChat = function(id) {
         chat_id: id
     };
     var request = sendRequest("getChat", data, function(text) {
-        console.log(text);
-        processCustomResponse(text);
+        return text;
     });
 }
 

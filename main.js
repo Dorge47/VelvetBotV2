@@ -96,7 +96,7 @@ function processMessage(message) {
         return;
     }
     //Get chat information
-    bot.getChat(message.chat.id);
+    processChat(bot.getChat(message.chat.id));
     //Check for various misspellings of Pyrrha
     misspellings(message);
     //Make sure the message was actually for PennyBot
@@ -125,6 +125,10 @@ function isAdmin(message) {
         }
     }
     return false;
+}
+
+function processChat(chatObject) {  // Will do more later, for now it just fixes the formatting so that processCommand works
+    console.log(typeof chatObject);
 }
 
 function processCommand(command, message) {
