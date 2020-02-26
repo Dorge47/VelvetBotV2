@@ -78,14 +78,7 @@ exports.callback = function(message) {
     // else if (message.hasOwnProperty('animation')) {
     //     console.log(message.animation.file_id);
     // }
-    if (message.hasOwnProperty('message')) {
-        processMessage(message.message);
-    }
-    else if (message.hasOwnProperty('pinned_message') || message.hasOwnProperty('permissions') || message.hasOwnProperty('id')) {  // Message has a property that's atypical of a standard text message
-        console.log(1);
-        processCustomResponse(message);
-    }
-    console.log(Object.getOwnPropertyNames(message));
+    processMessage(message.message);
 }
 
 function processMessage(message) {
@@ -125,10 +118,6 @@ function isAdmin(message) {
         }
     }
     return false;
-}
-
-function processChat(chatObject) {  // Will do more later, for now it just fixes the formatting so that processCommand works
-    console.log(typeof chatObject);
 }
 
 function processCommand(command, message) {
@@ -334,6 +323,10 @@ One-use password: ${pwd}`);
             console.error("Somehow there's a command of unknown type");
             break;
     }
+}
+
+function processChat(chatObject) {  // Will do more later, for now it just fixes the formatting so that processCommand works
+    console.log(chatObject);
 }
 
 function processCustomResponse(message) {
