@@ -367,7 +367,7 @@ function processCustomResponse(message) {
             if (message.id == fileCache['pin'][i].id) {
                 bot.sendMessage(message.id, "UNPINNED MESSAGE REEEEEEE");
                 if (message.hasOwnProperty('permissions') && message.permissions.can_pin_messages) {
-                    pinMessage(message.id, fileCache['pin'][i].message);
+                    bot.pinMessage(message.id, fileCache['pin'][i].message);
                     break;
                 }
             }
