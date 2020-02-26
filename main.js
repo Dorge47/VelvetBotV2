@@ -372,7 +372,7 @@ function processCustomResponse(message) {
             }
         }
     }
-    else console.log("Didn't process: \n" + message);
+    console.log("Didn't process: \n" + message);
 }
 
 function writePins() {
