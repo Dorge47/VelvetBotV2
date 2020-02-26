@@ -89,7 +89,7 @@ function processMessage(message) {
         return;
     }
     //Get chat information
-    processChat();
+    processChat(message.chat.id);
     //Check for various misspellings of Pyrrha
     misspellings(message);
     //Make sure the message was actually for PennyBot
@@ -325,8 +325,8 @@ One-use password: ${pwd}`);
     }
 }
 
-async function processChat() {  // Will do more later, for now it just fixes the formatting so that processCommand works
-    var chatObject = await bot.getChat(message.chat.id);
+async function processChat(chatId) {  // Will do more later, for now it just fixes the formatting so that processCommand works
+    var chatObject = await bot.getChat(chatId);
     console.log(chatObject);
 }
 
