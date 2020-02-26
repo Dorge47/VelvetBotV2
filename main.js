@@ -341,6 +341,7 @@ function processCustomResponse(message) {
                 console.log(5);
                 if (fileCache['pin'][i].message == message.pinned_message.message_id) {
                     console.log(6);
+                    console.log("Seen: \n" + JSON.stringify(message));
                     return;
                 }
                 console.log(7);
