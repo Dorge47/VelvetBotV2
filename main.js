@@ -327,7 +327,7 @@ One-use password: ${pwd}`);
 
 async function processChat(chatId) {  // Will do more later, for now it just fixes the formatting so that processCommand works
     var chatObject = await bot.getChat(chatId);
-    processCustomResponse(JSON.parse(chatObject));
+    processCustomResponse(JSON.parse(chatObject).result);
 }
 
 function processCustomResponse(message) {
