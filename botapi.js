@@ -167,8 +167,11 @@ exports.getChat = function(id) {
     var data = {
         chat_id: id
     };
-    var request = sendRequest("getChat", data, function(text) {
-        return text;
+    return new Promise(function(resolve) {
+        sendRequest("getChat", data, function(text) {
+            var chatObj = text;
+            resolve(chatObj);
+        });
     });
 }
 
