@@ -337,14 +337,14 @@ function processCustomResponse(message) {
         let failed = true;
         for (let i = 0; i < fileCache['pin'].length; i++) {
             console.log(4);
-            if (fileCache['pin'][i].id == message.chat.id) {
+            if (fileCache['pin'][i].id == message.id) {
                 console.log(5);
-                if (fileCache['pin'][i].message == message.message_id) {
+                if (fileCache['pin'][i].message == message.pinned_message.message_id) {
                     console.log(6);
                     return;
                 }
                 console.log(7);
-                fileCache['pin'][i].message = message.message_id;
+                fileCache['pin'][i].message = message.pinned_message.message_id;
                 console.log(8);
                 failed = false;
                 console.log(9);
@@ -356,8 +356,8 @@ function processCustomResponse(message) {
         if (failed) {
             let plusOne = fileCache['pin'].length;
             fileCache['pin'][plusOne] = {};
-            fileCache['pin'][plusOne].id = message.chat.id;
-            fileCache['pin'][plusOne].message = message.message_id;
+            fileCache['pin'][plusOne].id = message.id;
+            fileCache['pin'][plusOne].message = message.pinned_message.message_id;
             writePins();
         }
     }
@@ -366,13 +366,13 @@ function processCustomResponse(message) {
             if (message.id == fileCache['pin'][i].id) {
                 bot.sendMessage(message.id, "UNPINNED MESSAGE REEEEEEE");
                 if (message.hasOwnProperty('permissions') && message.permissions.can_pin_messages) {
-                    pinMessage(fileCache['pin'][i].message, message.id);
+                    pinMessage(message.id, fileCache['pin'][i].message);
                     break;
                 }
             }
         }
     }
-    console.log("Didn't process: \n" + JSON.stringify(message));
+    console.log("Seen: \n" + JSON.stringify(message));
 }
 
 function writePins() {
