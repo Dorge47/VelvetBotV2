@@ -361,7 +361,7 @@ function processCustomResponse(message) {
             writePins();
         }
     }
-    else if (message.hasOwnProperty('id')) {
+    else if (message.type != 'private' && message.type != 'channel') {
         for (let i = 0; i < fileCache['pin'].length; i++) {
             if (message.id == fileCache['pin'][i].id) {
                 bot.sendMessage(message.id, "UNPINNED MESSAGE REEEEEEE");
@@ -372,6 +372,7 @@ function processCustomResponse(message) {
             }
         }
     }
+    else console.log("Didn't process: \n" + message);
 }
 
 function writePins() {
