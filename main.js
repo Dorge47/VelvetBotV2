@@ -259,7 +259,7 @@ function processCommand(command, message) {
                             total += roll;
                             response += roll + ' ';
                         }
-                        response = response.slice(0, response.length - 2);  // remove ending whitespace
+                        response = response.slice(0, response.length);  // remove ending whitespace
                         response += "\ntotal: " + total;
                     }
                     bot.sendReply(message.chat.id, response, message.message_id);
