@@ -259,9 +259,9 @@ function processCommand(command, message) {
                             total += roll;
                             response += roll + ' ';
                         }
-                        reponse += "\n total: " + total;
+                        response += "\ntotal: " + total;
                     }
-                    bot.sendReply(message.chat.id, response.slice(0,response.length-1), message.message_id);
+                    bot.sendReply(message.chat.id, response, message.message_id);
                 }
                 else if (message.text.toLowerCase().substring(2).includes('roll a die') || message.text.toLowerCase().substring(2).includes('roll a dice')) {
                     bot.sendReply(message.chat.id, "You rolled a " + Math.ceil(Math.random()*6) + ".", message.message_id);
