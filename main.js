@@ -250,12 +250,16 @@ function processCommand(command, message) {
                 if (message.text.match(regex)) {
                     let response = "You rolled "
                     var rolls = message.text.match(regex);
+                    let total = 0;
                     for (let i = 0; i < rolls.length; i++) {
                         let numDice = parseInt(rolls[i].slice(0,rolls[i].indexOf('d')));
                         let diceMax = parseInt(rolls[i].slice(rolls[i].indexOf('d')+1));
                         for (let diceCounted = 0; diceCounted < numDice; diceCounted++) {
-                            response += Math.ceil(Math.random()*diceMax) + ' ';
+                            let roll = Math.ceil(Math.random()*diceMax);
+                            total += roll;
+                            response += roll + ' ';
                         }
+                        reponse += "\n total: " + total;
                     }
                     bot.sendReply(message.chat.id, response.slice(0,response.length-1), message.message_id);
                 }
