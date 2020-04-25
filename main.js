@@ -336,26 +336,16 @@ async function processChat(chatId) {  // Will do more later, for now it just fix
 }
 
 function processCustomResponse(message) {
-    console.log(2);
     if (message.hasOwnProperty('pinned_message')) {
-        console.log(3);
         let failed = true;
         for (let i = 0; i < fileCache['pin'].length; i++) {
-            console.log(4);
             if (fileCache['pin'][i].id == message.id) {
-                console.log(5);
                 if (fileCache['pin'][i].message == message.pinned_message.message_id) {
-                    console.log(6);
-                    console.log("Seen: \n" + JSON.stringify(message));
                     return;
                 }
-                console.log(7);
                 fileCache['pin'][i].message = message.pinned_message.message_id;
-                console.log(8);
                 failed = false;
-                console.log(9);
                 writePins();
-                console.log(11);
                 break;
             }
         }
@@ -378,11 +368,9 @@ function processCustomResponse(message) {
             }
         }
     }
-    console.log("Seen: \n" + JSON.stringify(message));
 }
 
 function writePins() {
-    console.log(10);
     fs.writeFileSync("./" + exports.directory + '/pins.json', JSON.stringify(fileCache['pin']));
 }
 
@@ -497,7 +485,7 @@ function doHelp(message) {
     bot.sendReply(message.chat.id, messageText, message.message_id);
 }
 
-//Shuts down the bot when the message "Spaniel broad tricycle" is received from Dorge47
+//Shuts down the bot when the message "Spaniel broad tricycle" is received from an admin
 function shutdown(msg) {
     shutdownChatId = msg.chat.id;
     shutdownReplyId = msg.msg_id;
