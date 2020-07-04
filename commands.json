@@ -312,11 +312,14 @@
     "command_description": "template"
 }, {
     "requires_admin": false,
-    "command_type": 0,
+    "command_type": 11,
     "command_names": [
         "three laws"
     ],
-    "command_data": "I know these! 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm. 2. A robot must obey the orders given it by human beings except where such orders would conflict with the First Law. 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws. ~~4. Any robot that can't think around these rules is dumb.~~",
+    "command_data": {
+        "text": "I know these! 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm. 2. A robot must obey the orders given it by human beings except where such orders would conflict with the First Law. 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws. ~4. Any robot that can't think around these rules is dumb.~",
+        "mode": "MarkdownV2"
+    },
     "command_description": "template"
 }, {
     "requires_admin": true,
