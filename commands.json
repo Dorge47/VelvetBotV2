@@ -344,4 +344,12 @@
     ],
     "command_data": "AgACAgEAAx0CVCb6lwACAVVeTi0j4VYCjXRoIOa08y4rTwHP-gACgKgxG9-VcUb8dywhHItqOZD4awYABAEAAwIAA3kAA4iCAgABGAQ",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "token"
+    ],
+    "command_data": "AgACAgEAAxkBAAIDVl8AAdtpYh-fMluL8rWT-ekIPiBoLQACWKgxGx0UCETPxq27pEflGB6bEjAABAEAAwIAA3kAAxVZAQABGgQ",
+    "command_description": "template"
 }]
