@@ -35,7 +35,7 @@ var bootloaderData;
 
 
 exports.token = null;
-exports.name = "PennyBotV2";
+exports.name = "VelvetBotV2";
 exports.directory = "";
 
 
