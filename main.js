@@ -78,7 +78,7 @@ exports.callback = function(message) {
     // else if (message.hasOwnProperty('animation')) {
     //     console.log(message.animation.file_id);
     // }
-    if (message.hasOwnProperty(edited_message)) {
+    if (message.hasOwnProperty('edited_message')) {
         processMessage(message.edited_message);
     }
     else {
