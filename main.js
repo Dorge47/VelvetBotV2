@@ -25,11 +25,11 @@ const identifiers = [
 
 var bot = require('./botapi.js');
 
-//Array containing all of our commands.
-var commands;
-
 //A cache which will hold any files that we may use
 var fileCache = {};
+//Array containing all of our commands.
+fileCache['commands'] = [];
+
 var bootloaderData;
 
 
@@ -103,10 +103,10 @@ function processMessage(message) {
     }
     //Check to see if any of the messages match a command
     let messageProcessed = false;
-    for (let i = 0; i < commands.length; i++) {
-        for (let j = 0; j < commands[i].command_names.length; j++) {
-            if (message.text.toLowerCase().substring(2).includes(commands[i].command_names[j])) {
-                processCommand(commands[i], message);
+    for (let i = 0; i < fileCache['commands'].length; i++) {
+        for (let j = 0; j < fileCache['commands'][i].command_names.length; j++) {
+            if (message.text.toLowerCase().substring(2).includes(fileCache['commands'][i].command_names[j])) {
+                processCommand(fileCache['commands'][i], message);
                 messageProcessed = true;
             }
         }
@@ -380,7 +380,7 @@ function writePins() {
 }
 
 function loadCommands() {
-    commands = JSON.parse(fs.readFileSync("./" + exports.directory + '/commands.json'));
+    fileCache['commands'] = JSON.parse(fs.readFileSync("./" + exports.directory + '/commands.json'));
 }
 
 function echoFileId(message) {
@@ -480,10 +480,10 @@ function doHelp(message) {
     //do nothing to the cook: Does nothing to the cook
     //command: description
     let messageText = "PennyBotV2 Help:\n";
-    for (let i = 0; i<commands.length; i++) {
-        for (let j = 0; j<commands[i].command_names.length; j++) {
-            messageText += commands[i].command_names[j];
-            messageText += ": " + commands[i].command_description + "\n\n";
+    for (let i = 0; i<fileCache['commands'].length; i++) {
+        for (let j = 0; j<fileCache['commands'][i].command_names.length; j++) {
+            messageText += fileCache['commands'][i].command_names[j];
+            messageText += ": " + fileCache['commands'][i].command_description + "\n\n";
         }
     }
     console.log(messageText);
