@@ -181,7 +181,7 @@ function processCommand(command, message) {
                 command.command_data.link, message.message_id,
                 command.command_data.disablePreview);
             break;
-        //Forward
+        //Forward user message
         case 7:
             if (message.from.id == FUJI) {
                 bot.sendReply(message.chat.id, "No", message.message_id);
@@ -281,7 +281,10 @@ function processCommand(command, message) {
         case 12:
             let randomResponse = Math.floor(Math.random()*command.command)
             break;
-
+        // Forward message to user
+        case 14:
+            bot.forwardMessage(message.chat.id, command.command_data.originChat, command.command_data.originId);
+            break;
 
         //---
         //Hardcoded commands
