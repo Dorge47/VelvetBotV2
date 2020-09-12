@@ -285,6 +285,9 @@ function processCommand(command, message) {
         case 14:
             bot.forwardMessage(message.chat.id, command.command_data.originChat, command.command_data.originId);
             break;
+        case 15:
+            bot.sendVideo(message.chat.id, command.command_data, message.message_id);
+            break;
 
         //---
         //Hardcoded commands
