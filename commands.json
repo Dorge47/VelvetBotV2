@@ -363,4 +363,12 @@
         "originId": "876"
     },
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "funny"
+    ],
+    "command_data": "BAACAgEAAxkBAAIDi19ceCRli1YKcXNAiOLG7VwF5qNqAAKUAAPU6ehGkVpKvkXvnVgbBA",
+    "command_description": "template"
 }]
