@@ -98,6 +98,17 @@ exports.sendCaptionedPhoto = function(id, fileId, replyId, captionText) {
     });
 }
 
+exports.sendVideo = function(id, fileId, replyId) {
+    var message = {
+        chat_id: id,
+        video: fileId.trim(),
+        reply_to_message_id: replyId,
+    };
+    var request = sendRequest("sendVideo", message, function(text) {
+        console.log(text);
+    });
+}
+
 //Sends (text) linked to (link) to (id) as a reply to (replyId) with previews shown or disabled according to (disableShowPreview)
 exports.sendLink = function(id, text, link, replyId, disableShowPreview) {
     var message = {
