@@ -6,9 +6,8 @@ const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, PBTESTINGGROUP];
-//var hiatusEnd = new Date(2019,10,2);
 const hiatusStart = new Date(2020, 1, 1);
-const hiatusEnd = 404;
+const hiatusEnd = new Date("September 7 2020 8:00");
 
 // The various strings pennybot can respond to.
 const identifiers = [
