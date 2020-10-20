@@ -74,7 +74,7 @@ function slashes(msg) {
         return;
     }
     if (msg.text.includes('/shrug')) {
-        bot.sendReply(msg.chat.id, '¯\\_(ツ)_/¯', msg.message.id);
+        bot.sendReply(msg.chat.id, '¯\\_(ツ)_/¯', msg.message_id);
     }
 }
 
