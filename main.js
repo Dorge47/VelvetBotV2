@@ -69,6 +69,15 @@ function forPenny(msg) {
     return false;
 }
 
+function slashes(msg) {
+    if (!msg.text.includes('/')) {
+        return;
+    }
+    if msg.text.includes('/shrug') {
+        bot.sendReply(msg.chat.id, '¯\\_(ツ)_/¯', msg.message.id);
+    }
+}
+
 exports.callback = function(message) {
     //Un-comment to have the bot echo file IDs to the console. Useful when webhooks are enabled and we can't get IDs from a browser
     // if (message.hasOwnProperty('photo')) {
@@ -94,10 +103,12 @@ function processMessage(message) {
     }
     //Get chat information
     processChat(message.chat.id);
-    //Check for various misspellings of Pyrrha
-    misspellings(message);
     //Make sure the message was actually for PennyBot
     if (!forPenny(message)) {
+        //Check for various misspellings of Pyrrha
+        misspellings(message);
+        // Check for slash commands
+        slashes(message);
         return;
     }
     //Check to see if any of the messages match a command
