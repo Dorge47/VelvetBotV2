@@ -371,4 +371,12 @@
     ],
     "command_data": "BAACAgEAAxkBAAIDi19ceCRli1YKcXNAiOLG7VwF5qNqAAKUAAPU6ehGkVpKvkXvnVgbBA",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 0,
+    "command_names": [
+        "shrug"
+    ],
+    "command_data": "¯\_(ツ)_/¯",
+    "command_description": "template"
 }]
