@@ -73,7 +73,7 @@ function slashes(msg) {
     if (!msg.text.includes('/')) {
         return;
     }
-    if msg.text.includes('/shrug') {
+    if (msg.text.includes('/shrug')) {
         bot.sendReply(msg.chat.id, '¯\\_(ツ)_/¯', msg.message.id);
     }
 }
