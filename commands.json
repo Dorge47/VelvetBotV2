@@ -379,4 +379,12 @@
     ],
     "command_data": "¯\\_(ツ)_/¯",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "get out of my sight"
+    ],
+    "command_data": "BAACAgEAAxkBAAIEAV-ef97X7k7BX5T7Dwy_YR7PtVTSAAJ7AQAC6-X5RO4EGlP6CJ8oHgQ",
+    "command_description": "template"
 }]
