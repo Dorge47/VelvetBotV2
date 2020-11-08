@@ -6,8 +6,9 @@ const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, PBTESTINGGROUP];
-const hiatusStart = new Date(2020, 1, 1);
-const hiatusEnd = new Date("November 7 2020 8:00");
+const hiatusStart = [new Date(2020, 1, 1), new Date(0)];
+const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 1 2020 8:00")];
+const hiatusText = ["RWBY returns", "the Nagatoro anime premieres"]
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -228,13 +229,13 @@ function processCommand(command, message) {
             break;
         //Hiatus
         case 9:
-            var passedDays = Math.ceil((new Date() - hiatusStart) / 86400000);
-            if (hiatusEnd == 404) {
-                bot.sendReply(message.chat.id, "We are " + passedDays + " days into the hiatus, with an unknown number of days until RWBY returns.", message.message_id);
+            var passedDays = Math.ceil((new Date() - hiatusStart[command.command_data.hiatus_num]) / 86400000);
+            if (hiatusEnd[command.command_data.hiatus_num] == 404) {
+                bot.sendReply(message.chat.id, "We are " + passedDays + " days into the hiatus, with an unknown number of days until " + hiatusText[command.command_data.hiatus_num] + ".", message.message_id);
                 break;
             }
             var deltaDays = 0;
-            var delta = hiatusEnd - new Date();
+            var delta = hiatusEnd[command.command_data.hiatus_num] - new Date();
             if (delta <= 0) {
                 bot.sendReply(message.chat.id, "THE HIATUS IS OVER!", message.message_id);
             }
@@ -242,10 +243,10 @@ function processCommand(command, message) {
                 deltaDays = Math.ceil(delta / 86400000);
                 delta %= 86400000;
                 if (deltaDays <= 1) {
-                    bot.sendReply(message.chat.id, 'RWBY returns tomorrow. Pb hype! Oh wait...', message.message_id);
+                    bot.sendReply(message.chat.id, hiatusText[command.command_data.hiatus_num] + ' tomorrow. Pb hype! Oh wait...', message.message_id);
                 }
                 else if (deltaDays > 1) {
-                    bot.sendReply(message.chat.id, 'There are currently ' + deltaDays + ' days until RWBY returns.', message.message_id);
+                    bot.sendReply(message.chat.id, 'There are currently ' + deltaDays + ' days until ' + hiatusText[command.command_data.hiatus_num] + '.', message.message_id);
                 }
             }
             break;
