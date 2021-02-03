@@ -61,7 +61,7 @@ function misspellings(msg) {
 
 function takamoriNight(msg) {
     var currentTime = new Date()
-    if (currentTime.getHours() < 20 && currentTime.getHours > 6) {
+    if ((currentTime.getHours()) < 20 && (currentTime.getHours() > 6)) {
         return;  // Ignore calls between 8 PM and 6 AM
     }
     console.log(currentTime.getHours());
