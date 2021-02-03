@@ -59,6 +59,20 @@ function misspellings(msg) {
     }
 }
 
+function takamoriNight(msg) {
+    var currentTime = new Date()
+    //if (currentTime.getHours() < 20 && currentTime.getHours > 6) {
+    //    return;  // Ignore calls between 8 PM and 6 AM
+    //}
+    var nightWord = ["'night", "good night"]
+    for (let i = 0; i < nightWord.length; i++) {
+        if (msg.text.toLowerCase().includes(nightWord[i])) {
+            bot.sendReply(msg.chat.id,"BAACAgEAAxkBAAIEJGAbD6x74eN6AS5QG9pLChI0hc-BAALJAANFHtlELFWu4zXkNq4eBA",msg.message_id);
+            return;
+        }
+    }
+}
+
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
         if (msg.text.toLowerCase().includes(identifiers[i])) {
