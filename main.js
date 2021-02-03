@@ -64,6 +64,7 @@ function takamoriNight(msg) {
     if (currentTime.getHours() < 20 && currentTime.getHours > 6) {
         return;  // Ignore calls between 8 PM and 6 AM
     }
+    console.log(currentTime.getHours());
     var nightWord = ["'night", "good night"]
     for (let i = 0; i < nightWord.length; i++) {
         if (msg.text.toLowerCase().includes(nightWord[i])) {
