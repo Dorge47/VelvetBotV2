@@ -67,7 +67,7 @@ function takamoriNight(msg) {
     var nightWord = ["'night", "good night"]
     for (let i = 0; i < nightWord.length; i++) {
         if (msg.text.toLowerCase().includes(nightWord[i])) {
-            bot.sendReply(msg.chat.id,"BAACAgEAAxkBAAIEJGAbD6x74eN6AS5QG9pLChI0hc-BAALJAANFHtlELFWu4zXkNq4eBA",msg.message_id);
+            bot.sendVideo(msg.chat.id,"BAACAgEAAxkBAAIEJGAbD6x74eN6AS5QG9pLChI0hc-BAALJAANFHtlELFWu4zXkNq4eBA",msg.message_id);
             return;
         }
     }
