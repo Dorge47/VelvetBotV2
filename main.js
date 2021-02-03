@@ -61,9 +61,9 @@ function misspellings(msg) {
 
 function takamoriNight(msg) {
     var currentTime = new Date()
-    //if (currentTime.getHours() < 20 && currentTime.getHours > 6) {
-    //    return;  // Ignore calls between 8 PM and 6 AM
-    //}
+    if (currentTime.getHours() < 20 && currentTime.getHours > 6) {
+        return;  // Ignore calls between 8 PM and 6 AM
+    }
     var nightWord = ["'night", "good night"]
     for (let i = 0; i < nightWord.length; i++) {
         if (msg.text.toLowerCase().includes(nightWord[i])) {
