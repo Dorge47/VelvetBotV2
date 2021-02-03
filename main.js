@@ -124,6 +124,8 @@ function processMessage(message) {
         misspellings(message);
         // Check for slash commands
         slashes(message);
+        // Check for goodnight message
+        takamoriNight(message)
         return;
     }
     //Check to see if any of the messages match a command
