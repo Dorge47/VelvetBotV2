@@ -7,7 +7,7 @@ const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, PBTESTINGGROUP];
 const hiatusStart = [new Date(2020, 1, 1), new Date(0)];
-const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 1 2021 8:00")];
+const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 21 2021 8:00")];
 const hiatusText = ["RWBY returns", "the Nagatoro anime premieres"]
 
 // The various strings pennybot can respond to.
