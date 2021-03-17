@@ -152,6 +152,15 @@ function isAdmin(message) {
     return false;
 }
 
+function findReply(message) {
+    if message.hasOwnProperty("reply_to_message") {
+        return message.reply_to_message.message_id;
+    }
+    else {
+        return message.message_id;
+    }
+}
+
 function processCommand(command, message) {
     if (command.requires_admin) {
         if (!isAdmin(message)) {
@@ -162,16 +171,16 @@ function processCommand(command, message) {
     switch (command.command_type) {
         //Simple message
         case 0:
-            bot.sendReply(message.chat.id, command.command_data, message.message_id);
+            bot.sendReply(message.chat.id, command.command_data, findReply(message));
             break;
         //Photo
         case 1:
-            bot.sendPhoto(message.chat.id, command.command_data, message.message_id);
+            bot.sendPhoto(message.chat.id, command.command_data, findReply(message));
             break;
         //Captioned photo
         case 2:
             bot.sendCaptionedPhoto(message.chat.id, command.command_data.fileId,
-                message.message_id, command.command_data.caption);
+                findReply(message), command.command_data.caption);
             break;
         //Random photo from list
         case 3:
@@ -200,12 +209,12 @@ function processCommand(command, message) {
         //Captioned animation
         case 5:
             bot.sendCaptionedAnimation(message.chat.id, command.command_data.fileId,
-                message.message_id, command.command_data.caption);
+                findReply(message), command.command_data.caption);
             break;
         //Zelda
         case 6:
             bot.sendLink(message.chat.id, command.command_data.text,
-                command.command_data.link, message.message_id,
+                command.command_data.link, findReply(message),
                 command.command_data.disablePreview);
             break;
         //Forward user message
