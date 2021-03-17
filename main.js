@@ -153,7 +153,7 @@ function isAdmin(message) {
 }
 
 function findReply(message) {
-    if message.hasOwnProperty("reply_to_message") {
+    if (message.hasOwnProperty("reply_to_message")) {
         return message.reply_to_message.message_id;
     }
     else {
