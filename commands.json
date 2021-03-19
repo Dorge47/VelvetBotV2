@@ -5,6 +5,7 @@
         "test"
     ],
     "command_data": "I'm working!",
+    "switch_reply": false,
     "command_description": "Ensures that I'm combat ready"
 }, {
     "requires_admin": false,
@@ -17,6 +18,7 @@
         "link": "https://imgur.com/a/zxDbY",
         "disablePreview": true
     },
+    "switch_reply": false,
     "command_description": "Proves you wrong"
 }, {
     "requires_admin": false,
@@ -64,6 +66,7 @@
         "fileId": "BQADAQADQQADSQyZROKE-HVS2UiSAg",
         "caption": "Warning! Heresy detected! Pennybot reporting Combat Ready! Firing main cannon!"
     },
+    "switch_reply": true,
     "command_description": "Fires the heresy cannon"
 }, {
     "requires_admin": false,
@@ -75,6 +78,7 @@
         "fileId": "CgADAQADbQAD28IQRTfjbnU1vQKEAg",
         "caption": "Protec the smile."
     },
+    "switch_reply": false,
     "command_description": "Protects the Rubes"
 }, {
     "requires_admin": false,
@@ -92,6 +96,7 @@
         "do nothing to the cook"
     ],
     "command_data": "AgADAQADJ6gxG9-wwURbYA8yWu8pHYXqCjAABL40_i1Z9R67efICAAEC",
+    "switch_reply": false,
     "command_description": "Does nothing to the cook"
 }, {
     "requires_admin": false,
@@ -100,6 +105,7 @@
         "nuts and dolts"
     ],
     "command_data": "AgADAQADAqgxG0kMoUTZsEdEe4jScjgDCzAABAmoyO5mPjerx_wCAAEC",
+    "switch_reply": false,
     "command_description": "Shows some fanart of nuts and dolts"
 }, {
     "requires_admin": false,
@@ -111,6 +117,7 @@
         "fileId": "AgADAQADPagxG5o6iEXZ9XPn98TSAsxwDDAABMbShZZbYWuTcFMEAAEC",
         "caption": "⋋_⋌"
     },
+    "switch_reply": true,
     "command_description": "Sends an enraged and offended picture"
 }, {
     "requires_admin": false,
@@ -174,6 +181,7 @@
        "link": "https://youtu.be/oiX7oBoavlA",
        "disablePreview": true
    },
+   "switch_reply": false,
    "command_description": "Shows your DORIYAH pride"
 }, {
    "requires_admin": false,
@@ -186,6 +194,7 @@
        "link": "https://youtu.be/s8MDNFaGfT4",
        "disablePreview": true
    },
+   "switch_reply": false,
    "command_description": "pb"
 }, {
    "requires_admin": false,
@@ -208,6 +217,7 @@
         "link": "https://imgur.com/a/57JEvLZ",
         "disablePreview": true
     },
+    "switch_reply": false,
     "command_description": "Sends selfies of the bot"
 }, {
     "requires_admin": false,
@@ -221,6 +231,7 @@
         "link": "https://docs.google.com/spreadsheets/d/1_bnr68pepImz1RDq7uJiQraVnDjU2D0vqmrSE85sF_U/edit?usp=sharing",
         "disablePreview": true
     },
+    "switch_reply": false,
     "command_description": "Sends the spreadsheet™"
 }, {
     "requires_admin": false,
@@ -246,6 +257,7 @@
         "scripture"
     ],
     "command_data": "\"Verily I say unto thee, lay thine eyes upon the field in which my fucks are grown, and behold that it is barren.\" -Mood 24:7",
+    "switch_reply": true,
     "command_description": "Sends a passage from the book of meme"
 }, {
     "requires_admin": false,
@@ -274,6 +286,7 @@
         "tyrian"
     ],
     "command_data": "He's insane!",
+    "switch_reply": false,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -282,6 +295,7 @@
         "yang"
     ],
     "command_data": "I think she has a crush on Blake...",
+    "switch_reply": false,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -293,6 +307,7 @@
         "fileId": "AgADAQAD6qgxG_uG0UXe8xz_hGwFnVUdFDAABAEAAwIAA3gAA6COBAABFgQ",
         "caption": "He has a big sword!"
     },
+    "switch_reply": false,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -304,6 +319,7 @@
         "fileId": "AgADAQAD66gxG_uG0UXCD1gL5rbClar2awYABAEAAwIAA3kAA541AQABFgQ",
         "caption": "WHAT DID YOU JUST SAY?"
     },
+    "switch_reply": true,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -312,6 +328,7 @@
         "oobleck"
     ],
     "command_data": "What would happen if we gave Ruby his coffee? Or Nora for that matter?",
+    "switch_reply": false,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -338,6 +355,7 @@
         "bruh"
     ],
     "command_data": "AgACAgEAAx0CSdM9ygACcmFeP4NTQtE83NEByDiTBruv8RucrQACk6gxG4wAAeFF6NG_ejUVhGngu24GAAQBAAMCAAN4AANqTAEAARgE",
+    "switch_reply": true,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -346,6 +364,7 @@
         "banjo"
     ],
     "command_data": "AgACAgEAAx0CVCb6lwACAVVeTi0j4VYCjXRoIOa08y4rTwHP-gACgKgxG9-VcUb8dywhHItqOZD4awYABAEAAwIAA3kAA4iCAgABGAQ",
+    "switch_reply": true,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -354,6 +373,7 @@
         "token"
     ],
     "command_data": "AgACAgEAAxkBAAIDVl8AAdtpYh-fMluL8rWT-ekIPiBoLQACWKgxGx0UCETPxq27pEflGB6bEjAABAEAAwIAA3kAAxVZAQABGgQ",
+    "switch_reply": false,
     "command_description": "template"
 }, {
     "requires_admin": false,
@@ -381,6 +401,7 @@
         "shrug"
     ],
     "command_data": "¯\\_(ツ)_/¯",
+    "switch_reply": true,
     "command_description": "template"
 }, {
     "requires_admin": false,

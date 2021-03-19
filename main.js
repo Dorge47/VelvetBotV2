@@ -152,8 +152,8 @@ function isAdmin(message) {
     return false;
 }
 
-function findReply(message) {
-    if (message.hasOwnProperty("reply_to_message")) {
+function findReply(message, switchReply) {
+    if (switchReply && message.hasOwnProperty("reply_to_message")) {
         return message.reply_to_message.message_id;
     }
     else {
@@ -171,16 +171,16 @@ function processCommand(command, message) {
     switch (command.command_type) {
         //Simple message
         case 0:
-            bot.sendReply(message.chat.id, command.command_data, findReply(message));
+            bot.sendReply(message.chat.id, command.command_data, findReply(message, command.switch_reply));
             break;
         //Photo
         case 1:
-            bot.sendPhoto(message.chat.id, command.command_data, findReply(message));
+            bot.sendPhoto(message.chat.id, command.command_data, findReply(message, command.switch_reply));
             break;
         //Captioned photo
         case 2:
             bot.sendCaptionedPhoto(message.chat.id, command.command_data.fileId,
-                findReply(message), command.command_data.caption);
+                findReply(message, command.switch_reply), command.command_data.caption);
             break;
         //Random photo from list
         case 3:
@@ -209,12 +209,12 @@ function processCommand(command, message) {
         //Captioned animation
         case 5:
             bot.sendCaptionedAnimation(message.chat.id, command.command_data.fileId,
-                findReply(message), command.command_data.caption);
+                findReply(message, command.switch_reply), command.command_data.caption);
             break;
         //Zelda
         case 6:
             bot.sendLink(message.chat.id, command.command_data.text,
-                command.command_data.link, findReply(message),
+                command.command_data.link, findReply(message, command.switch_reply),
                 command.command_data.disablePreview);
             break;
         //Forward user message
