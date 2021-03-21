@@ -6,9 +6,10 @@ const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, PBTESTINGGROUP];
-const hiatusStart = [new Date(2020, 1, 1), new Date(0)];
-const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 21 2021 8:00")];
-const hiatusText = ["RWBY returns", "the Nagatoro anime premieres"]
+const hiatusStart = [new Date(2020, 1, 1), new Date(0), new Date(0)];
+const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 1 2021 8:00"), new Date("March 27 2021 8:00")];
+const hiatusEndText = ["THE HIATUS IS OVER!", "IT'S HERE", "SOMEONE'S GONNA FUCKING DIE"]
+const hiatusText = ["RWBY returns", "the Nagatoro anime premieres", "the last episode of RWBY"]
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -262,7 +263,7 @@ function processCommand(command, message) {
             var deltaDays = 0;
             var delta = hiatusEnd[command.command_data.hiatus_num] - new Date();
             if (delta <= 0) {
-                bot.sendReply(message.chat.id, "THE HIATUS IS OVER!", message.message_id);
+                bot.sendReply(message.chat.id, hiatusEndText[command.command_data.hiatus_num], message.message_id);
             }
             else {
                 deltaDays = Math.ceil(delta / 86400000);
