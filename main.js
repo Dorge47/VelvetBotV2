@@ -221,7 +221,6 @@ function processCommand(command, message) {
         //Forward user message
         case 7:
             if (message.from.id == FUJI) {
-                bot.sendReply(message.chat.id, "No", message.message_id);
                 break;
             }
             bot.forwardMessage(command.command_data.chatId, message.chat.id, message.message_id);
