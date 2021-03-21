@@ -7,7 +7,7 @@ const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, PBTESTINGGROUP];
 const hiatusStart = [new Date(2020, 1, 1), new Date(0), new Date(0)];
-const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 1 2021 8:00"), new Date("March 27 2021 8:00")];
+const hiatusEnd = [new Date("November 7 2020 8:00"), new Date("April 11 2021 8:00"), new Date("March 27 2021 8:00")];
 const hiatusEndText = ["THE HIATUS IS OVER!", "IT'S HERE", "SOMEONE'S GONNA FUCKING DIE"]
 const hiatusText = ["RWBY returns", "the Nagatoro anime premieres", "the last episode of RWBY"]
 
