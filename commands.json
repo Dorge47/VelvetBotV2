@@ -428,4 +428,12 @@
     ],
     "switch_reply": false,
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "foul smuttery"
+    ],
+    "command_data": "BAACAgEAAxkBAAIE7GCaPwPZpDErKLa5-dtVLl9EmGbOAALFAQACmLDZRHZ3RjqSaC-MHwQ",
+    "command_description": "template"
 }]

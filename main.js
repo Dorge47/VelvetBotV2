@@ -317,10 +317,11 @@ function processCommand(command, message) {
         case 12:
             let randomResponse = Math.floor(Math.random()*command.command)
             break;
-        // Forward message to user
+        // Forward message to user (different from case 7)
         case 14:
             bot.forwardMessage(message.chat.id, command.command_data.originChat, command.command_data.originId);
             break;
+        // Video
         case 15:
             bot.sendVideo(message.chat.id, command.command_data, message.message_id);
             break;
