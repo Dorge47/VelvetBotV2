@@ -526,7 +526,10 @@ fileType`,message.message_id);
         fileId = message.photo[message.photo.length - 1].file_id;
     }
     else if (parsedMessage[1] == 'animation' || parsedMessage[1] == 'gif') {
-        fileId = message.animation.fileId;
+        fileId = message.animation.fileId;  //pretty sure this is wrong, check later
+    }
+    else if (parsedMessage[1] == 'video' || parsedMessage[1] == 'movie') {
+        fileId = message.video.file_id
     }
     bot.sendReply(message.chat.id, fileId, message.message_id);
 }
