@@ -324,7 +324,91 @@ function processCommand(command, message) {
         case 15:
             bot.sendVideo(message.chat.id, command.command_data, message.message_id);
             break;
+        case 16:
+            let placeholder = message.text.toLowerCase().indexOf("velezark") + 9;
+            let mapName = message.text.toLowerCase().substr(placeholder);
+            let velezarkAbsent = false;
+            switch (mapName) {
+                case "invisible ties":
+                    velezarkAbsent = true;
+                    break;
+                case "the path is yours":
+                    velezarkAbsent = true;
+                    break;
+                case "the dark pontifex":
+                    velezarkAbsent = true;
+                    break;
+                case "noble lady of caelin":
+                    velezarkAbsent = true;
+                    break;
+                case "together to the end":
+                    bot.sendReply(message.chat.id, `Map has two Velezark levels:
 
+Lv. 54 Together to the End
+Lv. 80 Within the Heart`, message.message_id);
+                    break;
+                case "hero challenge":
+                    bot.sendReply(message.chat.id, `Map has three Velezark levels:
+
+Lv. 45 Rendezvous Disruption
+Lv. 80 Rendezvous Disruption
+Lv. 80 Shadow Elimination`, message.message_id);
+                    break;
+                case "grief":
+                bot.sendReply(message.chat.id, `Map has three Velezark levels:
+
+Lv. 65 Grief
+Lv. 76 Recruitment Battle
+Lv. 90 A Burdened Heart`, message.message_id);
+                    break;
+                case "land of gods":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 80 Fort Seige`, message.message_id);
+                    break;
+                case "cold reception":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 69 Targeted Elimination`, message.message_id);
+                    break;
+                case "a brush in the teeth":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 102 Fort Defense`, message.message_id);
+                    break;
+                case "princess minerva":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 99 Fort Seige`, message.message_id);
+                    break;
+                case "knorda market":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 95 Villager Rescue`, message.message_id);
+                    break;
+                case "scion of legend":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 107 Recruitment Battle`, message.message_id);
+                    break;
+                case "emmeryn":
+                bot.sendReply(message.chat.id, `Map has one Velezark level:
+
+Lv. 118 Villager Rescue`, message.message_id);
+                    break;
+                case "caravan dancer":
+                bot.sendReply(message.chat.id, `Map has two Velezark levels:
+
+Lv. 103 Fort Seige
+Lv. 128 Ally Rescue (you ain't getting that opus)`, message.message_id);
+                    break;
+                default:
+                    bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
+
+pb velezark mapName`, message.message_id)
+            }
+            break;
+            
         //---
         //Hardcoded commands
         //---
