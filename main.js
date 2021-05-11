@@ -405,7 +405,10 @@ Lv. 128 Ally Rescue (you ain't getting that opus)`, message.message_id);
                 default:
                     bot.sendReply(message.chat.id, `Command was not in the correct format. Please input command in the folllowing format:
 
-pb velezark mapName`, message.message_id)
+pb velezark mapName`, message.message_id);
+            }
+            if (velezarkAbsent) {
+                bot.sendReply(message.chat.id, `Map has no Velezark levels`, message.message_id);
             }
             break;
             
