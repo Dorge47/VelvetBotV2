@@ -436,4 +436,12 @@
     ],
     "command_data": "BAACAgEAAxkBAAIE7GCaPwPZpDErKLa5-dtVLl9EmGbOAALFAQACmLDZRHZ3RjqSaC-MHwQ",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "exterminatus"
+    ],
+    "command_data": "BAACAgEAAxkBAAIE-WCjTaz0GJkXdxmIkKu2tgfgMoF6AAKQAQACLCsYRU1QH1_oO93oHwQ",
+    "command_description": "template"
 }]
