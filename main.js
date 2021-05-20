@@ -1,7 +1,6 @@
 //Get our flesystem module
 var fs = require('fs');
 const DORGE47 = 440753792;
-const NATEDOGG1232 = 298857178;
 const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
