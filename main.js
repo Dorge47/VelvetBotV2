@@ -74,6 +74,32 @@ function takamoriNight(msg) {
     }
 }
 
+function pekofy(msg) {
+    if (msg.text.toLowerCase() != "!pekofy") {
+        return;
+    }
+    if (!msg.hasOwnProperty("reply_to_message")) {
+        bot.sendReply(msg.chat.id, 'Pardun?', msg.message_id);
+        return;
+    }
+    let toPeko = msg.reply_to_message.text;
+    let lastChar = "";
+    let punctArray = [".","?","!"];
+    for (let i = 0; i < punctArray.length; i++) {
+        if (toPeko.substr(toPeko.length - 1) == punctArray[i]) {
+            lastChar = punctArray[i];
+        }
+    }
+    let pekofied = msg.reply_to_message.text;
+    if (lastChar != "") {
+        pekofied = pekofied.substr(0, pekofied.length - 1) + " peko" + lastChar;
+    }
+    else {
+        pekofied += " peko";
+    }
+    bot.sendMessage(msg.chat.id, pekofied);
+}
+
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
         if (msg.text.toLowerCase().includes(identifiers[i])) {
@@ -126,7 +152,9 @@ function processMessage(message) {
         // Check for slash commands
         slashes(message);
         // Check for goodnight message
-        takamoriNight(message)
+        takamoriNight(message);
+        // Check for pekofy
+        pekofy(message);
         return;
     }
     //Check to see if any of the messages match a command
