@@ -8,7 +8,7 @@ const admins = [DORGE47, PBTESTINGGROUP];
 const hiatusStart = [new Date("March 27 2021 8:00")];
 const hiatusEnd = [404];
 const hiatusEndText = ["THE HIATUS IS OVER!"];
-const hiatusText = ["RWBY returns"]
+const hiatusText = ["RWBY returns"];
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -84,17 +84,34 @@ function pekofy(msg) {
     let toPeko = msg.reply_to_message.text;
     let lastChar = "";
     let punctArray = [".","?","!"];
+    let allPunct = [];
     for (let i = 0; i < punctArray.length; i++) {
         if (toPeko.substr(toPeko.length - 1) == punctArray[i]) {
             lastChar = punctArray[i];
         }
+        if (toPeko.includes(punctArray[i])) {
+            for (let j = 0; j < toPeko.length; j++) {
+                if (toPeko[j] == punctArray[i]) {
+                    allPunct.push(j);
+                }
+            }
+        }
     }
-    let pekofied = msg.reply_to_message.text;
-    if (lastChar != "") {
-        pekofied = pekofied.substr(0, pekofied.length - 1) + " peko" + lastChar;
+    let pekofied = "";
+    if (allPunct.length == 0) {
+        pekofied = toPeko + " peko";
+    }
+    else if (allPunct.length == 1 && lastChar != "") {
+        pekofied = toPeko.substr(0, toPeko.length - 1) + " peko" + lastChar;
     }
     else {
-        pekofied += " peko";
+        pekofied = toPeko;
+        for (let i = 0; i < allPunct.length; i++) {
+            pekofied = pekofied.substr(0, allPunct[i] + 5 * i) + " peko" + pekofied.substr(allPunct[i] + 5 * i)
+        }
+        if (lastChar == "") {
+            pekofied += " peko";
+        }
     }
     bot.sendMessage(msg.chat.id, pekofied);
 }
