@@ -81,6 +81,19 @@ function pekofy(msg) {
         bot.sendReply(msg.chat.id, 'Pardun?', msg.message_id);
         return;
     }
+    else if (!msg.reply_to_message.hasOwnProperty("text")) {
+        let textReplaceFailed = false;
+        if (msg.reply_to_message.hasOwnProperty("photo")) {
+            if (msg.reply_to_message.photo.hasOwnProperty("caption")) {
+                msg.reply_to_message.text = msg.reply_to_message.photo.caption;
+                textReplaceFailed = true;
+            }
+        }
+        if (textReplaceFailed) {
+            bot.sendReply(msg.chat.id, 'Incorrect message format peko', msg.message_id);
+            return;
+        }
+    }
     let toPeko = msg.reply_to_message.text;
     let lastChar = "";
     let punctArray = [".","?","!"];
