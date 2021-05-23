@@ -91,6 +91,11 @@ function pekofy(msg) {
                 msg.reply_to_message.text = msg.reply_to_message.photo.caption;
                 textReplaceFailed = false;
             }
+            else if (msg.reply_to_message.hasOwnProperty("caption")) {
+                console.log(6);
+                msg.reply_to_message.text = msg.reply_to_message.caption;
+                textReplaceFailed = false;
+            }
         }
         if (textReplaceFailed) {
             console.log(4);
