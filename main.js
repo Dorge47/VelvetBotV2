@@ -164,7 +164,7 @@ exports.callback = function(message) {
     if (message.hasOwnProperty('edited_message')) {
         processMessage(message.edited_message);
     }
-    else {
+    else if message.hasOwnProperty("message") {
         processMessage(message.message);
     }
 }
