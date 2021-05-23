@@ -82,14 +82,14 @@ function pekofy(msg) {
         return;
     }
     else if (!msg.reply_to_message.hasOwnProperty("text")) {
-        let textReplaceFailed = false;
+        let textReplaceFailed = true;
         console.log(1);
         if (msg.reply_to_message.hasOwnProperty("photo")) {
             console.log(2);
             if (msg.reply_to_message.photo.hasOwnProperty("caption")) {
                 console.log(3);
                 msg.reply_to_message.text = msg.reply_to_message.photo.caption;
-                textReplaceFailed = true;
+                textReplaceFailed = false;
             }
         }
         if (textReplaceFailed) {
