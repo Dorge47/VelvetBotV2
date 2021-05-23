@@ -83,17 +83,22 @@ function pekofy(msg) {
     }
     else if (!msg.reply_to_message.hasOwnProperty("text")) {
         let textReplaceFailed = false;
+        console.log(1);
         if (msg.reply_to_message.hasOwnProperty("photo")) {
+            console.log(2);
             if (msg.reply_to_message.photo.hasOwnProperty("caption")) {
+                console.log(3);
                 msg.reply_to_message.text = msg.reply_to_message.photo.caption;
                 textReplaceFailed = true;
             }
         }
         if (textReplaceFailed) {
+            console.log(4);
             bot.sendReply(msg.chat.id, 'Incorrect message format peko', msg.message_id);
             return;
         }
     }
+    console.log(5);
     let toPeko = msg.reply_to_message.text;
     let lastChar = "";
     let punctArray = [".","?","!"];
