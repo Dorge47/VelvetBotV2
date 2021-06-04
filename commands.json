@@ -444,4 +444,13 @@
     ],
     "command_data": "BAACAgEAAxkBAAIE-WCjTaz0GJkXdxmIkKu2tgfgMoF6AAKQAQACLCsYRU1QH1_oO93oHwQ",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "yabe",
+        "ya be"
+    ],
+    "command_data": "BAACAgEAAx0CRPF_tgABAXhQYLmaR8WcoB8sIJPs0rnX4zqzqZ0AAj4BAALcsdBFCp23z9Nazp4fBA",
+    "command_description": "template"
 }]
