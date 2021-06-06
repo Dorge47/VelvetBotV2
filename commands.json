@@ -453,4 +453,14 @@
     ],
     "command_data": "BAACAgEAAx0CRPF_tgABAXhQYLmaR8WcoB8sIJPs0rnX4zqzqZ0AAj4BAALcsdBFCp23z9Nazp4fBA",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 9,
+    "command_names": [
+        "direct"
+	],
+    "command_data": {
+        "hiatus_num": 1
+    },
+    "command_description": "template"
 }]
