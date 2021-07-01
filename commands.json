@@ -463,4 +463,13 @@
         "hiatus_num": 1
     },
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "o7"
+    ],
+    "command_data": "AgACAgEAAx0CRPF_tgABAYIiYN0051RckuWPx-LpD5Hhp2rwQRcAAruoMRu-oulG4MrvA2-hU-8BAAMCAAN4AAMgBA",
+    "switch_reply": true,
+    "command_description": "template"
 }]
