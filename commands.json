@@ -472,4 +472,12 @@
     "command_data": "AgACAgEAAx0CRPF_tgABAYIiYN0051RckuWPx-LpD5Hhp2rwQRcAAruoMRu-oulG4MrvA2-hU-8BAAMCAAN4AAMgBA",
     "switch_reply": true,
     "command_description": "template"
+} , {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "what"
+    ],
+    "command_data": "BAACAgEAAx0CRPF_tgABAY-xYQ4lsXziVXB5_e8wgYkN5OhyiO8AAgMDAAIW1nFEpJB_RGf2gQcgBA",
+    "command_description": "template"
 }]
