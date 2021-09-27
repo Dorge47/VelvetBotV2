@@ -480,4 +480,13 @@
     ],
     "command_data": "BAACAgEAAx0CRPF_tgABAY-xYQ4lsXziVXB5_e8wgYkN5OhyiO8AAgMDAAIW1nFEpJB_RGf2gQcgBA",
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "nintendo"
+    ],
+    "command_data": "AgACAgEAAx0CRPF_tgABAZ3aYVIriOX-Q3uh9CXfMZh7TjEOExMAAsCpMRuFTJFG8BFR8ZLK7twBAAMCAAN5AAMhBA",
+    "switch_reply": true,
+    "command_description": "template"
 }]
