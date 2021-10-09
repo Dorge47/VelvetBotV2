@@ -9,6 +9,8 @@ const hiatusStart = [new Date("March 27 2021 8:00"), new Date("June 5 2021")];
 const hiatusEnd = [404, new Date("June 15 2021")];
 const hiatusEndText = ["THE HIATUS IS OVER!", "lol no phoenix wright"];
 const hiatusText = ["RWBY returns", "The direct premieres"];
+const holoAPIKey = JSON.parse(fs.readFileSync("/home/pi/Hololive/apikey"));
+console.log(holoAPIKey);
 
 // The various strings pennybot can respond to.
 const identifiers = [
@@ -472,6 +474,10 @@ pb velezark mapName`, message.message_id);
             if (velezarkAbsent) {
                 bot.sendReply(message.chat.id, `Map has no Velezark levels`, message.message_id);
             }
+            break;
+        // Hololive live
+        case 17:
+            
             break;
             
         //---

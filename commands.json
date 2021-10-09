@@ -489,4 +489,13 @@
     "command_data": "AgACAgEAAx0CRPF_tgABAZ3aYVIriOX-Q3uh9CXfMZh7TjEOExMAAsCpMRuFTJFG8BFR8ZLK7twBAAMCAAN5AAMhBA",
     "switch_reply": true,
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 17,
+    "command_names": [
+        "hololive"
+    ],
+    "command_data": "",
+    "switch_reply": true,
+    "command_description": "template"
 }]
