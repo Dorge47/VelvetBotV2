@@ -498,4 +498,13 @@
     "command_data": "",
     "switch_reply": true,
     "command_description": "template"
+}, {
+    "requires_admin": true,
+    "command_type": 264,
+    "command_names": [
+        "directory"
+    ],
+    "command_data": "",
+    "switch_reply": true,
+    "command_description": "template"
 }]
