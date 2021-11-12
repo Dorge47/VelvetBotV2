@@ -507,4 +507,15 @@
     "command_data": "",
     "switch_reply": true,
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 14,
+    "command_names": [
+        "horny"
+    ],
+    "command_data": {
+        "originChat": "440753792",
+        "originId": "1507"
+    },
+    "command_description": "template"
 }]
