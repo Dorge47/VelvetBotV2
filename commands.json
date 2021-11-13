@@ -518,4 +518,13 @@
         "originId": "1507"
     },
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "unhappy"
+    ],
+    "command_data": "AgACAgEAAxkBAAIF6GGPkzovYFq-mrkwA09DLcbAPPBUAAIHqjEbFwd4RLlIFLAEqSqqAQADAgADeQADIgQ",
+    "switch_reply": true,
+    "command_description": "template"
 }]
