@@ -5,10 +5,10 @@ const FUJI = 532735068;
 const PBTESTINGGROUP = -1001276603177;
 const PBTESTINGCHANNEL = -1001397346553;
 const admins = [DORGE47, PBTESTINGGROUP];
-const hiatusStart = [new Date("March 27 2021 8:00"), new Date("June 5 2021")];
-const hiatusEnd = [404, new Date("June 15 2021")];
-const hiatusEndText = ["THE HIATUS IS OVER!", "lol no phoenix wright"];
-const hiatusText = ["RWBY returns", "The direct premieres"];
+const hiatusStart = [new Date("March 27 2021 8:00"), new Date("June 5 2021"), new Date("February 10 2023")];
+const hiatusEnd = [404, new Date("June 15 2021"), new Date("August 17 2023")];
+const hiatusEndText = ["THE HIATUS IS OVER!", "lol no phoenix wright", "no sleb for the wicked"];
+const hiatusText = ["RWBY returns", "The direct premieres", "Holocure 0.6 launches"];
 
 // The various strings pennybot can respond to.
 const identifiers = [

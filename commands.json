@@ -527,4 +527,14 @@
     "command_data": "AgACAgEAAxkBAAIF6GGPkzovYFq-mrkwA09DLcbAPPBUAAIHqjEbFwd4RLlIFLAEqSqqAQADAgADeQADIgQ",
     "switch_reply": true,
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 9,
+    "command_names": [
+        "holocure"
+	],
+    "command_data": {
+        "hiatus_num": 2
+    },
+    "command_description": "template"
 }]
