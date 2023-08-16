@@ -329,7 +329,7 @@ function processCommand(command, message) {
                 deltaDays = Math.ceil(delta / 86400000);
                 delta %= 86400000;
                 if (deltaDays <= 1) {
-                    bot.sendReply(message.chat.id, hiatusText[command.command_data.hiatus_num] + ' tomorrow. Pb hype! Oh wait...', message.message_id);
+                    bot.sendReply(message.chat.id, hiatusText[command.command_data.hiatus_num] + ' tomorrow.', message.message_id);
                 }
                 else if (deltaDays > 1) {
                     bot.sendReply(message.chat.id, 'There are currently ' + deltaDays + ' days until ' + hiatusText[command.command_data.hiatus_num] + '.', message.message_id);
