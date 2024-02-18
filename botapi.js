@@ -38,6 +38,16 @@ exports.sendMessage = function(id, msg) {
     });
 }
 
+exports.banFuji = function(chat_id) {
+    var message = {
+        chat_id: chat_id,
+        emoji: "🎰",
+    }
+    sendRequest("sendDice", message, function(text) {
+        console.log(text);
+    })
+}
+
 exports.sendMonospaceMessage = function(id, msg, replyId) {
     var message = {
         chat_id: id,

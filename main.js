@@ -200,6 +200,9 @@ function processMessage(message) {
             }
         }
     }
+    if (message.text.toLowerCase().includes("uber") || message.text.toLowerCase().includes("lyft")) {
+        bot.banFuji(message.chat.id);
+    }
     if (!messageProcessed) {
         bot.sendReply(message.chat.id, "I'm sorry, I didn't understand that!", message.message_id);
     }
