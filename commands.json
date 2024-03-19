@@ -537,4 +537,12 @@
         "hiatus_num": 2
     },
     "command_description": "template"
+}, {
+    "requires_admin": false,
+    "command_type": 15,
+    "command_names": [
+        "machine"
+    ],
+    "command_data": "BAACAgEAAxkBAAIHLGX6DDwskj-a1TurUI_CRFo8NDGSAAIdBAACURrQR17_N48wIOGRNAQ",
+    "command_description": "template"
 }]
