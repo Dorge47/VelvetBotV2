@@ -198,6 +198,7 @@ function processMessage(message) {
         // Check for goodnight message
         takamoriNight(message);
         // Check for pekofy
+        console.log(0);
         pekofy(message);
         // Never kill yourself
         console.log(1);
