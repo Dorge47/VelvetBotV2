@@ -184,9 +184,6 @@ function processMessage(message) {
     if (!message.hasOwnProperty('text')) {
         return;
     }
-    if (message.text.toLowerCase().includes("uber") || message.text.toLowerCase().includes("lyft")) {
-        bot.banFuji(message.chat.id);
-    }
     //Get chat information
     processChat(message.chat.id);
     //Make sure the message was actually for PennyBot
