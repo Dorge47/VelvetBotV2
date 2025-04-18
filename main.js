@@ -134,7 +134,9 @@ function pekofy(msg) {
 }
 
 function neverKys(msg) {
+    console.log(2);
     if (msg.text.toLowerCase().includes("kill myself")) {
+        console.log(3);
         bot.sendVideo(msg.chat.id, "BAACAgEAAxkBAAIHTWgCV3oYZUrHGK4Xywd56EPDP-WXAALTBAACRBURRHT870ZE3jUpNgQ", msg.message_id);
     }
 }
@@ -198,6 +200,7 @@ function processMessage(message) {
         // Check for pekofy
         pekofy(message);
         // Never kill yourself
+        console.log(1);
         neverKys(message);
         return;
     }
