@@ -133,6 +133,12 @@ function pekofy(msg) {
     bot.sendMessage(msg.chat.id, pekofied);
 }
 
+function neverKys(msg) {
+    if (msg.text.toLowerCase().includes("kill myself")) {
+        bot.sendVideo(msg.chat.id, "BAACAgEAAxkBAAIHTWgCV3oYZUrHGK4Xywd56EPDP-WXAALTBAACRBURRHT870ZE3jUpNgQ", msg.message_id);
+    }
+}
+
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
         if (msg.text.toLowerCase().includes(identifiers[i])) {
@@ -191,6 +197,8 @@ function processMessage(message) {
         takamoriNight(message);
         // Check for pekofy
         pekofy(message);
+        // Never kill yourself
+        neverKys(message);
         return;
     }
     //Check to see if any of the messages match a command
