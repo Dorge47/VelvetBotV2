@@ -139,6 +139,14 @@ function neverKys(msg) {
     }
 }
 
+function checkTrackingLinks(msg) {
+    var regex = /\b(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[^\s?]*)*\?(?:[^=\s&]+=[^&\s]*&)*si=([^&\s]+)/m
+    if (regex.test(msg.text.toLowerCase())) {
+        bot.sendReply(msg.chat.id, "https://vxtwitter.com/anyuser/status/1951216333238026314", msg.message_id);
+    }
+
+}
+
 function forPenny(msg) {
     for (let i = 0; i < identifiers.length; i++) {
         if (msg.text.toLowerCase().includes(identifiers[i])) {
@@ -196,6 +204,8 @@ function processMessage(message) {
         pekofy(message);
         // Never kill yourself
         neverKys(message);
+        //Check for tracking links
+        checkTrackingLinks(message);
         return;
     }
     //Check to see if any of the messages match a command
