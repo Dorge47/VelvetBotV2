@@ -140,7 +140,7 @@ function neverKys(msg) {
 }
 
 function checkTrackingLinks(msg) {
-    var regex = /\b(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[^\s?]*)*\?(?:[^=\s&]+=[^&\s]*&)*si=([^&\s]+)/m
+    var regex = /\b(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[^\s?]*)*\?(?:[^=&\s]+=[^&\s]*&?)*\b(?:si|s)=([^&\s]+)/m
     if (regex.test(msg.text.toLowerCase())) {
         bot.sendReply(msg.chat.id, "https://vxtwitter.com/anyuser/status/1951216333238026314", msg.message_id);
     }
