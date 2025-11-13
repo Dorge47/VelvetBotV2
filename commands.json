@@ -545,4 +545,14 @@
     ],
     "command_data": "BAACAgEAAxkBAAIHLGX6DDwskj-a1TurUI_CRFo8NDGSAAIdBAACURrQR17_N48wIOGRNAQ",
     "command_description": "template"
-}]
+}, {
+    "requires_admin": false,
+    "command_type": 1,
+    "command_names": [
+        "little"
+    ],
+    "command_data": "AgACAgEAAxkBAAIHiWkVPkz_-tV4LJmyLNvSl2sKYF9aAAIxC2sbqB2pRH0C7RD5VvPJAQADAgADeAADNgQ",
+    "switch_reply": true,
+    "command_description": "template"
+}
+]
